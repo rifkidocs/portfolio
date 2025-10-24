@@ -55,7 +55,7 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg text-muted-foreground"
             >
-              Hello, I'm
+              Hello, I&apos;m
             </motion.div>
 
             {/* Name */}

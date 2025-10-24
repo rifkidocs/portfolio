@@ -2,15 +2,7 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Send,
-  Github,
-  Linkedin,
-  Twitter,
-} from "lucide-react";
+import { Mail, Phone, MapPin, Send, Github, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -92,8 +84,8 @@ export function Contact() {
             </h2>
             <div className="w-24 h-1 bg-primary mx-auto rounded-full mb-6" />
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Have a project in mind or want to collaborate? I'd love to hear
-              from you!
+              Have a project in mind or want to collaborate? I&apos;d love to
+              hear from you!
             </p>
           </motion.div>
 
@@ -107,9 +99,9 @@ export function Contact() {
               className="space-y-8"
             >
               <div>
-                <h3 className="text-2xl font-bold mb-6">Let's Connect</h3>
+                <h3 className="text-2xl font-bold mb-6">Let&apos;s Connect</h3>
                 <p className="text-muted-foreground leading-relaxed mb-8">
-                  I'm always interested in new opportunities and exciting
+                  I&apos;m always interested in new opportunities and exciting
                   projects. Whether you have a question or just want to say hi,
                   feel free to reach out!
                 </p>
@@ -175,9 +167,6 @@ export function Contact() {
                           {social.name === "LinkedIn" && (
                             <Linkedin className="w-4 h-4" />
                           )}
-                          {social.name === "Twitter" && (
-                            <Twitter className="w-4 h-4" />
-                          )}
                           {social.name === "Email" && (
                             <Mail className="w-4 h-4" />
                           )}
@@ -214,7 +203,8 @@ export function Contact() {
                         Message Sent!
                       </h3>
                       <p className="text-muted-foreground">
-                        Thank you for reaching out. I'll get back to you soon!
+                        Thank you for reaching out. I&apos;ll get back to you
+                        soon!
                       </p>
                     </motion.div>
                   ) : (

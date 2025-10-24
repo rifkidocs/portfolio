@@ -1,9 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 
@@ -59,10 +65,15 @@ export function Sidebar() {
             <span className="sr-only">Open sidebar</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-64 p-0">
+        <SheetContent side="left" className="w-64 p-0 [&>button]:hidden">
+          <SheetHeader className="p-4 border-b">
+            <SheetTitle className="text-xl font-bold">
+              Navigation Menu
+            </SheetTitle>
+          </SheetHeader>
           <div className="flex flex-col h-full">
             <div className="flex items-center justify-between p-4 border-b">
-              <h1 className="text-xl font-bold">Rifki</h1>
+              <h2 className="text-lg font-semibold">Rifki</h2>
               <ThemeToggle />
             </div>
             <nav className="flex-1 px-2 py-4 space-y-1">
