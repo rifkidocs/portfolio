@@ -14,16 +14,19 @@ export function About() {
       icon: <Code className="w-6 h-6" />,
       title: "5+ Years Experience",
       description: "Building scalable web applications",
+      gradient: "from-blue-500 to-purple-600",
     },
     {
       icon: <Users className="w-6 h-6" />,
       title: "Team Leadership",
       description: "Mentoring junior developers",
+      gradient: "from-green-500 to-blue-500",
     },
     {
       icon: <Award className="w-6 h-6" />,
       title: "Modern Technologies",
       description: "React, Next.js, Node.js expert",
+      gradient: "from-yellow-500 to-orange-500",
     },
   ];
 
@@ -68,13 +71,13 @@ export function About() {
               {/* Personal Info */}
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
-                  <MapPin className="w-5 h-5 text-primary" />
+                  <MapPin className="w-5 h-5 text-red-500" />
                   <span className="text-muted-foreground">
                     {personalInfo.location}
                   </span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Calendar className="w-5 h-5 text-primary" />
+                  <Calendar className="w-5 h-5 text-green-500" />
                   <span className="text-muted-foreground">
                     Available for work
                   </span>
@@ -133,8 +136,14 @@ export function About() {
                   >
                     <Card className="h-full">
                       <CardContent className="p-6 text-center">
-                        <div className="text-primary mb-3 flex justify-center">
-                          {highlight.icon}
+                        <div
+                          className={`bg-linear-to-r ${highlight.gradient} bg-clip-text text-transparent mb-3 flex justify-center`}
+                        >
+                          <div
+                            className={`bg-linear-to-r ${highlight.gradient} p-2 rounded-lg`}
+                          >
+                            <div className="text-white">{highlight.icon}</div>
+                          </div>
                         </div>
                         <h4 className="font-semibold mb-2">
                           {highlight.title}

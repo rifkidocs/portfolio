@@ -2,15 +2,35 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Monitor, Server, Database, Wrench } from "lucide-react";
 import { skills } from "@/lib/data";
 
 const skillCategories = {
-  frontend: { title: "Frontend", color: "bg-blue-500" },
-  backend: { title: "Backend", color: "bg-green-500" },
-  database: { title: "Database", color: "bg-purple-500" },
-  tools: { title: "Tools", color: "bg-orange-500" },
+  frontend: {
+    title: "Frontend",
+    color: "bg-blue-500",
+    icon: <Monitor className="w-4 h-4" />,
+    gradient: "from-blue-500 to-cyan-500",
+  },
+  backend: {
+    title: "Backend",
+    color: "bg-green-500",
+    icon: <Server className="w-4 h-4" />,
+    gradient: "from-green-500 to-emerald-500",
+  },
+  database: {
+    title: "Database",
+    color: "bg-purple-500",
+    icon: <Database className="w-4 h-4" />,
+    gradient: "from-purple-500 to-violet-500",
+  },
+  tools: {
+    title: "Tools",
+    color: "bg-orange-500",
+    icon: <Wrench className="w-4 h-4" />,
+    gradient: "from-orange-500 to-red-500",
+  },
 } as const;
 
 export function Skills() {
@@ -20,18 +40,6 @@ export function Skills() {
   const filteredSkills = skills.filter(
     (skill) => skill.category === selectedCategory
   );
-
-  const getSkillLevelColor = (level: number) => {
-    if (level >= 4) return "bg-green-500";
-    if (level >= 3) return "bg-yellow-500";
-    return "bg-red-500";
-  };
-
-  const getSkillLevelText = (level: number) => {
-    if (level >= 4) return "Expert";
-    if (level >= 3) return "Advanced";
-    return "Intermediate";
-  };
 
   return (
     <section id="skills" className="py-20 lg:py-32 bg-muted/30">
@@ -69,13 +77,22 @@ export function Skills() {
                 onClick={() =>
                   setSelectedCategory(key as keyof typeof skillCategories)
                 }
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center space-x-2 ${
                   selectedCategory === key
-                    ? "bg-primary text-primary-foreground"
+                    ? `bg-linear-to-r ${category.gradient} text-white`
                     : "bg-background text-foreground hover:bg-muted"
                 }`}
               >
-                {category.title}
+                <span
+                  className={`${
+                    selectedCategory === key
+                      ? "text-white"
+                      : `text-${category.gradient.split("-")[1]}-500`
+                  }`}
+                >
+                  {category.icon}
+                </span>
+                <span>{category.title}</span>
               </button>
             ))}
           </motion.div>
@@ -86,7 +103,7 @@ export function Skills() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
           >
             {filteredSkills.map((skill, index) => (
               <motion.div
@@ -94,36 +111,20 @@ export function Skills() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="flex flex-col items-center group cursor-pointer"
               >
-                <Card className="h-full hover:shadow-lg transition-shadow">
-                  <CardHeader className="pb-3">
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-lg">{skill.name}</CardTitle>
-                      <Badge variant="secondary" className="text-xs">
-                        {getSkillLevelText(skill.level)}
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    {/* Skill Level Bar */}
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm text-muted-foreground">
-                        <span>Proficiency</span>
-                        <span>{skill.level}/5</span>
-                      </div>
-                      <div className="w-full bg-muted rounded-full h-2">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${(skill.level / 5) * 100}%` }}
-                          transition={{ duration: 1, delay: index * 0.1 + 0.5 }}
-                          className={`h-2 rounded-full ${getSkillLevelColor(
-                            skill.level
-                          )}`}
-                        />
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                <div className="relative">
+                  <img
+                    src={`https://skillicons.dev/icons?i=${skill.icon}`}
+                    alt={skill.name}
+                    className="w-12 h-12 transition-transform duration-300 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-primary/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+                <span className="mt-3 text-sm font-medium text-center group-hover:text-primary transition-colors duration-300">
+                  {skill.name}
+                </span>
               </motion.div>
             ))}
           </motion.div>
@@ -141,15 +142,25 @@ export function Skills() {
                 <CardTitle className="text-center">All Technologies</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex flex-wrap gap-2 justify-center">
+                <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6">
                   {skills.map((skill) => (
-                    <Badge
+                    <div
                       key={skill.name}
-                      variant="outline"
-                      className="hover:bg-primary hover:text-primary-foreground transition-colors cursor-default"
+                      className="flex flex-col items-center group cursor-pointer"
                     >
-                      {skill.name}
-                    </Badge>
+                      <div className="relative">
+                        <img
+                          src={`https://skillicons.dev/icons?i=${skill.icon}`}
+                          alt={skill.name}
+                          className="w-10 h-10 transition-transform duration-300 group-hover:scale-110"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-primary/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </div>
+                      <span className="mt-2 text-xs font-medium text-center group-hover:text-primary transition-colors duration-300">
+                        {skill.name}
+                      </span>
+                    </div>
                   ))}
                 </div>
               </CardContent>

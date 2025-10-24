@@ -1,7 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { Menu } from "lucide-react";
+import {
+  Menu,
+  Home,
+  User,
+  Code,
+  Briefcase,
+  Building2,
+  Mail,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -14,12 +22,20 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 
 const navigation = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Projects", href: "#projects" },
-  { name: "Experience", href: "#experience" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "#home", icon: <Home className="w-4 h-4" /> },
+  { name: "About", href: "#about", icon: <User className="w-4 h-4" /> },
+  { name: "Skills", href: "#skills", icon: <Code className="w-4 h-4" /> },
+  {
+    name: "Projects",
+    href: "#projects",
+    icon: <Briefcase className="w-4 h-4" />,
+  },
+  {
+    name: "Experience",
+    href: "#experience",
+    icon: <Building2 className="w-4 h-4" />,
+  },
+  { name: "Contact", href: "#contact", icon: <Mail className="w-4 h-4" /> },
 ];
 
 export function Sidebar() {
@@ -82,13 +98,22 @@ export function Sidebar() {
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
                   className={cn(
-                    "group flex items-center px-2 py-2 text-sm font-medium rounded-md w-full text-left transition-colors",
+                    "group flex items-center px-2 py-2 text-sm font-medium rounded-md w-full text-left transition-colors space-x-3",
                     activeSection === item.href.substring(1)
                       ? "bg-accent text-accent-foreground"
                       : "text-foreground hover:bg-accent hover:text-accent-foreground"
                   )}
                 >
-                  {item.name}
+                  <span
+                    className={cn(
+                      activeSection === item.href.substring(1)
+                        ? "text-accent-foreground"
+                        : "text-foreground group-hover:text-accent-foreground"
+                    )}
+                  >
+                    {item.icon}
+                  </span>
+                  <span>{item.name}</span>
                 </button>
               ))}
             </nav>

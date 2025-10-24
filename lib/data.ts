@@ -20,7 +20,7 @@ export interface Experience {
 
 export interface Skill {
   name: string;
-  level: number; // 1-5
+  icon: string; // Technology name for Skill Icons CDN
   category: "frontend" | "backend" | "database" | "tools";
 }
 
@@ -156,42 +156,42 @@ export const experiences: Experience[] = [
 
 export const skills: Skill[] = [
   // Frontend
-  { name: "React", level: 5, category: "frontend" },
-  { name: "Next.js", level: 5, category: "frontend" },
-  { name: "TypeScript", level: 4, category: "frontend" },
-  { name: "JavaScript", level: 5, category: "frontend" },
-  { name: "HTML/CSS", level: 5, category: "frontend" },
-  { name: "Tailwind CSS", level: 4, category: "frontend" },
-  { name: "SASS/SCSS", level: 4, category: "frontend" },
-  { name: "Vue.js", level: 3, category: "frontend" },
+  { name: "React", icon: "react", category: "frontend" },
+  { name: "Next.js", icon: "nextjs", category: "frontend" },
+  { name: "TypeScript", icon: "typescript", category: "frontend" },
+  { name: "JavaScript", icon: "javascript", category: "frontend" },
+  { name: "HTML/CSS", icon: "html5", category: "frontend" },
+  { name: "Tailwind CSS", icon: "tailwindcss", category: "frontend" },
+  { name: "SASS/SCSS", icon: "sass", category: "frontend" },
+  { name: "Vue.js", icon: "vuejs", category: "frontend" },
 
   // Backend
-  { name: "Node.js", level: 4, category: "backend" },
-  { name: "Express.js", level: 4, category: "backend" },
-  { name: "Python", level: 3, category: "backend" },
-  { name: "Django", level: 3, category: "backend" },
-  { name: "FastAPI", level: 3, category: "backend" },
-  { name: "REST APIs", level: 5, category: "backend" },
-  { name: "GraphQL", level: 3, category: "backend" },
-  { name: "Microservices", level: 3, category: "backend" },
+  { name: "Node.js", icon: "nodedotjs", category: "backend" },
+  { name: "Express.js", icon: "express", category: "backend" },
+  { name: "Python", icon: "python", category: "backend" },
+  { name: "Django", icon: "django", category: "backend" },
+  { name: "FastAPI", icon: "fastapi", category: "backend" },
+  { name: "REST APIs", icon: "rest", category: "backend" },
+  { name: "GraphQL", icon: "graphql", category: "backend" },
+  { name: "Microservices", icon: "microservices", category: "backend" },
 
   // Database
-  { name: "MongoDB", level: 4, category: "database" },
-  { name: "PostgreSQL", level: 4, category: "database" },
-  { name: "MySQL", level: 3, category: "database" },
-  { name: "Redis", level: 3, category: "database" },
-  { name: "Prisma", level: 4, category: "database" },
-  { name: "Mongoose", level: 4, category: "database" },
+  { name: "MongoDB", icon: "mongodb", category: "database" },
+  { name: "PostgreSQL", icon: "postgresql", category: "database" },
+  { name: "MySQL", icon: "mysql", category: "database" },
+  { name: "Redis", icon: "redis", category: "database" },
+  { name: "Prisma", icon: "prisma", category: "database" },
+  { name: "Mongoose", icon: "mongoose", category: "database" },
 
   // Tools
-  { name: "Git", level: 4, category: "tools" },
-  { name: "Docker", level: 3, category: "tools" },
-  { name: "AWS", level: 3, category: "tools" },
-  { name: "Vercel", level: 4, category: "tools" },
-  { name: "Netlify", level: 3, category: "tools" },
-  { name: "Figma", level: 3, category: "tools" },
-  { name: "Jest", level: 3, category: "tools" },
-  { name: "Cypress", level: 2, category: "tools" },
+  { name: "Git", icon: "git", category: "tools" },
+  { name: "Docker", icon: "docker", category: "tools" },
+  { name: "AWS", icon: "amazonaws", category: "tools" },
+  { name: "Vercel", icon: "vercel", category: "tools" },
+  { name: "Netlify", icon: "netlify", category: "tools" },
+  { name: "Figma", icon: "figma", category: "tools" },
+  { name: "Jest", icon: "jest", category: "tools" },
+  { name: "Cypress", icon: "cypress", category: "tools" },
 ];
 
 export const socialLinks: SocialLink[] = [

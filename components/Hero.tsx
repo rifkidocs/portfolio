@@ -2,7 +2,14 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, Download, ChevronDown } from "lucide-react";
+import {
+  Github,
+  Linkedin,
+  Mail,
+  Download,
+  ChevronDown,
+  Code,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { personalInfo, socialLinks } from "@/lib/data";
 
@@ -98,16 +105,18 @@ export function Hero() {
               <Button
                 size="lg"
                 onClick={scrollToProjects}
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto bg-linear-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0"
               >
+                <Code className="w-4 h-4 mr-2" />
                 View My Work
               </Button>
               <Button
                 variant="outline"
                 size="lg"
                 onClick={scrollToContact}
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto border-linear-to-r from-green-500 to-blue-500 text-linear-to-r from-green-500 to-blue-500 hover:bg-linear-to-r hover:from-green-500 hover:to-blue-500 hover:text-white"
               >
+                <Mail className="w-4 h-4 mr-2" />
                 Get In Touch
               </Button>
               <Button
@@ -144,11 +153,15 @@ export function Hero() {
                     rel="noopener noreferrer"
                     aria-label={social.name}
                   >
-                    {social.name === "GitHub" && <Github className="w-5 h-5" />}
-                    {social.name === "LinkedIn" && (
-                      <Linkedin className="w-5 h-5" />
+                    {social.name === "GitHub" && (
+                      <Github className="w-5 h-5 text-purple-500 hover:text-purple-600 transition-colors" />
                     )}
-                    {social.name === "Email" && <Mail className="w-5 h-5" />}
+                    {social.name === "LinkedIn" && (
+                      <Linkedin className="w-5 h-5 text-blue-500 hover:text-blue-600 transition-colors" />
+                    )}
+                    {social.name === "Email" && (
+                      <Mail className="w-5 h-5 text-green-500 hover:text-green-600 transition-colors" />
+                    )}
                   </a>
                 </Button>
               ))}

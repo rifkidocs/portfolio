@@ -4,9 +4,46 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import {
+  Building2,
+  Briefcase,
+  GraduationCap,
+  User,
+  Calendar,
+  Users,
+  Award,
+  Code,
+} from "lucide-react";
 import { experiences } from "@/lib/data";
 
 export function Experience() {
+  const companyIcons = {
+    "TechCorp Solutions": <Building2 className="w-5 h-5" />,
+    StartupXYZ: <Briefcase className="w-5 h-5" />,
+    "WebDev Agency": <Code className="w-5 h-5" />,
+    Freelance: <User className="w-5 h-5" />,
+  };
+
+  const positionIcons = {
+    "Senior Fullstack Developer": <Award className="w-4 h-4" />,
+    "Fullstack Developer": <Code className="w-4 h-4" />,
+    "Frontend Developer": <Code className="w-4 h-4" />,
+    "Web Developer": <Code className="w-4 h-4" />,
+  };
+
+  const statsIcons = [
+    <Calendar className="w-6 h-6" />,
+    <Building2 className="w-6 h-6" />,
+    <Award className="w-6 h-6" />,
+    <Code className="w-6 h-6" />,
+  ];
+
+  const statsColors = [
+    "text-blue-500",
+    "text-green-500",
+    "text-purple-500",
+    "text-orange-500",
+  ];
   return (
     <section id="experience" className="py-20 lg:py-32 bg-muted/30">
       <div className="container mx-auto px-4 lg:px-8">
@@ -58,13 +95,20 @@ export function Experience() {
                     <Card className="hover:shadow-lg transition-shadow">
                       <CardContent className="p-6">
                         <div className="flex items-start justify-between mb-4">
-                          <div>
-                            <h3 className="text-xl font-bold">
-                              {experience.position}
-                            </h3>
-                            <p className="text-lg text-primary font-semibold">
-                              {experience.company}
-                            </p>
+                          <div className="flex items-center space-x-3">
+                            <div className="bg-linear-to-r from-blue-500 to-purple-600 p-2 rounded-lg">
+                              {companyIcons[
+                                experience.company as keyof typeof companyIcons
+                              ] || <Building2 className="w-5 h-5 text-white" />}
+                            </div>
+                            <div>
+                              <h3 className="text-xl font-bold">
+                                {experience.position}
+                              </h3>
+                              <p className="text-lg text-primary font-semibold">
+                                {experience.company}
+                              </p>
+                            </div>
                           </div>
                           <div className="text-right">
                             <Badge
@@ -130,6 +174,23 @@ export function Experience() {
                 viewport={{ once: true }}
                 className="text-center"
               >
+                <div
+                  className={`${statsColors[index]} mb-2 flex justify-center`}
+                >
+                  <div
+                    className={`bg-linear-to-r ${
+                      index === 0
+                        ? "from-blue-500 to-cyan-500"
+                        : index === 1
+                        ? "from-green-500 to-emerald-500"
+                        : index === 2
+                        ? "from-purple-500 to-violet-500"
+                        : "from-orange-500 to-red-500"
+                    } p-3 rounded-full`}
+                  >
+                    <div className="text-white">{statsIcons[index]}</div>
+                  </div>
+                </div>
                 <div className="text-3xl font-bold text-primary mb-2">
                   {stat.value}
                 </div>

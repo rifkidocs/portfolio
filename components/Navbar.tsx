@@ -2,15 +2,24 @@
 
 import * as React from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Home, User, Code, Briefcase, Building2, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navigation = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Projects", href: "#projects" },
-  { name: "Experience", href: "#experience" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "#home", icon: <Home className="w-4 h-4" /> },
+  { name: "About", href: "#about", icon: <User className="w-4 h-4" /> },
+  { name: "Skills", href: "#skills", icon: <Code className="w-4 h-4" /> },
+  {
+    name: "Projects",
+    href: "#projects",
+    icon: <Briefcase className="w-4 h-4" />,
+  },
+  {
+    name: "Experience",
+    href: "#experience",
+    icon: <Building2 className="w-4 h-4" />,
+  },
+  { name: "Contact", href: "#contact", icon: <Mail className="w-4 h-4" /> },
 ];
 
 export function Navbar() {
@@ -67,13 +76,22 @@ export function Navbar() {
                   key={item.name}
                   onClick={() => scrollToSection(item.href)}
                   className={cn(
-                    "text-sm font-medium transition-colors hover:text-primary",
+                    "text-sm font-medium transition-colors hover:text-primary flex items-center space-x-2",
                     activeSection === item.href.substring(1)
                       ? "text-primary"
                       : "text-muted-foreground"
                   )}
                 >
-                  {item.name}
+                  <span
+                    className={cn(
+                      activeSection === item.href.substring(1)
+                        ? "text-primary"
+                        : "text-muted-foreground"
+                    )}
+                  >
+                    {item.icon}
+                  </span>
+                  <span>{item.name}</span>
                 </button>
               ))}
             </div>

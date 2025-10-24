@@ -2,7 +2,15 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Github, Eye } from "lucide-react";
+import {
+  ExternalLink,
+  Github,
+  Eye,
+  Code2,
+  Globe,
+  Database,
+  Zap,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -51,9 +59,11 @@ export function Projects() {
                 <div className={`${index % 2 === 1 ? "lg:col-start-2" : ""}`}>
                   <Card className="overflow-hidden group hover:shadow-xl transition-shadow">
                     <div className="aspect-video bg-muted relative overflow-hidden">
-                      <div className="absolute inset-0 bg-linear-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                      <div className="absolute inset-0 bg-linear-to-br from-blue-500/20 to-purple-600/20 flex items-center justify-center">
                         <div className="text-center">
-                          <Eye className="w-12 h-12 mx-auto mb-2 text-primary" />
+                          <div className="bg-linear-to-r from-blue-500 to-purple-600 p-3 rounded-full mb-2">
+                            <Eye className="w-12 h-12 mx-auto text-white" />
+                          </div>
                           <p className="text-sm text-muted-foreground">
                             Project Preview
                           </p>
@@ -62,18 +72,27 @@ export function Projects() {
                       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <div className="flex space-x-2">
                           {project.liveUrl && (
-                            <Button size="sm" asChild>
+                            <Button
+                              size="sm"
+                              asChild
+                              className="bg-linear-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white border-0"
+                            >
                               <a
                                 href={project.liveUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >
-                                <ExternalLink className="w-4 h-4 mr-2" />
+                                <Globe className="w-4 h-4 mr-2" />
                                 Live Demo
                               </a>
                             </Button>
                           )}
-                          <Button size="sm" variant="outline" asChild>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            asChild
+                            className="border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white"
+                          >
                             <a
                               href={project.githubUrl}
                               target="_blank"
@@ -104,26 +123,65 @@ export function Projects() {
                       {project.description}
                     </p>
                     <div className="flex flex-wrap gap-2">
-                      {project.techStack.map((tech) => (
-                        <Badge key={tech} variant="outline">
-                          {tech}
-                        </Badge>
-                      ))}
+                      {project.techStack.map((tech, techIndex) => {
+                        const techIcons = {
+                          "Next.js": <Code2 className="w-3 h-3" />,
+                          React: <Code2 className="w-3 h-3" />,
+                          TypeScript: <Code2 className="w-3 h-3" />,
+                          "Node.js": <Zap className="w-3 h-3" />,
+                          MongoDB: <Database className="w-3 h-3" />,
+                          PostgreSQL: <Database className="w-3 h-3" />,
+                          "Tailwind CSS": <Globe className="w-3 h-3" />,
+                        };
+                        const colors = [
+                          "bg-blue-500",
+                          "bg-green-500",
+                          "bg-purple-500",
+                          "bg-orange-500",
+                          "bg-red-500",
+                          "bg-pink-500",
+                        ];
+                        return (
+                          <Badge
+                            key={tech}
+                            variant="outline"
+                            className="flex items-center space-x-1"
+                          >
+                            <span
+                              className={`${
+                                colors[techIndex % colors.length]
+                              } text-white p-0.5 rounded`}
+                            >
+                              {techIcons[tech as keyof typeof techIcons] || (
+                                <Code2 className="w-3 h-3" />
+                              )}
+                            </span>
+                            <span>{tech}</span>
+                          </Badge>
+                        );
+                      })}
                     </div>
                     <div className="flex space-x-4">
                       {project.liveUrl && (
-                        <Button asChild>
+                        <Button
+                          asChild
+                          className="bg-linear-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white border-0"
+                        >
                           <a
                             href={project.liveUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <ExternalLink className="w-4 h-4 mr-2" />
+                            <Globe className="w-4 h-4 mr-2" />
                             Live Demo
                           </a>
                         </Button>
                       )}
-                      <Button variant="outline" asChild>
+                      <Button
+                        variant="outline"
+                        asChild
+                        className="border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white"
+                      >
                         <a
                           href={project.githubUrl}
                           target="_blank"
@@ -161,23 +219,34 @@ export function Projects() {
                 >
                   <Card className="h-full group hover:shadow-lg transition-shadow">
                     <div className="aspect-video bg-muted relative overflow-hidden">
-                      <div className="absolute inset-0 bg-linear-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                        <Eye className="w-8 h-8 text-primary" />
+                      <div className="absolute inset-0 bg-linear-to-br from-blue-500/20 to-purple-600/20 flex items-center justify-center">
+                        <div className="bg-linear-to-r from-blue-500 to-purple-600 p-2 rounded-full">
+                          <Eye className="w-8 h-8 text-white" />
+                        </div>
                       </div>
                       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                         <div className="flex space-x-2">
                           {project.liveUrl && (
-                            <Button size="sm" asChild>
+                            <Button
+                              size="sm"
+                              asChild
+                              className="bg-linear-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white border-0"
+                            >
                               <a
                                 href={project.liveUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >
-                                <ExternalLink className="w-4 h-4" />
+                                <Globe className="w-4 h-4" />
                               </a>
                             </Button>
                           )}
-                          <Button size="sm" variant="outline" asChild>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            asChild
+                            className="border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white"
+                          >
                             <a
                               href={project.githubUrl}
                               target="_blank"
