@@ -218,6 +218,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     const deviceOrientationHandler = handleDeviceOrientation as EventListener;
 
     const handleClick = () => {
+      if (typeof window === "undefined") return;
       if (!enableMobileTilt || location.protocol !== 'https:') return;
       if (typeof (window.DeviceMotionEvent as any).requestPermission === 'function') {
         (window.DeviceMotionEvent as any)

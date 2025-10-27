@@ -55,6 +55,8 @@ const TextPressure: React.FC<TextPressureProps> = ({
   };
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    
     const handleMouseMove = (e: MouseEvent) => {
       cursorRef.current.x = e.clientX;
       cursorRef.current.y = e.clientY;

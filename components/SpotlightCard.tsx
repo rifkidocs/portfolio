@@ -24,6 +24,8 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
   const [isDark, setIsDark] = useState<boolean>(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    
     const checkDarkMode = () => {
       const isDarkMode = document.documentElement.classList.contains("dark");
       setIsDark(isDarkMode);
