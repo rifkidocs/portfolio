@@ -52,21 +52,18 @@ export function Contact() {
       label: "Email",
       value: personalInfo.email,
       href: `mailto:${personalInfo.email}`,
-      gradient: "from-green-500 to-blue-500",
     },
     {
       icon: <Phone className="w-5 h-5" />,
       label: "Phone",
       value: personalInfo.phone,
       href: `tel:${personalInfo.phone}`,
-      gradient: "from-blue-500 to-purple-500",
     },
     {
       icon: <MapPin className="w-5 h-5" />,
       label: "Location",
       value: personalInfo.location,
       href: "#",
-      gradient: "from-red-500 to-pink-500",
     },
   ];
 
@@ -123,10 +120,8 @@ export function Contact() {
                     <Card>
                       <CardContent className="p-4">
                         <div className="flex items-center space-x-3">
-                          <div
-                            className={`bg-linear-to-r ${info.gradient} p-2 rounded-lg`}
-                          >
-                            <div className="text-white">{info.icon}</div>
+                          <div className="bg-foreground p-2 rounded-lg">
+                            <div className="text-background">{info.icon}</div>
                           </div>
                           <div>
                             <p className="font-medium">{info.label}</p>
@@ -169,18 +164,18 @@ export function Contact() {
                           aria-label={social.name}
                         >
                           {social.name === "GitHub" && (
-                            <div className="bg-linear-to-r from-purple-500 to-pink-500 p-1 rounded">
-                              <Github className="w-4 h-4 text-white" />
+                            <div className="bg-foreground p-1 rounded">
+                              <Github className="w-4 h-4 text-background" />
                             </div>
                           )}
                           {social.name === "LinkedIn" && (
-                            <div className="bg-linear-to-r from-blue-500 to-cyan-500 p-1 rounded">
-                              <Linkedin className="w-4 h-4 text-white" />
+                            <div className="bg-foreground p-1 rounded">
+                              <Linkedin className="w-4 h-4 text-background" />
                             </div>
                           )}
                           {social.name === "Email" && (
-                            <div className="bg-linear-to-r from-green-500 to-emerald-500 p-1 rounded">
-                              <Mail className="w-4 h-4 text-white" />
+                            <div className="bg-foreground p-1 rounded">
+                              <Mail className="w-4 h-4 text-background" />
                             </div>
                           )}
                         </a>
@@ -209,8 +204,8 @@ export function Contact() {
                       animate={{ opacity: 1, scale: 1 }}
                       className="text-center py-8"
                     >
-                      <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Send className="w-8 h-8 text-green-600 dark:text-green-400" />
+                      <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Send className="w-8 h-8" />
                       </div>
                       <h3 className="text-xl font-semibold mb-2">
                         Message Sent!
@@ -260,7 +255,7 @@ export function Contact() {
                       <Button
                         type="submit"
                         size="lg"
-                        className="w-full bg-linear-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0"
+                        className="w-full bg-foreground text-background hover:bg-foreground/90 border-0"
                         disabled={isSubmitting}
                       >
                         {isSubmitting ? (

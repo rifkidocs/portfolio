@@ -14,24 +14,24 @@ export function About() {
       icon: <Code className="w-6 h-6" />,
       title: "5+ Years Experience",
       description: "Building scalable web applications",
-      gradient: "from-blue-500 to-purple-600",
     },
     {
       icon: <Users className="w-6 h-6" />,
       title: "Team Leadership",
       description: "Mentoring junior developers",
-      gradient: "from-green-500 to-blue-500",
     },
     {
       icon: <Award className="w-6 h-6" />,
       title: "Modern Technologies",
       description: "React, Next.js, Node.js expert",
-      gradient: "from-yellow-500 to-orange-500",
     },
   ];
 
   return (
-    <section id="about" className="py-20 lg:py-32">
+    <section
+      id="about"
+      className="py-20 lg:py-32 bg-muted/30 dark:bg-transparent"
+    >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
@@ -71,13 +71,13 @@ export function About() {
               {/* Personal Info */}
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
-                  <MapPin className="w-5 h-5 text-red-500" />
+                  <MapPin className="w-5 h-5" />
                   <span className="text-muted-foreground">
                     {personalInfo.location}
                   </span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Calendar className="w-5 h-5 text-green-500" />
+                  <Calendar className="w-5 h-5" />
                   <span className="text-muted-foreground">
                     Available for work
                   </span>
@@ -116,7 +116,7 @@ export function About() {
                   building robust backend systems and managing databases.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
-                  When I'm not coding, you can find me exploring new
+                  When I&apos;m not coding, you can find me exploring new
                   technologies, contributing to open-source projects, or sharing
                   knowledge with the developer community. I believe in
                   continuous learning and staying up-to-date with the latest
@@ -136,13 +136,11 @@ export function About() {
                   >
                     <Card className="h-full">
                       <CardContent className="p-6 text-center">
-                        <div
-                          className={`bg-linear-to-r ${highlight.gradient} bg-clip-text text-transparent mb-3 flex justify-center`}
-                        >
-                          <div
-                            className={`bg-linear-to-r ${highlight.gradient} p-2 rounded-lg`}
-                          >
-                            <div className="text-white">{highlight.icon}</div>
+                        <div className="mb-3 flex justify-center">
+                          <div className="bg-foreground p-2 rounded-lg">
+                            <div className="text-background">
+                              {highlight.icon}
+                            </div>
                           </div>
                         </div>
                         <h4 className="font-semibold mb-2">

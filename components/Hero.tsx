@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { personalInfo, socialLinks } from "@/lib/data";
+import DarkVeil from "./DarkVeil";
 
 export function Hero() {
   const scrollToProjects = () => {
@@ -41,12 +42,16 @@ export function Hero() {
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
     >
       {/* Background Elements */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse delay-1000" />
+      <div className="absolute inset-0 z-0 pointer-events-none bg-background">
+        {/* Base background color matching Hero */}
+        <div className="absolute inset-0 bg-background" />
+        {/* Animated shader overlay - only visible in dark mode */}
+        <div className="absolute inset-0 opacity-0 dark:opacity-50">
+          <DarkVeil />
+        </div>
       </div>
 
-      <div className="container mx-auto px-4 lg:px-8">
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Main Content */}
           <motion.div
@@ -70,7 +75,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-5xl md:text-7xl font-bold bg-linear-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent"
+              className="text-5xl md:text-7xl font-bold"
             >
               {personalInfo.name}
             </motion.h1>
@@ -105,7 +110,7 @@ export function Hero() {
               <Button
                 size="lg"
                 onClick={scrollToProjects}
-                className="w-full sm:w-auto bg-linear-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white border-0"
+                className="w-full sm:w-auto bg-foreground text-background hover:bg-foreground/90 border-0"
               >
                 <Code className="w-4 h-4 mr-2" />
                 View My Work
@@ -114,7 +119,7 @@ export function Hero() {
                 variant="outline"
                 size="lg"
                 onClick={scrollToContact}
-                className="w-full sm:w-auto border-linear-to-r from-green-500 to-blue-500 text-linear-to-r from-green-500 to-blue-500 hover:bg-linear-to-r hover:from-green-500 hover:to-blue-500 hover:text-white"
+                className="w-full sm:w-auto"
               >
                 <Mail className="w-4 h-4 mr-2" />
                 Get In Touch
@@ -154,13 +159,13 @@ export function Hero() {
                     aria-label={social.name}
                   >
                     {social.name === "GitHub" && (
-                      <Github className="w-5 h-5 text-purple-500 hover:text-purple-600 transition-colors" />
+                      <Github className="w-5 h-5 transition-colors" />
                     )}
                     {social.name === "LinkedIn" && (
-                      <Linkedin className="w-5 h-5 text-blue-500 hover:text-blue-600 transition-colors" />
+                      <Linkedin className="w-5 h-5 transition-colors" />
                     )}
                     {social.name === "Email" && (
-                      <Mail className="w-5 h-5 text-green-500 hover:text-green-600 transition-colors" />
+                      <Mail className="w-5 h-5 transition-colors" />
                     )}
                   </a>
                 </Button>
@@ -173,7 +178,7 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 1.4 }}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
           >
             <Button
               variant="ghost"

@@ -2,45 +2,176 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Monitor, Server, Database, Wrench } from "lucide-react";
-import { skills } from "@/lib/data";
+import LogoLoop from "@/components/LogoLoop";
+import {
+  SiReact,
+  SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
+  SiJavascript,
+  SiHtml5,
+  SiSass,
+  SiVuedotjs,
+  SiNodedotjs,
+  SiExpress,
+  SiPython,
+  SiDjango,
+  SiFastapi,
+  SiGraphql,
+  SiMongodb,
+  SiPostgresql,
+  SiMysql,
+  SiRedis,
+  SiPrisma,
+  SiGit,
+  SiVercel,
+  SiNetlify,
+  SiFigma,
+  SiJest,
+  SiCypress,
+  SiCss3,
+} from "react-icons/si";
 
-const skillCategories = {
-  frontend: {
-    title: "Frontend",
-    color: "bg-blue-500",
-    icon: <Monitor className="w-4 h-4" />,
-    gradient: "from-blue-500 to-cyan-500",
+const techLogos = [
+  {
+    node: <SiReact style={{ color: "#61dafb" }} />,
+    title: "React",
+    href: "https://react.dev",
   },
-  backend: {
-    title: "Backend",
-    color: "bg-green-500",
-    icon: <Server className="w-4 h-4" />,
-    gradient: "from-green-500 to-emerald-500",
+  {
+    node: <SiNextdotjs style={{ color: "#000000" }} />,
+    title: "Next.js",
+    href: "https://nextjs.org",
   },
-  database: {
-    title: "Database",
-    color: "bg-purple-500",
-    icon: <Database className="w-4 h-4" />,
-    gradient: "from-purple-500 to-violet-500",
+  {
+    node: <SiTypescript style={{ color: "#3178c6" }} />,
+    title: "TypeScript",
+    href: "https://www.typescriptlang.org",
   },
-  tools: {
-    title: "Tools",
-    color: "bg-orange-500",
-    icon: <Wrench className="w-4 h-4" />,
-    gradient: "from-orange-500 to-red-500",
+  {
+    node: <SiJavascript style={{ color: "#f7df1e" }} />,
+    title: "JavaScript",
+    href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
   },
-} as const;
+  {
+    node: <SiHtml5 style={{ color: "#e34f26" }} />,
+    title: "HTML5",
+    href: "https://developer.mozilla.org/en-US/docs/Web/HTML",
+  },
+  {
+    node: <SiCss3 style={{ color: "#1572b6" }} />,
+    title: "CSS3",
+    href: "https://developer.mozilla.org/en-US/docs/Web/CSS",
+  },
+  {
+    node: <SiTailwindcss style={{ color: "#06b6d4" }} />,
+    title: "Tailwind CSS",
+    href: "https://tailwindcss.com",
+  },
+  {
+    node: <SiSass style={{ color: "#cc6699" }} />,
+    title: "SASS/SCSS",
+    href: "https://sass-lang.com",
+  },
+  {
+    node: <SiVuedotjs style={{ color: "#4fc08d" }} />,
+    title: "Vue.js",
+    href: "https://vuejs.org",
+  },
+  {
+    node: <SiNodedotjs style={{ color: "#339933" }} />,
+    title: "Node.js",
+    href: "https://nodejs.org",
+  },
+  {
+    node: <SiExpress style={{ color: "#000000" }} />,
+    title: "Express.js",
+    href: "https://expressjs.com",
+  },
+  {
+    node: <SiPython style={{ color: "#3776ab" }} />,
+    title: "Python",
+    href: "https://www.python.org",
+  },
+  {
+    node: <SiDjango style={{ color: "#092e20" }} />,
+    title: "Django",
+    href: "https://www.djangoproject.com",
+  },
+  {
+    node: <SiFastapi style={{ color: "#009688" }} />,
+    title: "FastAPI",
+    href: "https://fastapi.tiangolo.com",
+  },
+  {
+    node: <SiGraphql style={{ color: "#e10098" }} />,
+    title: "GraphQL",
+    href: "https://graphql.org",
+  },
+  {
+    node: <SiMongodb style={{ color: "#47a248" }} />,
+    title: "MongoDB",
+    href: "https://www.mongodb.com",
+  },
+  {
+    node: <SiPostgresql style={{ color: "#336791" }} />,
+    title: "PostgreSQL",
+    href: "https://www.postgresql.org",
+  },
+  {
+    node: <SiMysql style={{ color: "#4479a1" }} />,
+    title: "MySQL",
+    href: "https://www.mysql.com",
+  },
+  {
+    node: <SiRedis style={{ color: "#dc382d" }} />,
+    title: "Redis",
+    href: "https://redis.io",
+  },
+  {
+    node: <SiPrisma style={{ color: "#2d3748" }} />,
+    title: "Prisma",
+    href: "https://www.prisma.io",
+  },
+  {
+    node: <SiGit style={{ color: "#f05032" }} />,
+    title: "Git",
+    href: "https://git-scm.com",
+  },
+  {
+    src: "https://skillicons.dev/icons?i=docker",
+    alt: "Docker",
+    title: "Docker",
+    href: "https://www.docker.com",
+  },
+  {
+    node: <SiVercel style={{ color: "#000000" }} />,
+    title: "Vercel",
+    href: "https://vercel.com",
+  },
+  {
+    node: <SiNetlify style={{ color: "#00c7b7" }} />,
+    title: "Netlify",
+    href: "https://www.netlify.com",
+  },
+  {
+    node: <SiFigma style={{ color: "#f24e1e" }} />,
+    title: "Figma",
+    href: "https://www.figma.com",
+  },
+  {
+    node: <SiJest style={{ color: "#c21325" }} />,
+    title: "Jest",
+    href: "https://jestjs.io",
+  },
+  {
+    node: <SiCypress style={{ color: "#17202c" }} />,
+    title: "Cypress",
+    href: "https://www.cypress.io",
+  },
+];
 
 export function Skills() {
-  const [selectedCategory, setSelectedCategory] =
-    React.useState<keyof typeof skillCategories>("frontend");
-
-  const filteredSkills = skills.filter(
-    (skill) => skill.category === selectedCategory
-  );
-
   return (
     <section id="skills" className="py-20 lg:py-32 bg-muted/30">
       <div className="container mx-auto px-4 lg:px-8">
@@ -63,108 +194,31 @@ export function Skills() {
             </p>
           </motion.div>
 
-          {/* Category Filter */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-2 mb-12"
-          >
-            {Object.entries(skillCategories).map(([key, category]) => (
-              <button
-                key={key}
-                onClick={() =>
-                  setSelectedCategory(key as keyof typeof skillCategories)
-                }
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center space-x-2 ${
-                  selectedCategory === key
-                    ? `bg-linear-to-r ${category.gradient} text-white`
-                    : "bg-background text-foreground hover:bg-muted"
-                }`}
-              >
-                <span
-                  className={`${
-                    selectedCategory === key
-                      ? "text-white"
-                      : `text-${category.gradient.split("-")[1]}-500`
-                  }`}
-                >
-                  {category.icon}
-                </span>
-                <span>{category.title}</span>
-              </button>
-            ))}
-          </motion.div>
-
-          {/* Skills Grid */}
-          <motion.div
-            key={selectedCategory}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
-          >
-            {filteredSkills.map((skill, index) => (
-              <motion.div
-                key={skill.name}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className="flex flex-col items-center group cursor-pointer"
-              >
-                <div className="relative">
-                  <img
-                    src={`https://skillicons.dev/icons?i=${skill.icon}`}
-                    alt={skill.name}
-                    className="w-12 h-12 transition-transform duration-300 group-hover:scale-110"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-primary/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
-                <span className="mt-3 text-sm font-medium text-center group-hover:text-primary transition-colors duration-300">
-                  {skill.name}
-                </span>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* All Skills Overview */}
+          {/* LogoLoop Component */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="mt-16"
+            style={{
+              height: "120px",
+              position: "relative",
+              overflow: "hidden",
+            }}
+            className="mt-8"
           >
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-center">All Technologies</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6">
-                  {skills.map((skill) => (
-                    <div
-                      key={skill.name}
-                      className="flex flex-col items-center group cursor-pointer"
-                    >
-                      <div className="relative">
-                        <img
-                          src={`https://skillicons.dev/icons?i=${skill.icon}`}
-                          alt={skill.name}
-                          className="w-10 h-10 transition-transform duration-300 group-hover:scale-110"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-primary/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </div>
-                      <span className="mt-2 text-xs font-medium text-center group-hover:text-primary transition-colors duration-300">
-                        {skill.name}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            <LogoLoop
+              logos={techLogos}
+              speed={120}
+              direction="left"
+              logoHeight={48}
+              gap={40}
+              pauseOnHover
+              scaleOnHover
+              fadeOut
+              fadeOutColor="bg-muted/30"
+              ariaLabel="Technology partners"
+            />
           </motion.div>
         </div>
       </div>

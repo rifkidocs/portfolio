@@ -39,10 +39,10 @@ export function Experience() {
   ];
 
   const statsColors = [
-    "text-blue-500",
-    "text-green-500",
-    "text-purple-500",
-    "text-orange-500",
+    "text-foreground",
+    "text-foreground",
+    "text-foreground",
+    "text-foreground",
   ];
   return (
     <section id="experience" className="py-20 lg:py-32 bg-muted/30">
@@ -96,10 +96,12 @@ export function Experience() {
                       <CardContent className="p-6">
                         <div className="flex items-start justify-between mb-4">
                           <div className="flex items-center space-x-3">
-                            <div className="bg-linear-to-r from-blue-500 to-purple-600 p-2 rounded-lg">
+                            <div className="bg-foreground p-2 rounded-lg">
                               {companyIcons[
                                 experience.company as keyof typeof companyIcons
-                              ] || <Building2 className="w-5 h-5 text-white" />}
+                              ] || (
+                                <Building2 className="w-5 h-5 text-background" />
+                              )}
                             </div>
                             <div>
                               <h3 className="text-xl font-bold">
@@ -177,18 +179,8 @@ export function Experience() {
                 <div
                   className={`${statsColors[index]} mb-2 flex justify-center`}
                 >
-                  <div
-                    className={`bg-linear-to-r ${
-                      index === 0
-                        ? "from-blue-500 to-cyan-500"
-                        : index === 1
-                        ? "from-green-500 to-emerald-500"
-                        : index === 2
-                        ? "from-purple-500 to-violet-500"
-                        : "from-orange-500 to-red-500"
-                    } p-3 rounded-full`}
-                  >
-                    <div className="text-white">{statsIcons[index]}</div>
+                  <div className="bg-foreground p-3 rounded-full">
+                    <div className="text-background">{statsIcons[index]}</div>
                   </div>
                 </div>
                 <div className="text-3xl font-bold text-primary mb-2">

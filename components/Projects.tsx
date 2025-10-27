@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ExternalLink,
   Github,
@@ -10,285 +10,409 @@ import {
   Globe,
   Database,
   Zap,
+  Calendar,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { projects } from "@/lib/data";
 
 export function Projects() {
+  const [selectedProject, setSelectedProject] = React.useState<
+    (typeof projects)[0] | null
+  >(null);
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+
   const featuredProjects = projects.filter((project) => project.featured);
   const otherProjects = projects.filter((project) => !project.featured);
 
+  const openProjectDialog = (project: (typeof projects)[0]) => {
+    setSelectedProject(project);
+    setIsDialogOpen(true);
+  };
+
+  const closeDialog = () => {
+    setIsDialogOpen(false);
+  };
+
+  const techIcons = {
+    "Next.js": <Code2 className="w-4 h-4" />,
+    React: <Code2 className="w-4 h-4" />,
+    TypeScript: <Code2 className="w-4 h-4" />,
+    "Node.js": <Zap className="w-4 h-4" />,
+    MongoDB: <Database className="w-4 h-4" />,
+    PostgreSQL: <Database className="w-4 h-4" />,
+    "Tailwind CSS": <Globe className="w-4 h-4" />,
+  };
+
   return (
-    <section id="projects" className="py-20 lg:py-32">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          {/* Section Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              Featured Projects
-            </h2>
-            <div className="w-24 h-1 bg-primary mx-auto rounded-full mb-6" />
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Here are some of my recent projects that showcase my skills and
-              experience
-            </p>
-          </motion.div>
+    <>
+      <section id="projects" className="py-20 lg:py-32 relative">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            {/* Section Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-linear-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
+                Featured Projects
+              </h2>
+              <div className="w-24 h-1 bg-linear-to-r from-transparent via-primary to-transparent mx-auto rounded-full mb-6" />
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Explore my recent work that showcases my skills and creativity
+              </p>
+            </motion.div>
 
-          {/* Featured Projects */}
-          <div className="space-y-12 mb-16">
-            {featuredProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className={`grid lg:grid-cols-2 gap-8 items-center ${
-                  index % 2 === 1 ? "lg:grid-flow-col-dense" : ""
-                }`}
-              >
-                {/* Project Image */}
-                <div className={`${index % 2 === 1 ? "lg:col-start-2" : ""}`}>
-                  <Card className="overflow-hidden group hover:shadow-xl transition-shadow">
-                    <div className="aspect-video bg-muted relative overflow-hidden">
-                      <div className="absolute inset-0 bg-linear-to-br from-blue-500/20 to-purple-600/20 flex items-center justify-center">
-                        <div className="text-center">
-                          <div className="bg-linear-to-r from-blue-500 to-purple-600 p-3 rounded-full mb-2">
-                            <Eye className="w-12 h-12 mx-auto text-white" />
-                          </div>
-                          <p className="text-sm text-muted-foreground">
-                            Project Preview
-                          </p>
-                        </div>
-                      </div>
-                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <div className="flex space-x-2">
-                          {project.liveUrl && (
-                            <Button
-                              size="sm"
-                              asChild
-                              className="bg-linear-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white border-0"
-                            >
-                              <a
-                                href={project.liveUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                <Globe className="w-4 h-4 mr-2" />
-                                Live Demo
-                              </a>
-                            </Button>
-                          )}
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            asChild
-                            className="border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white"
-                          >
-                            <a
-                              href={project.githubUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <Github className="w-4 h-4 mr-2" />
-                              Code
-                            </a>
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                </div>
-
-                {/* Project Content */}
-                <div
-                  className={`${
-                    index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""
-                  }`}
-                >
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-2xl font-bold">{project.title}</h3>
-                      <Badge variant="secondary">Featured</Badge>
-                    </div>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.techStack.map((tech, techIndex) => {
-                        const techIcons = {
-                          "Next.js": <Code2 className="w-3 h-3" />,
-                          React: <Code2 className="w-3 h-3" />,
-                          TypeScript: <Code2 className="w-3 h-3" />,
-                          "Node.js": <Zap className="w-3 h-3" />,
-                          MongoDB: <Database className="w-3 h-3" />,
-                          PostgreSQL: <Database className="w-3 h-3" />,
-                          "Tailwind CSS": <Globe className="w-3 h-3" />,
-                        };
-                        const colors = [
-                          "bg-blue-500",
-                          "bg-green-500",
-                          "bg-purple-500",
-                          "bg-orange-500",
-                          "bg-red-500",
-                          "bg-pink-500",
-                        ];
-                        return (
-                          <Badge
-                            key={tech}
-                            variant="outline"
-                            className="flex items-center space-x-1"
-                          >
-                            <span
-                              className={`${
-                                colors[techIndex % colors.length]
-                              } text-white p-0.5 rounded`}
-                            >
-                              {techIcons[tech as keyof typeof techIcons] || (
-                                <Code2 className="w-3 h-3" />
-                              )}
-                            </span>
-                            <span>{tech}</span>
-                          </Badge>
-                        );
-                      })}
-                    </div>
-                    <div className="flex space-x-4">
-                      {project.liveUrl && (
-                        <Button
-                          asChild
-                          className="bg-linear-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white border-0"
-                        >
-                          <a
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <Globe className="w-4 h-4 mr-2" />
-                            Live Demo
-                          </a>
-                        </Button>
-                      )}
-                      <Button
-                        variant="outline"
-                        asChild
-                        className="border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white"
-                      >
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Github className="w-4 h-4 mr-2" />
-                          View Code
-                        </a>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Other Projects */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-3xl font-bold text-center mb-12">
-              Other Projects
-            </h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {otherProjects.map((project, index) => (
+            {/* Featured Projects Grid */}
+            <div className="grid md:grid-cols-2 gap-8 mb-20">
+              {featuredProjects.map((project, index) => (
                 <motion.div
                   key={project.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
-                  <Card className="h-full group hover:shadow-lg transition-shadow">
-                    <div className="aspect-video bg-muted relative overflow-hidden">
-                      <div className="absolute inset-0 bg-linear-to-br from-blue-500/20 to-purple-600/20 flex items-center justify-center">
-                        <div className="bg-linear-to-r from-blue-500 to-purple-600 p-2 rounded-full">
-                          <Eye className="w-8 h-8 text-white" />
-                        </div>
+                  <Card
+                    className="group h-full overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300 border-2 hover:border-primary/20"
+                    onClick={() => openProjectDialog(project)}
+                  >
+                    {/* Project Image/Preview */}
+                    <div className="relative aspect-video bg-linear-to-br from-primary/10 to-primary/5 overflow-hidden">
+                      {/* Animated Background Pattern */}
+                      <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjAuNSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')]"></div>
                       </div>
-                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <div className="flex space-x-2">
-                          {project.liveUrl && (
-                            <Button
-                              size="sm"
-                              asChild
-                              className="bg-linear-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white border-0"
+
+                      {/* Project Icon */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <motion.div
+                          className="relative z-10"
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ type: "spring", stiffness: 300 }}
+                        >
+                          <div className="bg-foreground p-6 rounded-2xl shadow-2xl">
+                            <Eye className="w-12 h-12 mx-auto text-background" />
+                          </div>
+                        </motion.div>
+                      </div>
+
+                      {/* Overlay on Hover */}
+                      <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                      {/* Tech Stack Preview */}
+                      <div className="absolute bottom-4 left-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        {project.techStack
+                          .slice(0, 3)
+                          .map((tech, techIndex) => (
+                            <Badge
+                              key={tech}
+                              variant="secondary"
+                              className="backdrop-blur-sm bg-background/80"
                             >
-                              <a
-                                href={project.liveUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                <Globe className="w-4 h-4" />
-                              </a>
-                            </Button>
-                          )}
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            asChild
-                            className="border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white"
-                          >
-                            <a
-                              href={project.githubUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              <Github className="w-4 h-4" />
-                            </a>
-                          </Button>
-                        </div>
+                              {tech}
+                            </Badge>
+                          ))}
                       </div>
                     </div>
-                    <CardHeader>
-                      <CardTitle className="text-lg">{project.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <p className="text-sm text-muted-foreground line-clamp-3">
-                        {project.description}
-                      </p>
-                      <div className="flex flex-wrap gap-1">
-                        {project.techStack.slice(0, 3).map((tech) => (
+
+                    {/* Project Info */}
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1">
+                          <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">
+                            {project.title}
+                          </h3>
+                          <p className="text-muted-foreground text-sm line-clamp-2">
+                            {project.description}
+                          </p>
+                        </div>
+                        <Badge variant="secondary" className="ml-2 shrink-0">
+                          Featured
+                        </Badge>
+                      </div>
+
+                      {/* Tech Stack Icons */}
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.techStack.slice(0, 4).map((tech) => (
                           <Badge
                             key={tech}
                             variant="outline"
-                            className="text-xs"
+                            className="flex items-center gap-1.5"
                           >
-                            {tech}
+                            {techIcons[tech as keyof typeof techIcons] || (
+                              <Code2 className="w-3 h-3" />
+                            )}
+                            <span className="text-xs">{tech}</span>
                           </Badge>
                         ))}
-                        {project.techStack.length > 3 && (
+                        {project.techStack.length > 4 && (
                           <Badge variant="outline" className="text-xs">
-                            +{project.techStack.length - 3}
+                            +{project.techStack.length - 4}
                           </Badge>
                         )}
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="flex gap-2">
+                        {project.liveUrl && (
+                          <Button
+                            size="sm"
+                            variant="default"
+                            className="flex-1"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(project.liveUrl, "_blank");
+                            }}
+                          >
+                            <ExternalLink className="w-4 h-4 mr-2" />
+                            Live Demo
+                          </Button>
+                        )}
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="flex-1"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            window.open(project.githubUrl, "_blank");
+                          }}
+                        >
+                          <Github className="w-4 h-4 mr-2" />
+                          Code
+                        </Button>
                       </div>
                     </CardContent>
                   </Card>
                 </motion.div>
               ))}
             </div>
-          </motion.div>
+
+            {/* Other Projects */}
+            {otherProjects.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="text-3xl font-bold text-center mb-12">
+                  Other Projects
+                </h3>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {otherProjects.map((project, index) => (
+                    <motion.div
+                      key={project.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                    >
+                      <Card
+                        className="h-full group hover:shadow-xl transition-all duration-300 cursor-pointer border-2 hover:border-primary/10"
+                        onClick={() => openProjectDialog(project)}
+                      >
+                        <div className="aspect-video bg-linear-to-br from-primary/10 to-primary/5 relative overflow-hidden">
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="bg-foreground p-4 rounded-xl">
+                              <Eye className="w-8 h-8 text-background" />
+                            </div>
+                          </div>
+                        </div>
+                        <CardContent className="p-4 space-y-3">
+                          <h4 className="font-semibold text-lg group-hover:text-primary transition-colors">
+                            {project.title}
+                          </h4>
+                          <p className="text-sm text-muted-foreground line-clamp-2">
+                            {project.description}
+                          </p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {project.techStack.slice(0, 2).map((tech) => (
+                              <Badge
+                                key={tech}
+                                variant="outline"
+                                className="text-xs"
+                              >
+                                {tech}
+                              </Badge>
+                            ))}
+                            {project.techStack.length > 2 && (
+                              <Badge variant="outline" className="text-xs">
+                                +{project.techStack.length - 2}
+                              </Badge>
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Custom Animated Dialog */}
+      <AnimatePresence>
+        {isDialogOpen && selectedProject && (
+          <>
+            {/* Backdrop with Blur */}
+            <motion.div
+              className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={closeDialog}
+            />
+
+            {/* Dialog Content */}
+            <motion.div
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <motion.div
+                className="relative w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-2xl border bg-card shadow-2xl pointer-events-auto"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{
+                  type: "spring",
+                  damping: 25,
+                  stiffness: 400,
+                  duration: 0.3,
+                }}
+              >
+                {/* Close Button */}
+                <button
+                  onClick={closeDialog}
+                  className="absolute top-4 right-4 z-10 rounded-full p-2 bg-background/80 backdrop-blur-sm hover:bg-background transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+
+                {/* Dialog Content */}
+                <div className="overflow-y-auto max-h-[90vh]">
+                  {/* Header Image */}
+                  <div className="relative h-64 bg-linear-to-br from-primary/20 to-primary/5">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="bg-foreground p-8 rounded-2xl shadow-xl">
+                        <Eye className="w-16 h-16 text-background" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-8 space-y-6">
+                    {/* Title and Badge */}
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <h2 className="text-3xl font-bold mb-2">
+                          {selectedProject.title}
+                        </h2>
+                        <div className="flex items-center gap-2 text-muted-foreground text-sm">
+                          <Calendar className="w-4 h-4" />
+                          {selectedProject.featured
+                            ? "Featured Project"
+                            : "Project"}
+                        </div>
+                      </div>
+                      {selectedProject.featured && (
+                        <Badge variant="secondary" className="text-sm">
+                          Featured
+                        </Badge>
+                      )}
+                    </div>
+
+                    {/* Description */}
+                    <div>
+                      <h3 className="text-lg font-semibold mb-2">About</h3>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {selectedProject.description}
+                      </p>
+                    </div>
+
+                    {/* Tech Stack */}
+                    <div>
+                      <h3 className="text-lg font-semibold mb-3">
+                        Technologies
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedProject.techStack.map((tech, techIndex) => (
+                          <motion.div
+                            key={tech}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: techIndex * 0.05 }}
+                          >
+                            <Badge
+                              variant="outline"
+                              className="flex items-center gap-2 px-3 py-1.5 text-sm"
+                            >
+                              <span className="bg-foreground text-background p-1 rounded">
+                                {techIcons[tech as keyof typeof techIcons] || (
+                                  <Code2 className="w-3 h-3" />
+                                )}
+                              </span>
+                              <span>{tech}</span>
+                            </Badge>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t">
+                      {selectedProject.liveUrl && (
+                        <Button
+                          size="lg"
+                          className="flex-1 bg-foreground text-background hover:bg-foreground/90"
+                          asChild
+                        >
+                          <a
+                            href={selectedProject.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <Globe className="w-5 h-5 mr-2" />
+                            View Live Demo
+                            <ExternalLink className="w-4 h-4 ml-2" />
+                          </a>
+                        </Button>
+                      )}
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        className="flex-1"
+                        asChild
+                      >
+                        <a
+                          href={selectedProject.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Github className="w-5 h-5 mr-2" />
+                          View Source Code
+                          <ExternalLink className="w-4 h-4 ml-2" />
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
