@@ -31,9 +31,21 @@ export function Experience() {
   return (
     <section
       id="experience"
-      className="py-20 lg:py-32 bg-muted/30 w-full overflow-x-hidden"
+      className="py-20 lg:py-32 bg-muted/30 w-full overflow-x-hidden relative"
     >
-      <div className="container mx-auto px-4 lg:px-8">
+      {/* Grid pattern background */}
+      <div
+        className="absolute inset-0 opacity-20 pointer-events-none z-0"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(128, 128, 128, 0.1) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(128, 128, 128, 0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: "20px 20px",
+        }}
+      />
+
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
           <motion.div

@@ -9,6 +9,7 @@ import {
   Download,
   ChevronDown,
   Code,
+  Instagram,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { personalInfo, socialLinks } from "@/lib/data";
@@ -45,6 +46,19 @@ export function Hero() {
       <div className="absolute inset-0 z-0 pointer-events-none bg-background">
         {/* Base background color matching Hero */}
         <div className="absolute inset-0 bg-background" />
+
+        {/* Grid pattern for mobile */}
+        <div
+          className="absolute inset-0 opacity-30 md:opacity-0 lg:opacity-0"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(128, 128, 128, 0.1) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(128, 128, 128, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: "20px 20px",
+          }}
+        />
+
         {/* Animated shader overlay - only visible in dark mode */}
         <div className="absolute inset-0 opacity-0 dark:opacity-50">
           <DarkVeil />
@@ -144,32 +158,37 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 1.2 }}
               className="flex justify-center space-x-4 pt-8"
             >
-              {socialLinks.map((social) => (
-                <Button
-                  key={social.name}
-                  variant="ghost"
-                  size="sm"
-                  asChild
-                  className="hover:scale-110 transition-transform"
-                >
-                  <a
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.name}
+              {socialLinks
+                .filter((social) => social.name !== "Discord")
+                .map((social) => (
+                  <Button
+                    key={social.name}
+                    variant="ghost"
+                    size="sm"
+                    asChild
+                    className="hover:scale-110 transition-transform"
                   >
-                    {social.name === "GitHub" && (
-                      <Github className="w-5 h-5 transition-colors" />
-                    )}
-                    {social.name === "LinkedIn" && (
-                      <Linkedin className="w-5 h-5 transition-colors" />
-                    )}
-                    {social.name === "Email" && (
-                      <Mail className="w-5 h-5 transition-colors" />
-                    )}
-                  </a>
-                </Button>
-              ))}
+                    <a
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={social.name}
+                    >
+                      {social.name === "GitHub" && (
+                        <Github className="w-5 h-5 transition-colors" />
+                      )}
+                      {social.name === "LinkedIn" && (
+                        <Linkedin className="w-5 h-5 transition-colors" />
+                      )}
+                      {social.name === "Instagram" && (
+                        <Instagram className="w-5 h-5 transition-colors" />
+                      )}
+                      {social.name === "Email" && (
+                        <Mail className="w-5 h-5 transition-colors" />
+                      )}
+                    </a>
+                  </Button>
+                ))}
             </motion.div>
           </motion.div>
 
