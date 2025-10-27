@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <!-- Grid pattern for hologram effect -->
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+    </pattern>
+    
+    <!-- Circuit pattern -->
+    <pattern id="circuit" width="150" height="150" patternUnits="userSpaceOnUse">
+      <!-- Horizontal lines -->
+      <line x1="0" y1="10" x2="150" y2="10" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+      <line x1="0" y1="75" x2="150" y2="75" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+      <line x1="0" y1="140" x2="150" y2="140" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+      
+      <!-- Vertical lines -->
+      <line x1="30" y1="0" x2="30" y2="150" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+      <line x1="90" y1="0" x2="90" y2="150" stroke="rgba(255,255,255,0.06)" stroke-width="0.5"/>
+      <line x1="130" y1="0" x2="130" y2="150" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+      
+      <!-- Connection points -->
+      <circle cx="30" cy="10" r="2" fill="rgba(255,255,255,0.2)"/>
+      <circle cx="90" cy="75" r="1.5" fill="rgba(255,255,255,0.15)"/>
+      <circle cx="130" cy="140" r="1.5" fill="rgba(255,255,255,0.15)"/>
+    </pattern>
+    
+    <!-- Scanlines pattern -->
+    <pattern id="scanlines" width="100%" height="4" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="100%" y2="0" stroke="rgba(0,255,255,0.03)" stroke-width="1"/>
+    </pattern>
+    
+    <!-- Radial hologram shine -->
+    <radialGradient id="holograd">
+      <stop offset="0%" stop-color="rgba(0, 255, 255, 0.15)"/>
+      <stop offset="50%" stop-color="rgba(200, 0, 255, 0.1)"/>
+      <stop offset="100%" stop-color="rgba(0, 0, 0, 0)"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- Base grid -->
+  <rect width="100%" height="100%" fill="url(#grid)"/>
+  
+  <!-- Circuit pattern -->
+  <rect width="100%" height="100%" fill="url(#circuit)" opacity="0.6"/>
+  
+  <!-- Scanlines -->
+  <rect width="100%" height="100%" fill="url(#scanlines)"/>
+  
+  <!-- Holographic glow -->
+  <ellipse cx="300" cy="300" rx="250" ry="250" fill="url(#holograd)" opacity="0.5"/>
+</svg>

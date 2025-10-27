@@ -58,6 +58,8 @@ export function About() {
                 contactText="Contact Me"
                 avatarUrl="/profile.png"
                 miniAvatarUrl="/foto.png"
+                iconUrl="/hologram-icon.svg"
+                grainUrl="/grain.svg"
                 showUserInfo={true}
                 enableTilt={true}
                 enableMobileTilt={true}
