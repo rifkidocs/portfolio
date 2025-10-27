@@ -51,7 +51,7 @@ export function About() {
               className="flex justify-center"
             >
               <ProfileCard
-                name={personalInfo.name}
+                name={"Rifki"}
                 title={personalInfo.title}
                 handle="rifkidocs"
                 status="Available for work"

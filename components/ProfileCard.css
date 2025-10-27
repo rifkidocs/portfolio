@@ -426,9 +426,23 @@
 }
 
 @media (max-width: 768px) {
+  /* Disable heavy animations on mobile */
   .pc-card {
     height: 70svh;
     max-height: 450px;
+    animation: none;
+  }
+
+  .pc-card-wrapper::before {
+    display: none;
+  }
+
+  .pc-shine {
+    animation: none;
+  }
+
+  .pc-avatar-content::before {
+    backdrop-filter: none;
   }
 
   .pc-details {
@@ -479,9 +493,29 @@
 }
 
 @media (max-width: 480px) {
+  /* Further simplify for small mobile */
   .pc-card {
     height: 60svh;
     max-height: 380px;
+    animation: none;
+    perspective: 250px;
+  }
+
+  .pc-card-wrapper::before {
+    display: none;
+  }
+
+  .pc-card-wrapper {
+    perspective: 250px;
+  }
+
+  .pc-shine::before,
+  .pc-shine::after {
+    display: none;
+  }
+
+  .pc-content {
+    transform: translate3d(0, 0, 0) !important;
   }
 
   .pc-details {
@@ -535,9 +569,24 @@
 }
 
 @media (max-width: 320px) {
+  /* Ultra light for very small devices */
   .pc-card {
     height: 55svh;
     max-height: 320px;
+    animation: none;
+  }
+
+  .pc-card-wrapper::before {
+    display: none;
+  }
+
+  .pc-shine,
+  .pc-glare {
+    display: none;
+  }
+
+  .pc-content {
+    transform: translate3d(0, 0, 0) !important;
   }
 
   .pc-details h3 {

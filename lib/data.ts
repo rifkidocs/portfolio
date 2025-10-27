@@ -213,7 +213,7 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const personalInfo = {
-  name: "Muhammad Rifki Ardiansah",
+  name: "M. Rifki Ardiansah",
   title: "Fullstack Web Developer",
   location: "Jakarta, Indonesia",
   email: "rifki@example.com",
