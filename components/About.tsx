@@ -60,7 +60,7 @@ export function About() {
                 miniAvatarUrl="/foto.png"
                 showUserInfo={true}
                 enableTilt={true}
-                enableMobileTilt={false}
+                enableMobileTilt={true}
                 onContactClick={() => {
                   const contactSection = document.getElementById("contact");
                   if (contactSection) {

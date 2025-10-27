@@ -80,13 +80,7 @@ export function Navbar() {
         className="fixed top-5 left-0 right-0 z-50 lg:hidden w-screen overflow-x-hidden"
       >
         <div className="flex justify-center px-4">
-          <div
-            className="w-full max-w-[600px] h-16 rounded-[20px] px-6 flex items-center justify-between bg-background/80 backdrop-blur-xl border border-border/30 shadow-lg"
-            style={{
-              boxShadow:
-                "0 4px 6px -1px rgb(0 0 0 / 0.1), inset 0 1px 0 0 rgba(255, 255, 255, 0.1)",
-            }}
-          >
+          <div className="w-full max-w-[600px] h-16 rounded-[20px] px-6 flex items-center justify-between bg-background/80 backdrop-blur-xl border border-border/30">
             {/* Mobile Hamburger Menu */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>

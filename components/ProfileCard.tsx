@@ -237,7 +237,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
 
     if (!card || !wrap) return;
 
-    // Disable tilt effects on mobile to reduce performance overhead
+    // Enable tilt effects on mobile
     const isMobile = window.innerWidth <= 768;
     if (isMobile && !enableMobileTilt) return;
 
@@ -269,12 +269,10 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
       }
     };
 
-    // Only add hover effects on desktop
-    if (!isMobile) {
-      card.addEventListener("pointerenter", pointerEnterHandler);
-      card.addEventListener("pointermove", pointerMoveHandler);
-      card.addEventListener("pointerleave", pointerLeaveHandler);
-    }
+    // Add hover effects (enabled for mobile now)
+    card.addEventListener("pointerenter", pointerEnterHandler);
+    card.addEventListener("pointermove", pointerMoveHandler);
+    card.addEventListener("pointerleave", pointerLeaveHandler);
     card.addEventListener("click", handleClick);
 
     const initialX = wrap.clientWidth - ANIMATION_CONFIG.INITIAL_X_OFFSET;
@@ -290,11 +288,9 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
     );
 
     return () => {
-      if (!isMobile) {
-        card.removeEventListener("pointerenter", pointerEnterHandler);
-        card.removeEventListener("pointermove", pointerMoveHandler);
-        card.removeEventListener("pointerleave", pointerLeaveHandler);
-      }
+      card.removeEventListener("pointerenter", pointerEnterHandler);
+      card.removeEventListener("pointermove", pointerMoveHandler);
+      card.removeEventListener("pointerleave", pointerLeaveHandler);
       card.removeEventListener("click", handleClick);
       window.removeEventListener("deviceorientation", deviceOrientationHandler);
       animationHandlers.cancelAnimation();
