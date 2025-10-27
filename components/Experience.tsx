@@ -32,11 +32,12 @@ export function Experience() {
   };
 
   const statsIcons = [
-    <Calendar className="w-6 h-6" />,
-    <Building2 className="w-6 h-6" />,
-    <Award className="w-6 h-6" />,
-    <Code className="w-6 h-6" />,
+    <Calendar key="calendar" className="w-6 h-6" />,
+    <Building2 key="building2" className="w-6 h-6" />,
+    <Award key="award" className="w-6 h-6" />,
+    <Code key="code" className="w-6 h-6" />,
   ];
+
 
   const statsColors = [
     "text-foreground",
@@ -45,7 +46,10 @@ export function Experience() {
     "text-foreground",
   ];
   return (
-    <section id="experience" className="py-20 lg:py-32 bg-muted/30">
+    <section
+      id="experience"
+      className="py-20 lg:py-32 bg-muted/30 w-full overflow-x-hidden"
+    >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}

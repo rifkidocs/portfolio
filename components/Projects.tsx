@@ -48,7 +48,10 @@ export function Projects() {
 
   return (
     <>
-      <section id="projects" className="py-20 lg:py-32 relative">
+      <section
+        id="projects"
+        className="py-20 lg:py-32 relative w-full overflow-x-hidden"
+      >
         <div className="container mx-auto px-4 lg:px-8">
           <div className="max-w-7xl mx-auto">
             {/* Section Header */}

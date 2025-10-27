@@ -173,7 +173,10 @@ const techLogos = [
 
 export function Skills() {
   return (
-    <section id="skills" className="py-20 lg:py-32 bg-muted/30">
+    <section
+      id="skills"
+      className="py-20 lg:py-32 bg-muted/30 w-full overflow-x-hidden"
+    >
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}

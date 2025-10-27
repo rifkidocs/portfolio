@@ -218,7 +218,7 @@ export const personalInfo = {
   location: "Jakarta, Indonesia",
   email: "rifki@example.com",
   phone: "+62 812-3456-7890",
-  bio: "Passionate fullstack developer with 5+ years of experience building scalable web applications. I love creating innovative solutions and learning new technologies.",
+  bio: "Passionate fullstack developer with 2+ years of experience building scalable web applications. I love creating innovative solutions and learning new technologies.",
   avatar: "/api/placeholder/300/300",
   resumeUrl: "/resume.pdf",
 };

@@ -75,7 +75,7 @@ export function Sidebar() {
           <Button
             variant="ghost"
             size="sm"
-            className="fixed top-4 left-4 z-50 lg:hidden"
+            className="fixed top-4 left-4 z-50 lg:hidden max-w-[calc(100vw-2rem)]"
           >
             <Menu className="h-6 w-6" />
             <span className="sr-only">Open sidebar</span>
