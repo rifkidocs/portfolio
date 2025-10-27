@@ -177,14 +177,11 @@ export function Skills() {
       id="skills"
       className="py-20 lg:py-32 bg-muted/30 w-full overflow-x-hidden relative"
     >
-      {/* Grid pattern background */}
+      {/* Dot pattern background */}
       <div
-        className="absolute inset-0 opacity-20 pointer-events-none z-0"
+        className="absolute inset-0 opacity-40 pointer-events-none z-0"
         style={{
-          backgroundImage: `
-            linear-gradient(to right, rgba(128, 128, 128, 0.1) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(128, 128, 128, 0.1) 1px, transparent 1px)
-          `,
+          backgroundImage: `radial-gradient(circle, rgba(128, 128, 128, 0.3) 1px, transparent 1px)`,
           backgroundSize: "20px 20px",
         }}
       />
