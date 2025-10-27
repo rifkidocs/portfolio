@@ -3,9 +3,25 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { Home, User, Code, Briefcase, Building2, Mail } from "lucide-react";
+import {
+  Home,
+  User,
+  Code,
+  Briefcase,
+  Building2,
+  Mail,
+  Menu,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import GlassSurface from "./GlassSurface";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 
 const navigation = [
   { name: "Home", href: "#home", icon: <Home className="w-4 h-4" /> },
@@ -26,6 +42,7 @@ const navigation = [
 
 export function Navbar() {
   const [activeSection, setActiveSection] = React.useState("home");
+  const [isOpen, setIsOpen] = React.useState(false);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -50,21 +67,100 @@ export function Navbar() {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
+    setIsOpen(false);
   };
 
   return (
     <>
       {/* Mobile Layout - Full Width */}
-      <nav className="fixed top-0 left-0 right-0 z-50 lg:hidden bg-background/80 backdrop-blur-md border-b border-border w-screen overflow-x-hidden">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-end h-16">
-            {/* Mobile Theme Toggle */}
-            <div className="flex items-center">
-              <ThemeToggle />
+      <motion.nav
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="fixed top-5 left-0 right-0 z-50 lg:hidden w-screen overflow-x-hidden"
+      >
+        <div className="flex justify-center px-4">
+          <GlassSurface
+            width="100%"
+            height={64}
+            borderRadius={20}
+            displace={10}
+            brightness={55}
+            opacity={0.88}
+            style={{
+              maxWidth: "600px",
+              width: "100%",
+            }}
+          >
+            <div className="w-full h-full flex items-center justify-between px-6">
+              {/* Mobile Hamburger Menu */}
+              <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="sm" className="lg:hidden">
+                    <Menu className="h-5 w-5" />
+                    <span className="sr-only">Open menu</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent
+                  side="left"
+                  className="w-64 p-0 [&>button]:hidden bg-background/80 backdrop-blur-xl border-r backdrop-saturate-150"
+                  style={{
+                    boxShadow:
+                      "inset 0 1px 0 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 0 rgba(255, 255, 255, 0.05)",
+                  }}
+                >
+                  <SheetHeader className="p-4 border-b border-border/30">
+                    <SheetTitle className="text-xl font-bold">
+                      Navigation Menu
+                    </SheetTitle>
+                  </SheetHeader>
+                  <div className="flex flex-col h-full">
+                    <div className="flex items-center justify-between p-4 border-b border-border/30">
+                      <h2 className="text-lg font-semibold">Rifki</h2>
+                      <ThemeToggle />
+                    </div>
+                    <nav className="flex-1 px-2 py-4 space-y-1">
+                      {navigation.map((item) => (
+                        <button
+                          key={item.name}
+                          onClick={() => scrollToSection(item.href)}
+                          className={cn(
+                            "group flex items-center px-2 py-2 text-sm font-medium rounded-md w-full text-left transition-colors space-x-3",
+                            activeSection === item.href.substring(1)
+                              ? "bg-accent/50 text-accent-foreground backdrop-blur-sm"
+                              : "text-foreground hover:bg-accent/30 hover:text-accent-foreground"
+                          )}
+                        >
+                          <span
+                            className={cn(
+                              activeSection === item.href.substring(1)
+                                ? "text-accent-foreground"
+                                : "text-foreground group-hover:text-accent-foreground"
+                            )}
+                          >
+                            {item.icon}
+                          </span>
+                          <span>{item.name}</span>
+                        </button>
+                      ))}
+                    </nav>
+                  </div>
+                </SheetContent>
+              </Sheet>
+
+              {/* Mobile Logo */}
+              <div className="flex items-center">
+                <h1 className="text-lg font-bold text-foreground">Rifki</h1>
+              </div>
+
+              {/* Mobile Theme Toggle */}
+              <div className="flex items-center">
+                <ThemeToggle />
+              </div>
             </div>
-          </div>
+          </GlassSurface>
         </div>
-      </nav>
+      </motion.nav>
 
       {/* Desktop Layout - Notch Style with Glass Surface */}
       <motion.nav
