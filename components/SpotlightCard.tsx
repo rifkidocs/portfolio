@@ -22,10 +22,24 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
   const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
   const [opacity, setOpacity] = useState<number>(0);
   const [isDark, setIsDark] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    
+
+    // Check if mobile
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+
+    const handleResize = () => {
+      checkMobile();
+    };
+
+    window.addEventListener("resize", handleResize);
+
     const checkDarkMode = () => {
       const isDarkMode = document.documentElement.classList.contains("dark");
       setIsDark(isDarkMode);
@@ -38,31 +52,38 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
       attributeFilter: ["class"],
     });
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const handleMouseMove: React.MouseEventHandler<HTMLDivElement> = (e) => {
-    if (!divRef.current || isFocused) return;
+    if (!divRef.current || isFocused || isMobile) return;
 
     const rect = divRef.current.getBoundingClientRect();
     setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
 
   const handleFocus = () => {
+    if (isMobile) return;
     setIsFocused(true);
     setOpacity(0.6);
   };
 
   const handleBlur = () => {
+    if (isMobile) return;
     setIsFocused(false);
     setOpacity(0);
   };
 
   const handleMouseEnter = () => {
+    if (isMobile) return;
     setOpacity(0.6);
   };
 
   const handleMouseLeave = () => {
+    if (isMobile) return;
     setOpacity(0);
   };
 
@@ -76,17 +97,19 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
       onMouseLeave={handleMouseLeave}
       className={`relative rounded-3xl border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-900 overflow-hidden p-8 ${className}`}
     >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out"
-        style={{
-          opacity,
-          background: `radial-gradient(circle at ${position.x}px ${
-            position.y
-          }px, ${
-            isDark ? spotlightColor : lightSpotlightColor
-          }, transparent 80%)`,
-        }}
-      />
+      {!isMobile && (
+        <div
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out"
+          style={{
+            opacity,
+            background: `radial-gradient(circle at ${position.x}px ${
+              position.y
+            }px, ${
+              isDark ? spotlightColor : lightSpotlightColor
+            }, transparent 80%)`,
+          }}
+        />
+      )}
       {children}
     </div>
   );

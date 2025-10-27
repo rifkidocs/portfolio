@@ -148,11 +148,6 @@ export function Navbar() {
                 </SheetContent>
               </Sheet>
 
-              {/* Mobile Logo */}
-              <div className="flex items-center">
-                <h1 className="text-lg font-bold text-foreground">Rifki</h1>
-              </div>
-
               {/* Mobile Theme Toggle */}
               <div className="flex items-center">
                 <ThemeToggle />
