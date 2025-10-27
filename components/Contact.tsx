@@ -2,50 +2,20 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Send, Github, Linkedin } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Github,
+  Linkedin,
+  Instagram,
+  MessageCircle,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+import { Card, CardContent } from "@/components/ui/card";
 import { personalInfo, socialLinks } from "@/lib/data";
 
 export function Contact() {
-  const [formData, setFormData] = React.useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const [isSubmitted, setIsSubmitted] = React.useState(false);
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: "", email: "", message: "" });
-    }, 3000);
-  };
-
   const contactInfo = [
     {
       icon: <Mail className="w-5 h-5" />,
@@ -67,10 +37,27 @@ export function Contact() {
     },
   ];
 
+  const getSocialIcon = (name: string) => {
+    switch (name) {
+      case "GitHub":
+        return <Github className="w-5 h-5" />;
+      case "LinkedIn":
+        return <Linkedin className="w-5 h-5" />;
+      case "Instagram":
+        return <Instagram className="w-5 h-5" />;
+      case "Discord":
+        return <MessageCircle className="w-5 h-5" />;
+      case "Email":
+        return <Mail className="w-5 h-5" />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <section id="contact" className="py-20 lg:py-32 w-full overflow-x-hidden">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -89,26 +76,20 @@ export function Contact() {
             </p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Information */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="space-y-8"
-            >
-              <div>
-                <h3 className="text-2xl font-bold mb-6">Let&apos;s Connect</h3>
-                <p className="text-muted-foreground leading-relaxed mb-8">
-                  I&apos;m always interested in new opportunities and exciting
-                  projects. Whether you have a question or just want to say hi,
-                  feel free to reach out!
-                </p>
-              </div>
-
-              {/* Contact Details */}
-              <div className="space-y-4">
+          {/* Contact Information */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="space-y-12"
+          >
+            {/* Contact Details */}
+            <div>
+              <h3 className="text-2xl font-bold mb-6 text-center">
+                Contact Information
+              </h3>
+              <div className="grid md:grid-cols-3 gap-4">
                 {contactInfo.map((info, index) => (
                   <motion.div
                     key={info.label}
@@ -117,17 +98,17 @@ export function Contact() {
                     transition={{ duration: 0.4, delay: index * 0.1 }}
                     viewport={{ once: true }}
                   >
-                    <Card>
-                      <CardContent className="p-4">
-                        <div className="flex items-center space-x-3">
-                          <div className="bg-foreground p-2 rounded-lg">
+                    <Card className="h-full hover:shadow-lg transition-shadow">
+                      <CardContent className="p-6">
+                        <div className="flex flex-col items-center text-center space-y-3">
+                          <div className="bg-foreground p-3 rounded-lg">
                             <div className="text-background">{info.icon}</div>
                           </div>
                           <div>
-                            <p className="font-medium">{info.label}</p>
+                            <p className="font-medium mb-1">{info.label}</p>
                             <a
                               href={info.href}
-                              className="text-muted-foreground hover:text-primary transition-colors"
+                              className="text-sm text-muted-foreground hover:text-primary transition-colors break-all"
                             >
                               {info.value}
                             </a>
@@ -138,146 +119,64 @@ export function Contact() {
                   </motion.div>
                 ))}
               </div>
+            </div>
 
-              {/* Social Links */}
-              <div>
-                <h4 className="text-lg font-semibold mb-4">Follow Me</h4>
-                <div className="flex space-x-4">
-                  {socialLinks.map((social, index) => (
-                    <motion.div
-                      key={social.name}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.4, delay: index * 0.1 }}
-                      viewport={{ once: true }}
+            {/* Social Links */}
+            <div>
+              <h4 className="text-2xl font-bold mb-8 text-center">
+                Let&apos;s Connect
+              </h4>
+              <div className="flex flex-wrap justify-center gap-4">
+                {socialLinks.map((social, index) => (
+                  <motion.div
+                    key={social.name}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
+                    <Button
+                      variant="outline"
+                      size="lg"
+                      asChild
+                      className="hover:scale-110 transition-transform h-auto py-4 px-6"
                     >
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        asChild
-                        className="hover:scale-110 transition-transform"
+                      <a
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex flex-col items-center space-y-2"
                       >
-                        <a
-                          href={social.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={social.name}
-                        >
-                          {social.name === "GitHub" && (
-                            <div className="bg-foreground p-1 rounded">
-                              <Github className="w-4 h-4 text-background" />
-                            </div>
-                          )}
-                          {social.name === "LinkedIn" && (
-                            <div className="bg-foreground p-1 rounded">
-                              <Linkedin className="w-4 h-4 text-background" />
-                            </div>
-                          )}
-                          {social.name === "Email" && (
-                            <div className="bg-foreground p-1 rounded">
-                              <Mail className="w-4 h-4 text-background" />
-                            </div>
-                          )}
-                        </a>
-                      </Button>
-                    </motion.div>
-                  ))}
-                </div>
+                        <div className="bg-foreground p-2 rounded">
+                          <div className="text-background">
+                            {getSocialIcon(social.name)}
+                          </div>
+                        </div>
+                        <span className="text-sm font-medium">
+                          {social.name}
+                        </span>
+                      </a>
+                    </Button>
+                  </motion.div>
+                ))}
               </div>
-            </motion.div>
+            </div>
 
-            {/* Contact Form */}
+            {/* Additional Info */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
+              className="text-center"
             >
-              <Card>
-                <CardHeader>
-                  <CardTitle>Send me a message</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {isSubmitted ? (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="text-center py-8"
-                    >
-                      <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Send className="w-8 h-8" />
-                      </div>
-                      <h3 className="text-xl font-semibold mb-2">
-                        Message Sent!
-                      </h3>
-                      <p className="text-muted-foreground">
-                        Thank you for reaching out. I&apos;ll get back to you
-                        soon!
-                      </p>
-                    </motion.div>
-                  ) : (
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Name</Label>
-                        <Input
-                          id="name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          placeholder="Your name"
-                          required
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email</Label>
-                        <Input
-                          id="email"
-                          name="email"
-                          type="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          placeholder="your.email@example.com"
-                          required
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="message">Message</Label>
-                        <Textarea
-                          id="message"
-                          name="message"
-                          value={formData.message}
-                          onChange={handleInputChange}
-                          placeholder="Tell me about your project..."
-                          rows={6}
-                          required
-                        />
-                      </div>
-                      <Button
-                        type="submit"
-                        size="lg"
-                        className="w-full bg-foreground text-background hover:bg-foreground/90 border-0"
-                        disabled={isSubmitting}
-                      >
-                        {isSubmitting ? (
-                          <>
-                            <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin mr-2" />
-                            Sending...
-                          </>
-                        ) : (
-                          <>
-                            <div className="bg-white/20 p-1 rounded mr-2">
-                              <Send className="w-4 h-4" />
-                            </div>
-                            Send Message
-                          </>
-                        )}
-                      </Button>
-                    </form>
-                  )}
-                </CardContent>
-              </Card>
+              <p className="text-muted-foreground">
+                Feel free to reach out through any of the platforms above.
+                I&apos;m always open to discussing new projects, opportunities,
+                or just having a chat!
+              </p>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

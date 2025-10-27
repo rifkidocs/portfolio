@@ -16,6 +16,7 @@ export interface Experience {
   duration: string;
   description: string[];
   current: boolean;
+  type?: "fulltime" | "intern" | "freelance";
 }
 
 export interface Skill {
@@ -108,55 +109,45 @@ export const projects: Project[] = [
 export const experiences: Experience[] = [
   {
     id: "1",
-    company: "TechCorp Solutions",
-    position: "Senior Fullstack Developer",
-    duration: "2022 - Present",
+    company: "Juragan Karya Digital Teknologi",
+    position: "Solo Full Stack Developer",
+    duration: "Jul 2023 - Present",
     description: [
-      "Led development of microservices architecture serving 100k+ users",
-      "Implemented CI/CD pipelines reducing deployment time by 60%",
-      "Mentored junior developers and conducted code reviews",
-      "Optimized database queries improving application performance by 40%",
+      "Developed and maintained full-stack web applications independently",
+      "Architected and implemented scalable solutions using modern web technologies",
+      "Managed entire project lifecycle from design to deployment",
+      "Collaborated with stakeholders to deliver high-quality products",
     ],
     current: true,
+    type: "freelance",
   },
   {
     id: "2",
-    company: "StartupXYZ",
-    position: "Fullstack Developer",
-    duration: "2020 - 2022",
+    company: "Webifyaja",
+    position: "Full Stack Developer",
+    duration: "Jun 2023 - Present",
     description: [
-      "Built scalable web applications using React and Node.js",
-      "Integrated third-party APIs and payment gateways",
-      "Collaborated with design team to implement responsive UIs",
-      "Developed RESTful APIs and GraphQL endpoints",
+      "Collaborated with team to build responsive web applications",
+      "Developed and integrated RESTful APIs and backend services",
+      "Implemented frontend features using modern frameworks",
+      "Contributed to code reviews and maintained high code quality standards",
     ],
-    current: false,
+    current: true,
+    type: "freelance",
   },
   {
     id: "3",
-    company: "WebDev Agency",
-    position: "Frontend Developer",
-    duration: "2019 - 2020",
+    company: "Infinite Learning Indonesia",
+    position: "Android Mobile Application Development",
+    duration: "Aug 2023 - Dec 2023",
     description: [
-      "Created responsive websites for various clients",
-      "Implemented modern CSS frameworks and JavaScript libraries",
-      "Optimized websites for SEO and performance",
-      "Collaborated with backend developers for API integration",
+      "Developed Android mobile applications using Java and Kotlin",
+      "Implemented UI/UX designs and integrated REST APIs",
+      "Collaborated with senior developers to learn best practices",
+      "Participated in code reviews and followed Android development guidelines",
     ],
     current: false,
-  },
-  {
-    id: "4",
-    company: "Freelance",
-    position: "Web Developer",
-    duration: "2018 - 2019",
-    description: [
-      "Developed custom websites for small businesses",
-      "Provided technical consulting and maintenance services",
-      "Worked with various CMS platforms and e-commerce solutions",
-      "Managed client relationships and project timelines",
-    ],
-    current: false,
+    type: "intern",
   },
 ];
 
@@ -203,17 +194,27 @@ export const skills: Skill[] = [
 export const socialLinks: SocialLink[] = [
   {
     name: "GitHub",
-    url: "https://github.com/rifki",
+    url: "https://github.com/rifkidocs",
     icon: "github",
   },
   {
     name: "LinkedIn",
-    url: "https://linkedin.com/in/rifki",
+    url: "https://www.linkedin.com/in/rifkiars",
     icon: "linkedin",
   },
   {
+    name: "Instagram",
+    url: "https://www.instagram.com/rifkithears/",
+    icon: "instagram",
+  },
+  {
+    name: "Discord",
+    url: "https://discord.com/users/rifkithears",
+    icon: "message-circle",
+  },
+  {
     name: "Email",
-    url: "mailto:rifki@example.com",
+    url: "mailto:rifkidocs@gmail.com",
     icon: "mail",
   },
 ];
@@ -221,9 +222,9 @@ export const socialLinks: SocialLink[] = [
 export const personalInfo = {
   name: "M. Rifki Ardiansah",
   title: "Fullstack Web Developer",
-  location: "Jakarta, Indonesia",
-  email: "rifki@example.com",
-  phone: "+62 812-3456-7890",
+  location: "Lamongan, Jawa Timur, Indonesia",
+  email: "rifkidocs@gmail.com",
+  phone: "+62 85158912877",
   bio: "Passionate fullstack developer with 2+ years of experience building scalable web applications. I love creating innovative solutions and learning new technologies.",
   avatar: "/api/placeholder/300/300",
   resumeUrl: "/resume.pdf",

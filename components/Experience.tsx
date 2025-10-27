@@ -2,33 +2,17 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Building2,
-  Briefcase,
-  GraduationCap,
-  User,
-  Calendar,
-  Users,
-  Award,
-  Code,
-} from "lucide-react";
+import { Building2, Calendar, Award, Code } from "lucide-react";
 import { experiences } from "@/lib/data";
 
 export function Experience() {
-  const companyIcons = {
-    "TechCorp Solutions": <Building2 className="w-5 h-5" />,
-    StartupXYZ: <Briefcase className="w-5 h-5" />,
-    "WebDev Agency": <Code className="w-5 h-5" />,
-    Freelance: <User className="w-5 h-5" />,
-  };
-
-  const positionIcons = {
-    "Senior Fullstack Developer": <Award className="w-4 h-4" />,
-    "Fullstack Developer": <Code className="w-4 h-4" />,
-    "Frontend Developer": <Code className="w-4 h-4" />,
-    "Web Developer": <Code className="w-4 h-4" />,
+  const companyLogos = {
+    "Juragan Karya Digital Teknologi": "/juraganit.jpg",
+    Webifyaja: "/webifyaja.jpg",
+    "Infinite Learning Indonesia": "/infinite-learning.png",
   };
 
   const statsIcons = [
@@ -37,7 +21,6 @@ export function Experience() {
     <Award key="award" className="w-6 h-6" />,
     <Code key="code" className="w-6 h-6" />,
   ];
-
 
   const statsColors = [
     "text-foreground",
@@ -100,23 +83,38 @@ export function Experience() {
                       <CardContent className="p-6">
                         <div className="flex items-start justify-between mb-4">
                           <div className="flex items-center space-x-3">
-                            <div className="bg-foreground p-2 rounded-lg">
-                              {companyIcons[
-                                experience.company as keyof typeof companyIcons
-                              ] || (
-                                <Building2 className="w-5 h-5 text-background" />
+                            <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-white border border-border shadow-sm">
+                              {companyLogos[
+                                experience.company as keyof typeof companyLogos
+                              ] ? (
+                                <Image
+                                  src={
+                                    companyLogos[
+                                      experience.company as keyof typeof companyLogos
+                                    ]
+                                  }
+                                  alt={experience.company}
+                                  fill
+                                  className="object-contain p-2"
+                                  sizes="48px"
+                                />
+                              ) : (
+                                <Building2 className="w-5 h-5 text-foreground" />
                               )}
                             </div>
-                            <div>
+                            <div className="flex-1">
                               <h3 className="text-xl font-bold">
                                 {experience.position}
                               </h3>
                               <p className="text-lg text-primary font-semibold">
                                 {experience.company}
                               </p>
+                              <p className="text-sm text-muted-foreground">
+                                {experience.duration}
+                              </p>
                             </div>
                           </div>
-                          <div className="text-right">
+                          <div className="text-right flex flex-col items-end gap-2">
                             <Badge
                               variant={
                                 experience.current ? "default" : "secondary"
@@ -124,9 +122,24 @@ export function Experience() {
                             >
                               {experience.current ? "Current" : "Previous"}
                             </Badge>
-                            <p className="text-sm text-muted-foreground mt-1">
-                              {experience.duration}
-                            </p>
+                            {experience.type && (
+                              <Badge
+                                variant="outline"
+                                className={`${
+                                  experience.type === "intern"
+                                    ? "border-blue-500 text-blue-500"
+                                    : experience.type === "freelance"
+                                    ? "border-orange-500 text-orange-500"
+                                    : "border-green-500 text-green-500"
+                                }`}
+                              >
+                                {experience.type === "intern"
+                                  ? "Intern"
+                                  : experience.type === "freelance"
+                                  ? "Freelance"
+                                  : "Full Time"}
+                              </Badge>
+                            )}
                           </div>
                         </div>
 
@@ -167,8 +180,8 @@ export function Experience() {
             className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6"
           >
             {[
-              { label: "Years Experience", value: "5+" },
-              { label: "Companies", value: "4" },
+              { label: "Years Experience", value: "2+" },
+              { label: "Companies", value: "3" },
               { label: "Projects Completed", value: "50+" },
               { label: "Technologies", value: "20+" },
             ].map((stat, index) => (
