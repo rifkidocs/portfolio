@@ -5,7 +5,7 @@ export interface Project {
   image: string;
   techStack: string[];
   liveUrl?: string;
-  githubUrl: string;
+  githubUrl?: string;
   featured: boolean;
 }
 
@@ -33,24 +33,31 @@ export interface SocialLink {
 export const projects: Project[] = [
   {
     id: "1",
-    title: "E-Commerce Platform",
+    title: "PT Bumi Suksesindo - Corporate Website",
     description:
-      "A full-stack e-commerce platform built with Next.js, featuring user authentication, payment integration, and admin dashboard.",
-    image: "/api/placeholder/600/400",
-    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Stripe", "MongoDB"],
-    liveUrl: "https://ecommerce-demo.vercel.app",
-    githubUrl: "https://github.com/rifki/ecommerce-platform",
+      "I developed a corporate website for PT Bumi Suksesindo (BSI), a gold mining company managing the Tujuh Bukit mine in Banyuwangi, East Java. I built this website featuring company information, sustainability programs, career opportunities, and news updates, using WordPress with premium plugins.",
+    image: "/bumisuksesindo.png",
+    techStack: ["WordPress", "PHP", "Premium Plugins", "MySQL"],
+    liveUrl: "https://bumisuksesindo.com/",
     featured: true,
   },
   {
     id: "2",
-    title: "Task Management App",
+    title: "Sikader - Sistem Informasi Kaderisasi",
     description:
-      "A collaborative task management application with real-time updates, team collaboration features, and project tracking.",
-    image: "/api/placeholder/600/400",
-    techStack: ["React", "Node.js", "Socket.io", "PostgreSQL", "Redis"],
-    liveUrl: "https://taskmanager-demo.vercel.app",
-    githubUrl: "https://github.com/rifki/task-manager",
+      "I developed a cadre information management system (Sikader) for PC IPNU IPPNU Babat. This system features one of its MVP functionalities - dynamic E-Certificate generation. The platform allows organizations to manage cadre data, generate certificates automatically with participant data, and track certificate issuance history. Built with modern web technologies including Firebase for real-time database and authentication.",
+    image: "/sikader.png",
+    techStack: [
+      "Next.js",
+      "React",
+      "Firebase",
+      "TypeScript",
+      "Tailwind CSS",
+      "NextUI",
+      "docx",
+      "jspdf",
+    ],
+    liveUrl: "https://sikader.vercel.app",
     featured: true,
   },
   {
@@ -66,13 +73,12 @@ export const projects: Project[] = [
   },
   {
     id: "4",
-    title: "Social Media Analytics",
+    title: "Greezma - UKM Jurnalistik UNISLA",
     description:
-      "Analytics dashboard for social media metrics with data visualization, reporting, and insights.",
-    image: "/api/placeholder/600/400",
-    techStack: ["Next.js", "D3.js", "Python", "FastAPI", "Docker"],
-    liveUrl: "https://social-analytics-demo.vercel.app",
-    githubUrl: "https://github.com/rifki/social-analytics",
+      "I built the official website for UKM Jurnalistik (Student Journalism Organization) of Universitas Islam Lamongan. I developed this modern news platform featuring articles, campus news, achievements, and religious content with a fully responsive design and a powerful content management system powered by Strapi.",
+    image: "/greezma.png",
+    techStack: ["Next.js", "TypeScript", "Strapi", "Tailwind CSS", "React"],
+    liveUrl: "https://greezma.com/",
     featured: true,
   },
   {

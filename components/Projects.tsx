@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ExternalLink,
@@ -86,41 +87,55 @@ export function Projects() {
                     onClick={() => openProjectDialog(project)}
                   >
                     {/* Project Image/Preview */}
-                    <div className="relative aspect-video bg-linear-to-br from-primary/10 to-primary/5 overflow-hidden">
-                      {/* Animated Background Pattern */}
-                      <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjAuNSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')]"></div>
-                      </div>
-
-                      {/* Project Icon */}
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <motion.div
-                          className="relative z-10"
-                          whileHover={{ scale: 1.1 }}
-                          transition={{ type: "spring", stiffness: 300 }}
-                        >
-                          <div className="bg-foreground p-6 rounded-2xl shadow-2xl">
-                            <Eye className="w-12 h-12 mx-auto text-background" />
+                    <div className="relative aspect-video bg-linear-to-br from-primary/10 to-primary/5 overflow-hidden rounded-t-lg">
+                      {project.image &&
+                      project.image !== "/api/placeholder/600/400" ? (
+                        <>
+                          <Image
+                            src={project.image}
+                            alt={project.title}
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                          {/* Overlay on Hover */}
+                          <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </>
+                      ) : (
+                        <>
+                          {/* Animated Background Pattern */}
+                          <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity">
+                            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjAuNSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')]"></div>
                           </div>
-                        </motion.div>
-                      </div>
 
-                      {/* Overlay on Hover */}
-                      <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          {/* Project Icon */}
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <motion.div
+                              className="relative z-10"
+                              whileHover={{ scale: 1.1 }}
+                              transition={{ type: "spring", stiffness: 300 }}
+                            >
+                              <div className="bg-foreground p-6 rounded-2xl shadow-2xl">
+                                <Eye className="w-12 h-12 mx-auto text-background" />
+                              </div>
+                            </motion.div>
+                          </div>
+
+                          {/* Overlay on Hover */}
+                          <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </>
+                      )}
 
                       {/* Tech Stack Preview */}
-                      <div className="absolute bottom-4 left-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        {project.techStack
-                          .slice(0, 3)
-                          .map((tech, techIndex) => (
-                            <Badge
-                              key={tech}
-                              variant="secondary"
-                              className="backdrop-blur-sm bg-background/80"
-                            >
-                              {tech}
-                            </Badge>
-                          ))}
+                      <div className="absolute bottom-4 left-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                        {project.techStack.slice(0, 3).map((tech) => (
+                          <Badge
+                            key={tech}
+                            variant="secondary"
+                            className="backdrop-blur-sm bg-background/80"
+                          >
+                            {tech}
+                          </Badge>
+                        ))}
                       </div>
                     </div>
 
@@ -177,18 +192,20 @@ export function Projects() {
                             Live Demo
                           </Button>
                         )}
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="flex-1"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            window.open(project.githubUrl, "_blank");
-                          }}
-                        >
-                          <Github className="w-4 h-4 mr-2" />
-                          Code
-                        </Button>
+                        {project.githubUrl && (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="flex-1"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(project.githubUrl, "_blank");
+                            }}
+                          >
+                            <Github className="w-4 h-4 mr-2" />
+                            Code
+                          </Button>
+                        )}
                       </div>
                     </CardContent>
                   </Card>
@@ -220,12 +237,22 @@ export function Projects() {
                         className="h-full group hover:shadow-xl transition-all duration-300 cursor-pointer border-2 hover:border-primary/10"
                         onClick={() => openProjectDialog(project)}
                       >
-                        <div className="aspect-video bg-linear-to-br from-primary/10 to-primary/5 relative overflow-hidden">
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="bg-foreground p-4 rounded-xl">
-                              <Eye className="w-8 h-8 text-background" />
+                        <div className="aspect-video bg-linear-to-br from-primary/10 to-primary/5 relative overflow-hidden rounded-t-lg">
+                          {project.image &&
+                          project.image !== "/api/placeholder/600/400" ? (
+                            <Image
+                              src={project.image}
+                              alt={project.title}
+                              fill
+                              className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                          ) : (
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <div className="bg-foreground p-4 rounded-xl">
+                                <Eye className="w-8 h-8 text-background" />
+                              </div>
                             </div>
-                          </div>
+                          )}
                         </div>
                         <CardContent className="p-4 space-y-3">
                           <h4 className="font-semibold text-lg group-hover:text-primary transition-colors">
@@ -306,20 +333,36 @@ export function Projects() {
                 {/* Dialog Content */}
                 <div className="overflow-y-auto max-h-[90vh]">
                   {/* Header Image */}
-                  <div className="relative h-64 bg-linear-to-br from-primary/20 to-primary/5">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="bg-foreground p-8 rounded-2xl shadow-xl">
-                        <Eye className="w-16 h-16 text-background" />
+                  {selectedProject.image &&
+                  selectedProject.image !== "/api/placeholder/600/400" ? (
+                    <div className="w-full flex justify-center bg-linear-to-br from-primary/20 to-primary/5 overflow-hidden">
+                      <div className="relative w-full max-h-[60vh]">
+                        <Image
+                          src={selectedProject.image}
+                          alt={selectedProject.title}
+                          width={1200}
+                          height={675}
+                          className="w-full h-auto object-contain"
+                          priority
+                        />
                       </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="relative h-64 w-full bg-linear-to-br from-primary/20 to-primary/5 overflow-hidden">
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="bg-foreground p-8 rounded-2xl shadow-xl">
+                          <Eye className="w-16 h-16 text-background" />
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Content */}
-                  <div className="p-8 space-y-6">
+                  <div className="p-4 sm:p-8 space-y-4 sm:space-y-6">
                     {/* Title and Badge */}
-                    <div className="flex items-start justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                       <div>
-                        <h2 className="text-3xl font-bold mb-2">
+                        <h2 className="text-2xl sm:text-3xl font-bold mb-2">
                           {selectedProject.title}
                         </h2>
                         <div className="flex items-center gap-2 text-muted-foreground text-sm">
@@ -330,7 +373,10 @@ export function Projects() {
                         </div>
                       </div>
                       {selectedProject.featured && (
-                        <Badge variant="secondary" className="text-sm">
+                        <Badge
+                          variant="secondary"
+                          className="text-sm self-start"
+                        >
                           Featured
                         </Badge>
                       )}
@@ -378,7 +424,7 @@ export function Projects() {
                       {selectedProject.liveUrl && (
                         <Button
                           size="lg"
-                          className="flex-1 bg-foreground text-background hover:bg-foreground/90"
+                          className="flex-1 py-3 bg-foreground text-background hover:bg-foreground/90"
                           asChild
                         >
                           <a
@@ -392,22 +438,24 @@ export function Projects() {
                           </a>
                         </Button>
                       )}
-                      <Button
-                        size="lg"
-                        variant="outline"
-                        className="flex-1"
-                        asChild
-                      >
-                        <a
-                          href={selectedProject.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                      {selectedProject.githubUrl && (
+                        <Button
+                          size="lg"
+                          variant="outline"
+                          className="flex-1 py-3"
+                          asChild
                         >
-                          <Github className="w-5 h-5 mr-2" />
-                          View Source Code
-                          <ExternalLink className="w-4 h-4 ml-2" />
-                        </a>
-                      </Button>
+                          <a
+                            href={selectedProject.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <Github className="w-5 h-5 mr-2" />
+                            View Source Code
+                            <ExternalLink className="w-4 h-4 ml-2" />
+                          </a>
+                        </Button>
+                      )}
                     </div>
                   </div>
                 </div>
