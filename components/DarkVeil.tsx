@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Renderer, Program, Mesh, Triangle, Vec2 } from "ogl";
 
 const vertex = `
@@ -93,9 +93,32 @@ export default function DarkVeil({
   resolutionScale = 1,
 }: Props) {
   const ref = useRef<HTMLCanvasElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
-    
+
+    // Check if mobile on mount
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+
+    // Listen for resize events
+    const handleResize = () => {
+      checkMobile();
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // If mobile, don't initialize the canvas
+    if (window.innerWidth < 768) {
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    }
+
     const canvas = ref.current as HTMLCanvasElement;
     const parent = canvas.parentElement as HTMLElement;
 
@@ -153,6 +176,7 @@ export default function DarkVeil({
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("resize", handleResize);
     };
   }, [
     hueShift,
@@ -163,5 +187,11 @@ export default function DarkVeil({
     warpAmount,
     resolutionScale,
   ]);
+
+  // Don't render canvas on mobile
+  if (isMobile) {
+    return null;
+  }
+
   return <canvas ref={ref} className="w-full h-full block" />;
 }
