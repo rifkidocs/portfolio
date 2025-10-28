@@ -43,12 +43,27 @@ const navigation = [
 export function Navbar() {
   const [activeSection, setActiveSection] = React.useState("home");
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isScrollingUp, setIsScrollingUp] = React.useState(true);
+  const [lastScrollY, setLastScrollY] = React.useState(0);
 
   React.useEffect(() => {
     const handleScroll = () => {
       const sections = navigation.map((nav) => nav.href.substring(1));
       const scrollPosition = window.scrollY + 100;
+      const currentScrollY = window.scrollY;
 
+      // Detect scroll direction
+      if (currentScrollY < lastScrollY) {
+        // Scrolling up
+        setIsScrollingUp(true);
+      } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Scrolling down
+        setIsScrollingUp(false);
+      }
+
+      setLastScrollY(currentScrollY);
+
+      // Set active section
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = document.getElementById(sections[i]);
         if (section && section.offsetTop <= scrollPosition) {
@@ -60,7 +75,7 @@ export function Navbar() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
@@ -74,13 +89,16 @@ export function Navbar() {
     <>
       {/* Mobile Layout - Full Width */}
       <motion.nav
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        initial={{ y: 0, opacity: 1 }}
+        animate={{
+          y: isScrollingUp ? 0 : -100,
+          opacity: isScrollingUp ? 1 : 0,
+        }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
         className="fixed top-5 left-0 right-0 z-50 lg:hidden w-screen overflow-x-hidden"
       >
         <div className="flex justify-center px-4">
-          <div className="w-full max-w-[600px] h-16 rounded-[20px] px-6 flex items-center justify-between bg-background/80 backdrop-blur-xl border border-border/30">
+          <div className="w-full max-w-[600px] h-16 rounded-[20px] px-6 flex items-center justify-between bg-background/95 backdrop-blur-xl border border-border/30">
             {/* Mobile Hamburger Menu */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
@@ -91,7 +109,7 @@ export function Navbar() {
               </SheetTrigger>
               <SheetContent
                 side="left"
-                className="w-64 p-0 [&>button]:hidden bg-background/80 backdrop-blur-xl border-r backdrop-saturate-150"
+                className="w-64 p-0 [&>button]:hidden bg-background/95 backdrop-blur-xl border-r backdrop-saturate-150"
                 style={{
                   boxShadow:
                     "inset 0 1px 0 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 0 rgba(255, 255, 255, 0.05)",
