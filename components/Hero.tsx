@@ -47,9 +47,9 @@ export function Hero() {
         {/* Base background color matching Hero */}
         <div className="absolute inset-0 bg-background" />
 
-        {/* Grid pattern for mobile */}
+        {/* Grid pattern for mobile and light mode desktop */}
         <div
-          className="absolute inset-0 opacity-30 md:opacity-0 lg:opacity-0"
+          className="absolute inset-0 opacity-30 md:opacity-30 lg:opacity-30 md:dark:opacity-0 lg:dark:opacity-0"
           style={{
             backgroundImage: `
               linear-gradient(to right, rgba(128, 128, 128, 0.1) 1px, transparent 1px),

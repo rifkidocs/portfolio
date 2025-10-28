@@ -9,8 +9,6 @@ import {
   Eye,
   Code2,
   Globe,
-  Database,
-  Zap,
   Calendar,
   X,
 } from "lucide-react";
@@ -37,14 +35,59 @@ export function Projects() {
     setIsDialogOpen(false);
   };
 
-  const techIcons = {
-    "Next.js": <Code2 className="w-4 h-4" />,
-    React: <Code2 className="w-4 h-4" />,
-    TypeScript: <Code2 className="w-4 h-4" />,
-    "Node.js": <Zap className="w-4 h-4" />,
-    MongoDB: <Database className="w-4 h-4" />,
-    PostgreSQL: <Database className="w-4 h-4" />,
-    "Tailwind CSS": <Globe className="w-4 h-4" />,
+  const techLogos: Record<string, string> = {
+    "Next.js":
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+    React:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    TypeScript:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+    JavaScript:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    "Node.js":
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    "Express.js":
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+    MongoDB:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+    PostgreSQL:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+    MySQL:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+    "Tailwind CSS": "https://api.iconify.design/simple-icons:tailwindcss.svg",
+    HTML: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+    CSS: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+    Python:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+    Firebase:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+    Strapi: "https://api.iconify.design/simple-icons:strapi.svg",
+    WordPress:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg",
+    PHP: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",
+    Django:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg",
+    AWS: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg",
+    Docker:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+    Git: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+    "Chart.js":
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chartjs/chartjs-original.svg",
+    PWA: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chrome/chrome-original.svg",
+    "Socket.io":
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/socketio/socketio-original.svg",
+    JWT: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jsonwebtokens/jsonwebtokens-original.svg",
+    MDX: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/markdown/markdown-original.svg",
+    Prisma:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg",
+    "OpenWeather API":
+      "https://api.iconify.design/simple-icons:openweathermap.svg",
+    NextUI: "https://nextui.org/favicon.ico",
+    docx: "https://api.iconify.design/simple-icons:microsoftword.svg",
+    jspdf:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    "Premium Plugins":
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg",
   };
 
   return (
@@ -175,7 +218,15 @@ export function Projects() {
                             variant="outline"
                             className="flex items-center gap-1.5"
                           >
-                            {techIcons[tech as keyof typeof techIcons] || (
+                            {techLogos[tech] ? (
+                              <Image
+                                src={techLogos[tech]}
+                                alt={tech}
+                                width={16}
+                                height={16}
+                                className="w-4 h-4"
+                              />
+                            ) : (
                               <Code2 className="w-3 h-3" />
                             )}
                             <span className="text-xs">{tech}</span>
@@ -419,9 +470,17 @@ export function Projects() {
                               variant="outline"
                               className="flex items-center gap-2 px-3 py-1.5 text-sm"
                             >
-                              <span className="bg-foreground text-background p-1 rounded">
-                                {techIcons[tech as keyof typeof techIcons] || (
-                                  <Code2 className="w-3 h-3" />
+                              <span className="bg-background p-1 rounded">
+                                {techLogos[tech] ? (
+                                  <Image
+                                    src={techLogos[tech]}
+                                    alt={tech}
+                                    width={18}
+                                    height={18}
+                                    className="w-4 h-4"
+                                  />
+                                ) : (
+                                  <Code2 className="w-4 h-4" />
                                 )}
                               </span>
                               <span>{tech}</span>
