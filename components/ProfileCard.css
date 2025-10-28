@@ -440,7 +440,11 @@
 }
 
 @media (max-width: 768px) {
-  /* Enable full effects on mobile */
+  /* Hide on mobile - use static version instead */
+  .pc-card-wrapper {
+    display: none;
+  }
+
   .pc-card {
     height: 70svh;
     max-height: 450px;

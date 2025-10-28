@@ -6,6 +6,7 @@ import { Code, Award, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { personalInfo } from "@/lib/data";
 import ProfileCard from "@/components/ProfileCard";
+import ProfileCardStatic from "@/components/ProfileCardStatic";
 import SpotlightCard from "@/components/SpotlightCard";
 
 export function About() {
@@ -62,6 +63,7 @@ export function About() {
               viewport={{ once: true }}
               className="flex justify-center"
             >
+              {/* Animated version for desktop */}
               <ProfileCard
                 name={"Rifki"}
                 title={personalInfo.title}
@@ -74,7 +76,25 @@ export function About() {
                 grainUrl="/grain.svg"
                 showUserInfo={true}
                 enableTilt={true}
-                enableMobileTilt={true}
+                enableMobileTilt={false}
+                onContactClick={() => {
+                  const contactSection = document.getElementById("contact");
+                  if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
+              />
+
+              {/* Static lightweight version for mobile */}
+              <ProfileCardStatic
+                name={"Rifki"}
+                title={personalInfo.title}
+                handle="rifkidocs"
+                status="Available for work"
+                contactText="Contact Me"
+                avatarUrl="/profile.png"
+                miniAvatarUrl="/foto.png"
+                showUserInfo={true}
                 onContactClick={() => {
                   const contactSection = document.getElementById("contact");
                   if (contactSection) {
