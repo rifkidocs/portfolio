@@ -90,8 +90,10 @@ export function Experience() {
                   >
                     <Card className="hover:shadow-lg transition-shadow">
                       <CardContent className="p-6">
-                        <div className="flex items-start justify-between mb-4">
-                          <div className="flex items-center space-x-3">
+                        {/* Mobile: Stack vertically, Desktop: Horizontal */}
+                        <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-4">
+                          {/* Logo and text - vertical on mobile, horizontal on desktop */}
+                          <div className="flex flex-col md:flex-row md:items-center md:space-x-3 gap-3 md:gap-0">
                             <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-white border border-border shadow-sm">
                               {companyLogos[
                                 experience.company as keyof typeof companyLogos
@@ -123,7 +125,8 @@ export function Experience() {
                               </p>
                             </div>
                           </div>
-                          <div className="text-right flex flex-col items-end gap-2">
+                          {/* Badges */}
+                          <div className="flex md:flex-col md:items-end gap-2">
                             <Badge
                               variant={
                                 experience.current ? "default" : "secondary"
@@ -190,8 +193,8 @@ export function Experience() {
           >
             {[
               { label: "Years Experience", value: "2+" },
-              { label: "Companies", value: "3" },
-              { label: "Projects Completed", value: "50+" },
+              { label: "Companies", value: "1" },
+              { label: "Projects Completed", value: "5+" },
               { label: "Technologies", value: "20+" },
             ].map((stat, index) => (
               <motion.div
