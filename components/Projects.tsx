@@ -54,14 +54,19 @@ export function Projects() {
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
     MySQL:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
-    "Tailwind CSS": "https://api.iconify.design/simple-icons:tailwindcss.svg",
+    "Tailwind CSS": "https://tailwindcss.com/favicons/favicon-32x32.png",
+    Tailwind: "https://tailwindcss.com/favicons/favicon-32x32.png",
     HTML: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
     CSS: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
     Python:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
     Firebase:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
-    Strapi: "https://api.iconify.design/simple-icons:strapi.svg",
+    Bootstrap:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg",
+    Vite: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg",
+    Strapi:
+      "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/strapi.png",
     WordPress:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg",
     PHP: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",
@@ -83,7 +88,7 @@ export function Projects() {
     "OpenWeather API":
       "https://api.iconify.design/simple-icons:openweathermap.svg",
     NextUI: "https://nextui.org/favicon.ico",
-    docx: "https://api.iconify.design/simple-icons:microsoftword.svg",
+    docx: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/microsoft-word.png",
     jspdf:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
     "Premium Plugins":
@@ -325,18 +330,29 @@ export function Projects() {
                             {project.description}
                           </p>
                           <div className="flex flex-wrap gap-1.5">
-                            {project.techStack.slice(0, 2).map((tech) => (
+                            {project.techStack.slice(0, 3).map((tech) => (
                               <Badge
                                 key={tech}
                                 variant="outline"
-                                className="text-xs"
+                                className="flex items-center gap-1.5 text-xs"
                               >
-                                {tech}
+                                {techLogos[tech] ? (
+                                  <Image
+                                    src={techLogos[tech]}
+                                    alt={tech}
+                                    width={14}
+                                    height={14}
+                                    className="w-3.5 h-3.5"
+                                  />
+                                ) : (
+                                  <Code2 className="w-3 h-3" />
+                                )}
+                                <span>{tech}</span>
                               </Badge>
                             ))}
-                            {project.techStack.length > 2 && (
+                            {project.techStack.length > 3 && (
                               <Badge variant="outline" className="text-xs">
-                                +{project.techStack.length - 2}
+                                +{project.techStack.length - 3}
                               </Badge>
                             )}
                           </div>

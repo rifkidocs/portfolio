@@ -12,6 +12,16 @@ import {
   Instagram,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
 import { personalInfo, socialLinks } from "@/lib/data";
 import DarkVeil from "./DarkVeil";
 
@@ -138,17 +148,31 @@ export function Hero() {
                 <Mail className="w-4 h-4 mr-2" />
                 Get In Touch
               </Button>
-              <Button
-                variant="ghost"
-                size="lg"
-                className="w-full sm:w-auto"
-                asChild
-              >
-                <a href={personalInfo.resumeUrl} download>
-                  <Download className="w-4 h-4 mr-2" />
-                  Download CV
-                </a>
-              </Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="lg"
+                    className="w-full sm:w-auto"
+                  >
+                    <Download className="w-4 h-4 mr-2" />
+                    Download CV
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Coming soon</DialogTitle>
+                    <DialogDescription>
+                      Resume is being updated. Please check back later.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <DialogFooter>
+                    <DialogClose asChild>
+                      <Button>OK</Button>
+                    </DialogClose>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
             </motion.div>
 
             {/* Social Links */}

@@ -194,7 +194,7 @@ export function Experience() {
             {[
               { label: "Years Experience", value: "2+" },
               { label: "Companies", value: "1" },
-              { label: "Projects Completed", value: "5+" },
+              { label: "Projects Completed", value: "10+" },
               { label: "Technologies", value: "20+" },
             ].map((stat, index) => (
               <motion.div

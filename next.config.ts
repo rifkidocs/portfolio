@@ -21,6 +21,10 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "tailwindcss.com",
+      },
+      {
+        protocol: "https",
         hostname: "raw.githubusercontent.com",
       },
     ],
