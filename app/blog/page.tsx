@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getAllPostsCached, PAGE_SIZE, paginatePosts } from "@/lib/posts";
 import BlogCard from "@/components/BlogCard";
 import BlogSearch from "@/components/BlogSearch";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 export const revalidate = 60;
 
@@ -79,27 +80,44 @@ export default async function BlogIndex() {
         </div>
 
         <aside className="lg:col-span-1 space-y-6">
-          <section>
-            <h2 className="text-base font-semibold">Kategori</h2>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {categories.map((c) => (
-                <Link key={c} href={`/blog/category/${encodeURIComponent(c!)}`} className="px-2 py-1 text-xs rounded bg-accent">
-                  #{c}
-                </Link>
-              ))}
-            </div>
-          </section>
-          <section>
-            <h2 className="text-base font-semibold">Tag Populer</h2>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {tagsSorted.map(([t, count]) => (
-                <Link key={t} href={`/blog/tag/${encodeURIComponent(t)}`} className="px-2 py-1 text-xs rounded border">
-                  #{t}
-                  <span className="ml-1 text-muted-foreground">({count})</span>
-                </Link>
-              ))}
-            </div>
-          </section>
+          <Card>
+            <CardHeader className="border-b">
+              <CardTitle className="text-base">Kategori</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="mt-3 flex flex-wrap gap-2.5">
+                {categories.map((c) => (
+                  <Link
+                    key={c}
+                    href={`/blog/category/${encodeURIComponent(c!)}`}
+                    className="px-2.5 py-1.5 text-xs rounded-md bg-muted text-foreground transition-colors hover:bg-secondary/60"
+                  >
+                    #{c}
+                  </Link>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="border-b">
+              <CardTitle className="text-base">Tag Populer</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="mt-3 flex flex-wrap gap-2.5">
+                {tagsSorted.map(([t, count]) => (
+                  <Link
+                    key={t}
+                    href={`/blog/tag/${encodeURIComponent(t)}`}
+                    className="px-2.5 py-1.5 text-xs rounded-md border transition-colors hover:bg-secondary/50"
+                  >
+                    #{t}
+                    <span className="ml-1 text-muted-foreground">({count})</span>
+                  </Link>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </aside>
       </div>
 

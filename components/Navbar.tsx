@@ -35,13 +35,13 @@ const navigation = [
     href: "#projects",
     icon: <Briefcase className="w-4 h-4" />,
   },
-  { name: "Blog", href: "/blog", icon: <Newspaper className="w-4 h-4" /> },
   {
     name: "Experience",
     href: "#experience",
     icon: <Building2 className="w-4 h-4" />,
   },
   { name: "Contact", href: "#contact", icon: <Mail className="w-4 h-4" /> },
+  { name: "Blog", href: "/blog", icon: <Newspaper className="w-4 h-4" /> },
 ];
 
 export function Navbar() {
@@ -139,7 +139,7 @@ export function Navbar() {
                     const isRoute = !item.href.startsWith("#");
                     const isActive = isRoute
                       ? pathname?.startsWith(item.href)
-                      : activeSection === item.href.substring(1);
+                      : pathname === "/" && activeSection === item.href.substring(1);
                     const baseClass =
                       "group flex items-center px-2 py-2 text-sm font-medium rounded-md w-full text-left transition-colors space-x-3";
                     const cls = cn(
@@ -233,7 +233,7 @@ export function Navbar() {
                   const isRoute = !item.href.startsWith("#");
                   const isActive = isRoute
                     ? pathname?.startsWith(item.href)
-                    : activeSection === item.href.substring(1);
+                    : pathname === "/" && activeSection === item.href.substring(1);
                   const btnCls = cn(
                     "text-sm font-medium transition-colors hover:text-primary flex items-center space-x-2",
                     isActive ? "text-primary" : "text-muted-foreground"
