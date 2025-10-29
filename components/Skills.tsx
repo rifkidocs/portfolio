@@ -10,29 +10,52 @@ import {
   SiTailwindcss,
   SiJavascript,
   SiHtml5,
-  SiSass,
-  SiVuedotjs,
+  SiCss3,
   SiNodedotjs,
   SiExpress,
   SiPython,
-  SiDjango,
-  SiFastapi,
-  SiGraphql,
+  SiPhp,
   SiMongodb,
   SiPostgresql,
   SiMysql,
   SiRedis,
   SiPrisma,
   SiGit,
-  SiVercel,
-  SiNetlify,
   SiFigma,
-  SiJest,
-  SiCypress,
-  SiCss3,
+  SiFirebase,
+  SiBootstrap,
+  SiLaravel,
+  SiSupabase,
+  SiSqlite,
 } from "react-icons/si";
 
 const techLogos = [
+  // Frontend
+  {
+    node: <SiHtml5 style={{ color: "#e34f26" }} />,
+    title: "HTML",
+    href: "https://developer.mozilla.org/en-US/docs/Web/HTML",
+  },
+  {
+    node: <SiCss3 style={{ color: "#1572b6" }} />,
+    title: "CSS",
+    href: "https://developer.mozilla.org/en-US/docs/Web/CSS",
+  },
+  {
+    node: <SiJavascript style={{ color: "#f7df1e" }} />,
+    title: "JavaScript",
+    href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+  },
+  {
+    node: <SiTypescript style={{ color: "#3178c6" }} />,
+    title: "TypeScript",
+    href: "https://www.typescriptlang.org",
+  },
+  {
+    node: <SiTailwindcss style={{ color: "#06b6d4" }} />,
+    title: "Tailwind CSS",
+    href: "https://tailwindcss.com",
+  },
   {
     node: <SiReact style={{ color: "#61dafb" }} />,
     title: "React",
@@ -44,40 +67,11 @@ const techLogos = [
     href: "https://nextjs.org",
   },
   {
-    node: <SiTypescript style={{ color: "#3178c6" }} />,
-    title: "TypeScript",
-    href: "https://www.typescriptlang.org",
+    node: <SiBootstrap style={{ color: "#7952b3" }} />,
+    title: "Bootstrap",
+    href: "https://getbootstrap.com",
   },
-  {
-    node: <SiJavascript style={{ color: "#f7df1e" }} />,
-    title: "JavaScript",
-    href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-  },
-  {
-    node: <SiHtml5 style={{ color: "#e34f26" }} />,
-    title: "HTML5",
-    href: "https://developer.mozilla.org/en-US/docs/Web/HTML",
-  },
-  {
-    node: <SiCss3 style={{ color: "#1572b6" }} />,
-    title: "CSS3",
-    href: "https://developer.mozilla.org/en-US/docs/Web/CSS",
-  },
-  {
-    node: <SiTailwindcss style={{ color: "#06b6d4" }} />,
-    title: "Tailwind CSS",
-    href: "https://tailwindcss.com",
-  },
-  {
-    node: <SiSass style={{ color: "#cc6699" }} />,
-    title: "SASS/SCSS",
-    href: "https://sass-lang.com",
-  },
-  {
-    node: <SiVuedotjs style={{ color: "#4fc08d" }} />,
-    title: "Vue.js",
-    href: "https://vuejs.org",
-  },
+  // Backend
   {
     node: <SiNodedotjs style={{ color: "#339933" }} />,
     title: "Node.js",
@@ -94,24 +88,26 @@ const techLogos = [
     href: "https://www.python.org",
   },
   {
-    node: <SiDjango style={{ color: "#092e20" }} />,
-    title: "Django",
-    href: "https://www.djangoproject.com",
+    node: <SiPhp style={{ color: "#777bb4" }} />,
+    title: "PHP",
+    href: "https://www.php.net",
   },
   {
-    node: <SiFastapi style={{ color: "#009688" }} />,
-    title: "FastAPI",
-    href: "https://fastapi.tiangolo.com",
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+    alt: "Java",
+    title: "Java",
+    href: "https://www.java.com",
   },
   {
-    node: <SiGraphql style={{ color: "#e10098" }} />,
-    title: "GraphQL",
-    href: "https://graphql.org",
+    node: <SiLaravel style={{ color: "#ff2d20" }} />,
+    title: "Laravel",
+    href: "https://laravel.com",
   },
+  // Database
   {
-    node: <SiMongodb style={{ color: "#47a248" }} />,
-    title: "MongoDB",
-    href: "https://www.mongodb.com",
+    node: <SiMysql style={{ color: "#4479a1" }} />,
+    title: "MySQL",
+    href: "https://www.mysql.com",
   },
   {
     node: <SiPostgresql style={{ color: "#336791" }} />,
@@ -119,9 +115,14 @@ const techLogos = [
     href: "https://www.postgresql.org",
   },
   {
-    node: <SiMysql style={{ color: "#4479a1" }} />,
-    title: "MySQL",
-    href: "https://www.mysql.com",
+    node: <SiSqlite style={{ color: "#003b57" }} />,
+    title: "SQLite",
+    href: "https://www.sqlite.org",
+  },
+  {
+    node: <SiMongodb style={{ color: "#47a248" }} />,
+    title: "MongoDB",
+    href: "https://www.mongodb.com",
   },
   {
     node: <SiRedis style={{ color: "#dc382d" }} />,
@@ -129,15 +130,24 @@ const techLogos = [
     href: "https://redis.io",
   },
   {
-    node: <SiPrisma style={{ color: "#2d3748" }} />,
-    title: "Prisma",
-    href: "https://www.prisma.io",
+    node: <SiSupabase style={{ color: "#3ecf8e" }} />,
+    title: "Supabase",
+    href: "https://supabase.com",
+  },
+  // CMS
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg",
+    alt: "WordPress",
+    title: "WordPress",
+    href: "https://wordpress.org",
   },
   {
-    node: <SiGit style={{ color: "#f05032" }} />,
-    title: "Git",
-    href: "https://git-scm.com",
+    src: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/strapi.png",
+    alt: "Strapi",
+    title: "Strapi",
+    href: "https://strapi.io",
   },
+  // Tools
   {
     src: "https://skillicons.dev/icons?i=docker",
     alt: "Docker",
@@ -145,14 +155,9 @@ const techLogos = [
     href: "https://www.docker.com",
   },
   {
-    node: <SiVercel style={{ color: "#000000" }} />,
-    title: "Vercel",
-    href: "https://vercel.com",
-  },
-  {
-    node: <SiNetlify style={{ color: "#00c7b7" }} />,
-    title: "Netlify",
-    href: "https://www.netlify.com",
+    node: <SiGit style={{ color: "#f05032" }} />,
+    title: "Git",
+    href: "https://git-scm.com",
   },
   {
     node: <SiFigma style={{ color: "#f24e1e" }} />,
@@ -160,14 +165,20 @@ const techLogos = [
     href: "https://www.figma.com",
   },
   {
-    node: <SiJest style={{ color: "#c21325" }} />,
-    title: "Jest",
-    href: "https://jestjs.io",
+    node: <SiPrisma style={{ color: "#2d3748" }} />,
+    title: "Prisma",
+    href: "https://www.prisma.io",
   },
   {
-    node: <SiCypress style={{ color: "#17202c" }} />,
-    title: "Cypress",
-    href: "https://www.cypress.io",
+    node: <SiFirebase style={{ color: "#ffca28" }} />,
+    title: "Firebase",
+    href: "https://firebase.google.com",
+  },
+  {
+    src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ubuntu/ubuntu-plain.svg",
+    alt: "Ubuntu",
+    title: "Ubuntu",
+    href: "https://ubuntu.com",
   },
 ];
 
