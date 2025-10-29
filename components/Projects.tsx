@@ -26,6 +26,15 @@ export function Projects() {
   const featuredProjects = projects.filter((project) => project.featured);
   const otherProjects = projects.filter((project) => !project.featured);
 
+  // Pagination for Other Projects
+  const [otherPage, setOtherPage] = React.useState(1);
+  const otherPerPage = 3;
+  const totalOtherPages = Math.ceil(otherProjects.length / otherPerPage) || 1;
+  const paginatedOtherProjects = React.useMemo(() => {
+    const startIndex = (otherPage - 1) * otherPerPage;
+    return otherProjects.slice(startIndex, startIndex + otherPerPage);
+  }, [otherProjects, otherPage]);
+
   const openProjectDialog = (project: (typeof projects)[0]) => {
     setSelectedProject(project);
     setIsDialogOpen(true);
@@ -257,7 +266,7 @@ export function Projects() {
                             }}
                           >
                             <ExternalLink className="w-4 h-4 mr-2" />
-                            Live Demo
+                            Visit Site
                           </Button>
                         )}
                         {project.githubUrl && (
@@ -293,7 +302,7 @@ export function Projects() {
                   Other Projects
                 </h3>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {otherProjects.map((project, index) => (
+                  {paginatedOtherProjects.map((project, index) => (
                     <motion.div
                       key={project.id}
                       initial={{ opacity: 0, y: 20 }}
@@ -361,6 +370,42 @@ export function Projects() {
                     </motion.div>
                   ))}
                 </div>
+                {totalOtherPages > 1 && (
+                  <div className="mt-8 flex items-center justify-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      disabled={otherPage === 1}
+                      onClick={() => setOtherPage((p) => Math.max(1, p - 1))}
+                    >
+                      Prev
+                    </Button>
+                    {Array.from(
+                      { length: totalOtherPages },
+                      (_, i) => i + 1
+                    ).map((pageNum) => (
+                      <Button
+                        key={pageNum}
+                        size="sm"
+                        variant={pageNum === otherPage ? "default" : "outline"}
+                        onClick={() => setOtherPage(pageNum)}
+                        className="w-9"
+                      >
+                        {pageNum}
+                      </Button>
+                    ))}
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      disabled={otherPage === totalOtherPages}
+                      onClick={() =>
+                        setOtherPage((p) => Math.min(totalOtherPages, p + 1))
+                      }
+                    >
+                      Next
+                    </Button>
+                  </div>
+                )}
               </motion.div>
             )}
           </div>
@@ -520,7 +565,7 @@ export function Projects() {
                             rel="noopener noreferrer"
                           >
                             <Globe className="w-5 h-5 mr-2" />
-                            View Live Demo
+                            Visit Site
                             <ExternalLink className="w-4 h-4 ml-2" />
                           </a>
                         </Button>

@@ -43,6 +43,46 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: "8",
+    title: "Sekolah Vokasi UNISLA - Department Website",
+    description:
+      "Official website for Sekolah Vokasi Universitas Islam Lamongan (UNISLA), presenting program information, facilities, lecturers, research, news, and services.",
+    image: "/vokasi.png",
+    techStack: ["WordPress", "PHP", "Premium Plugins", "MySQL"],
+    liveUrl: "https://vokasi.unisla.ac.id/",
+    featured: false,
+  },
+  {
+    id: "9",
+    title: "PIAUD UNISLA - Study Program Website",
+    description:
+      "Program Studi Pendidikan Islam Anak Usia Dini (PIAUD) UNISLA website providing profile, curriculum, lecturers directory, news, and registration information.",
+    image: "/piaud.png",
+    techStack: ["WordPress", "PHP", "Premium Plugins", "MySQL"],
+    liveUrl: "https://piaud.unisla.ac.id/",
+    featured: false,
+  },
+  {
+    id: "10",
+    title: "RPL UNISLA – Prior Learning Recognition Program",
+    description:
+      "Information system for Rekognisi Pembelajaran Lampau (RPL) at Universitas Islam Lamongan, featuring program overview, brochures, participating study programs, and registration portal.",
+    image: "/rpl.png",
+    techStack: ["WordPress", "PHP", "Premium Plugins", "MySQL"],
+    liveUrl: "https://rpl.unisla.ac.id/",
+    featured: false,
+  },
+  {
+    id: "5",
+    title: "YPPTI Sunan Giri Lamongan - WordPress Site",
+    description:
+      "Corporate and news portal website for Yayasan Perguruan Pesantren Tarbiyatut Tholabah (YPPTI) Sunan Giri Lamongan. Built with WordPress to manage institutional profiles, activities, and news updates.",
+    image: "/yppti.png",
+    techStack: ["WordPress", "PHP", "Premium Plugins", "MySQL"],
+    liveUrl: "http://ypptisunangiri.or.id/",
+    featured: false,
+  },
+  {
     id: "2",
     title: "Sikader - Sistem Informasi Kaderisasi",
     description:
