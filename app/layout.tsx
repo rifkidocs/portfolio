@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import "highlight.js/styles/github.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Navbar } from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -55,7 +58,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="overflow-x-hidden">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden bg-background`}
       >
         <ThemeProvider
           attribute="class"
@@ -63,7 +66,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Navbar />
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

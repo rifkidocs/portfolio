@@ -3,6 +3,8 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Home,
   User,
@@ -11,6 +13,7 @@ import {
   Building2,
   Mail,
   Menu,
+  Newspaper,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import GlassSurface from "./GlassSurface";
@@ -32,6 +35,7 @@ const navigation = [
     href: "#projects",
     icon: <Briefcase className="w-4 h-4" />,
   },
+  { name: "Blog", href: "/blog", icon: <Newspaper className="w-4 h-4" /> },
   {
     name: "Experience",
     href: "#experience",
@@ -45,6 +49,7 @@ export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [isScrollingUp, setIsScrollingUp] = React.useState(true);
   const [lastScrollY, setLastScrollY] = React.useState(0);
+  const pathname = usePathname();
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -130,29 +135,63 @@ export function Navbar() {
                   <ThemeToggle />
                 </div>
                 <nav className="flex-1 px-2 py-4 space-y-1">
-                  {navigation.map((item) => (
-                    <button
-                      key={item.name}
-                      onClick={() => scrollToSection(item.href)}
-                      className={cn(
-                        "group flex items-center px-2 py-2 text-sm font-medium rounded-md w-full text-left transition-colors space-x-3",
-                        activeSection === item.href.substring(1)
-                          ? "bg-accent/50 text-accent-foreground backdrop-blur-sm"
-                          : "text-foreground hover:bg-accent/30 hover:text-accent-foreground"
-                      )}
-                    >
-                      <span
-                        className={cn(
-                          activeSection === item.href.substring(1)
-                            ? "text-accent-foreground"
-                            : "text-foreground group-hover:text-accent-foreground"
-                        )}
+                  {navigation.map((item) => {
+                    const isRoute = !item.href.startsWith("#");
+                    const isActive = isRoute
+                      ? pathname?.startsWith(item.href)
+                      : activeSection === item.href.substring(1);
+                    const baseClass =
+                      "group flex items-center px-2 py-2 text-sm font-medium rounded-md w-full text-left transition-colors space-x-3";
+                    const cls = cn(
+                      baseClass,
+                      isActive
+                        ? "bg-accent/50 text-accent-foreground backdrop-blur-sm"
+                        : "text-foreground hover:bg-accent/30 hover:text-accent-foreground"
+                    );
+                    const iconCls = cn(
+                      isActive
+                        ? "text-accent-foreground"
+                        : "text-foreground group-hover:text-accent-foreground"
+                    );
+                    if (isRoute) {
+                      return (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          onClick={() => setIsOpen(false)}
+                          className={cls}
+                        >
+                          <span className={iconCls}>{item.icon}</span>
+                          <span>{item.name}</span>
+                        </Link>
+                      );
+                    }
+                    // Anchor item: if not on homepage, navigate to '/#section'
+                    const anchorHref = `/${item.href}`;
+                    if (pathname !== "/") {
+                      return (
+                        <Link
+                          key={item.name}
+                          href={anchorHref}
+                          onClick={() => setIsOpen(false)}
+                          className={cls}
+                        >
+                          <span className={iconCls}>{item.icon}</span>
+                          <span>{item.name}</span>
+                        </Link>
+                      );
+                    }
+                    return (
+                      <button
+                        key={item.name}
+                        onClick={() => scrollToSection(item.href)}
+                        className={cls}
                       >
-                        {item.icon}
-                      </span>
-                      <span>{item.name}</span>
-                    </button>
-                  ))}
+                        <span className={iconCls}>{item.icon}</span>
+                        <span>{item.name}</span>
+                      </button>
+                    );
+                  })}
                 </nav>
               </div>
             </SheetContent>
@@ -190,29 +229,46 @@ export function Navbar() {
 
               {/* Desktop Navigation - Centered */}
               <div className="flex items-center justify-center flex-1 space-x-8">
-                {navigation.map((item) => (
-                  <button
-                    key={item.name}
-                    onClick={() => scrollToSection(item.href)}
-                    className={cn(
-                      "text-sm font-medium transition-colors hover:text-primary flex items-center space-x-2",
-                      activeSection === item.href.substring(1)
-                        ? "text-primary"
-                        : "text-muted-foreground"
-                    )}
-                  >
-                    <span
-                      className={cn(
-                        activeSection === item.href.substring(1)
-                          ? "text-primary"
-                          : "text-muted-foreground"
-                      )}
+                {navigation.map((item) => {
+                  const isRoute = !item.href.startsWith("#");
+                  const isActive = isRoute
+                    ? pathname?.startsWith(item.href)
+                    : activeSection === item.href.substring(1);
+                  const btnCls = cn(
+                    "text-sm font-medium transition-colors hover:text-primary flex items-center space-x-2",
+                    isActive ? "text-primary" : "text-muted-foreground"
+                  );
+                  const iconCls = cn(
+                    isActive ? "text-primary" : "text-muted-foreground"
+                  );
+                  if (isRoute) {
+                    return (
+                      <Link key={item.name} href={item.href} className={btnCls}>
+                        <span className={iconCls}>{item.icon}</span>
+                        <span>{item.name}</span>
+                      </Link>
+                    );
+                  }
+                  // Anchor item: if not on homepage, navigate to '/#section'
+                  if (pathname !== "/") {
+                    return (
+                      <Link key={item.name} href={`/${item.href}`} className={btnCls}>
+                        <span className={iconCls}>{item.icon}</span>
+                        <span>{item.name}</span>
+                      </Link>
+                    );
+                  }
+                  return (
+                    <button
+                      key={item.name}
+                      onClick={() => scrollToSection(item.href)}
+                      className={btnCls}
                     >
-                      {item.icon}
-                    </span>
-                    <span>{item.name}</span>
-                  </button>
-                ))}
+                      <span className={iconCls}>{item.icon}</span>
+                      <span>{item.name}</span>
+                    </button>
+                  );
+                })}
               </div>
 
               {/* Desktop Theme Toggle */}
