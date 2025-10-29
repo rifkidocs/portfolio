@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     siteName: "Rifki Portfolio",
     images: [
       {
-        url: "/og-image.svg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Rifki Portfolio",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Rifki - Fullstack Web Developer",
     description:
       "Portfolio of Rifki, a passionate fullstack web developer specializing in React, Next.js, Node.js, and modern web technologies.",
-    images: ["/og-image.svg"],
+    images: ["/og-image.png"],
   },
 };
 
