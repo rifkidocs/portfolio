@@ -87,7 +87,7 @@ export function Navbar() {
 
   return (
     <>
-      {/* Mobile Layout - Full Width */}
+      {/* Mobile Layout - Full-width top-attached glass bar */}
       <motion.nav
         initial={{ y: 0, opacity: 1 }}
         animate={{
@@ -95,70 +95,68 @@ export function Navbar() {
           opacity: isScrollingUp ? 1 : 0,
         }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="fixed top-5 left-0 right-0 z-50 lg:hidden w-screen overflow-x-hidden"
+        className="fixed top-0 left-0 right-0 z-50 lg:hidden w-screen"
       >
-        <div className="flex justify-center px-4">
-          <div className="w-full max-w-[600px] h-16 rounded-[20px] px-6 flex items-center justify-between bg-background/95 backdrop-blur-xl border border-border/30">
-            {/* Mobile Hamburger Menu */}
-            <Sheet open={isOpen} onOpenChange={setIsOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="sm" className="lg:hidden">
-                  <Menu className="h-5 w-5" />
-                  <span className="sr-only">Open menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent
-                side="left"
-                className="w-64 p-0 [&>button]:hidden bg-background/95 backdrop-blur-xl border-r backdrop-saturate-150"
-                style={{
-                  boxShadow:
-                    "inset 0 1px 0 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 0 rgba(255, 255, 255, 0.05)",
-                }}
-              >
-                <SheetHeader className="p-4 border-b border-border/30">
-                  <SheetTitle className="text-xl font-bold">
-                    Navigation Menu
-                  </SheetTitle>
-                </SheetHeader>
-                <div className="flex flex-col h-full">
-                  <div className="flex items-center justify-between p-4 border-b border-border/30">
-                    <h2 className="text-lg font-semibold">Rifki</h2>
-                    <ThemeToggle />
-                  </div>
-                  <nav className="flex-1 px-2 py-4 space-y-1">
-                    {navigation.map((item) => (
-                      <button
-                        key={item.name}
-                        onClick={() => scrollToSection(item.href)}
+        <div className="w-full h-14 flex items-center justify-between px-4 bg-background/60 backdrop-blur-md border-b border-border/30 supports-backdrop-filter:bg-background/60">
+          {/* Theme toggle on the left */}
+          <div className="flex items-center">
+            <ThemeToggle />
+          </div>
+
+          {/* Hamburger menu on the right */}
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="sm" className="lg:hidden">
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Open menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent
+              side="right"
+              className="w-64 p-0 [&>button]:hidden bg-background/80 backdrop-blur-xl border-l border-border/30 backdrop-saturate-150"
+              style={{
+                boxShadow:
+                  "inset 0 1px 0 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 0 rgba(255, 255, 255, 0.04)",
+              }}
+            >
+              <SheetHeader className="p-4 border-b border-border/30">
+                <SheetTitle className="text-xl font-bold">
+                  Navigation Menu
+                </SheetTitle>
+              </SheetHeader>
+              <div className="flex flex-col h-full">
+                <div className="flex items-center justify-between p-4 border-b border-border/30">
+                  <h2 className="text-lg font-semibold">Rifki</h2>
+                  <ThemeToggle />
+                </div>
+                <nav className="flex-1 px-2 py-4 space-y-1">
+                  {navigation.map((item) => (
+                    <button
+                      key={item.name}
+                      onClick={() => scrollToSection(item.href)}
+                      className={cn(
+                        "group flex items-center px-2 py-2 text-sm font-medium rounded-md w-full text-left transition-colors space-x-3",
+                        activeSection === item.href.substring(1)
+                          ? "bg-accent/50 text-accent-foreground backdrop-blur-sm"
+                          : "text-foreground hover:bg-accent/30 hover:text-accent-foreground"
+                      )}
+                    >
+                      <span
                         className={cn(
-                          "group flex items-center px-2 py-2 text-sm font-medium rounded-md w-full text-left transition-colors space-x-3",
                           activeSection === item.href.substring(1)
-                            ? "bg-accent/50 text-accent-foreground backdrop-blur-sm"
-                            : "text-foreground hover:bg-accent/30 hover:text-accent-foreground"
+                            ? "text-accent-foreground"
+                            : "text-foreground group-hover:text-accent-foreground"
                         )}
                       >
-                        <span
-                          className={cn(
-                            activeSection === item.href.substring(1)
-                              ? "text-accent-foreground"
-                              : "text-foreground group-hover:text-accent-foreground"
-                          )}
-                        >
-                          {item.icon}
-                        </span>
-                        <span>{item.name}</span>
-                      </button>
-                    ))}
-                  </nav>
-                </div>
-              </SheetContent>
-            </Sheet>
-
-            {/* Mobile Theme Toggle */}
-            <div className="flex items-center">
-              <ThemeToggle />
-            </div>
-          </div>
+                        {item.icon}
+                      </span>
+                      <span>{item.name}</span>
+                    </button>
+                  ))}
+                </nav>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </motion.nav>
 
