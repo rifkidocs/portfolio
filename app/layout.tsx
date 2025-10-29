@@ -17,6 +17,34 @@ export const metadata: Metadata = {
   title: "Rifki - Fullstack Web Developer",
   description:
     "Portfolio of Rifki, a passionate fullstack web developer specializing in React, Next.js, Node.js, and modern web technologies.",
+  icons: {
+    icon: "/logo-r.svg",
+    apple: "/apple-icon.svg",
+  },
+  openGraph: {
+    title: "Rifki - Fullstack Web Developer",
+    description:
+      "Portfolio of Rifki, a passionate fullstack web developer specializing in React, Next.js, Node.js, and modern web technologies.",
+    url: "https://rifkiars.com",
+    siteName: "Rifki Portfolio",
+    images: [
+      {
+        url: "/og-image.svg",
+        width: 1200,
+        height: 630,
+        alt: "Rifki Portfolio",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rifki - Fullstack Web Developer",
+    description:
+      "Portfolio of Rifki, a passionate fullstack web developer specializing in React, Next.js, Node.js, and modern web technologies.",
+    images: ["/og-image.svg"],
+  },
 };
 
 export default function RootLayout({

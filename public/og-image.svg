@@ -1,0 +1,59 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e1b4b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="rGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Grid pattern -->
+  <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+    <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.05"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  
+  <!-- Center R Logo -->
+  <g transform="translate(600,315)">
+    <circle r="90" fill="url(#rGradient)" opacity="0.15"/>
+    <path d="M-60 90 L-60 -90 L60 -90 Q120 -90 120 -30 Q120 -5 90 10 L150 90 L90 90 L50 -10 L-20 -10 L-20 90 Z" 
+          fill="url(#rGradient)" 
+          stroke="url(#rGradient)" 
+          stroke-width="4"
+          filter="url(#glow)"/>
+    <path d="M-20 -80 L90 -80 Q120 -80 120 -50 Q120 -20 90 -20 L-20 -20 Z" 
+          fill="#ffffff" 
+          opacity="0.95"/>
+  </g>
+  
+  <!-- Title Text -->
+  <text x="600" y="460" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="bold" fill="#ffffff" text-anchor="middle" opacity="0.95">
+    M. Rifki Ardiansah
+  </text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="520" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#94a3b8" text-anchor="middle" opacity="0.8">
+    Fullstack Web Developer
+  </text>
+  
+  <!-- Decorative elements -->
+  <circle cx="200" cy="150" r="30" fill="#6366f1" opacity="0.1"/>
+  <circle cx="1000" cy="480" r="40" fill="#ec4899" opacity="0.1"/>
+  <circle cx="150" cy="480" r="20" fill="#8b5cf6" opacity="0.1"/>
+  <circle cx="1050" cy="150" r="35" fill="#6366f1" opacity="0.1"/>
+</svg>
+

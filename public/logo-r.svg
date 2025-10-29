@@ -1,0 +1,23 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="90" fill="url(#gradient)" opacity="0.1"/>
+  
+  <!-- R Letter with modern design -->
+  <path d="M60 160 L60 40 L120 40 Q150 40 150 70 Q150 85 140 95 L160 160 L130 160 L112 105 L95 105 L95 160 Z" 
+        fill="url(#gradient)" 
+        stroke="url(#gradient)" 
+        stroke-width="2"/>
+  
+  <path d="M95 70 L130 70 Q140 70 140 80 Q140 90 130 90 L95 90 Z" 
+        fill="#ffffff" 
+        opacity="0.95"/>
+</svg>
+
