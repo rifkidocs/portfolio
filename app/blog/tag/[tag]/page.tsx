@@ -11,6 +11,25 @@ export async function generateMetadata({ params }: { params: Promise<{ tag: stri
     title: `Tag: ${tag}`,
     description: `Artikel dengan tag ${tag}`,
     alternates: { canonical: `/blog/tag/${tag}` },
+    openGraph: {
+      title: `Tag: ${tag}`,
+      description: `Artikel dengan tag ${tag}`,
+      type: "website",
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: `Tag: ${tag}`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Tag: ${tag}`,
+      description: `Artikel dengan tag ${tag}`,
+      images: ["/og-image.png"],
+    },
   };
 }
 

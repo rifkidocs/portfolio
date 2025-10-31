@@ -28,11 +28,20 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       url,
       authors: post.meta.author ? [post.meta.author] : undefined,
       tags: post.meta.tags,
+      images: [
+        {
+          url: "/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: post.meta.title,
+        },
+      ],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: post.meta.title,
       description: post.meta.description,
+      images: ["/og-image.png"],
     },
   };
 }

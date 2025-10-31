@@ -8,6 +8,26 @@ export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Blog",
+  description: "Artikel terbaru dari Rifki",
+  openGraph: {
+    title: "Blog",
+    description: "Artikel terbaru dari Rifki",
+    type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Rifki Blog",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog",
+    description: "Artikel terbaru dari Rifki",
+    images: ["/og-image.png"],
+  },
 };
 
 export default async function BlogPage({ params }: { params: Promise<{ page: string }> }) {
