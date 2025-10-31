@@ -21,27 +21,27 @@ export default async function BlogPage({ params }: { params: Promise<{ page: str
 
   return (
     <main className="container mx-auto px-4 py-10 pt-24">
-      <h1 className="text-3xl font-bold mb-6">Blog</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+      <h1 className="text-3xl font-bold mb-8">Blog</h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
         {items.map((post) => (
           <BlogCard key={post.slug} post={post} />
         ))}
       </div>
 
-      <div className="mt-8 flex items-center justify-between">
+      <div className="mt-10 flex items-center justify-between">
         {page > 1 ? (
-          <Link href={`/blog/page/${page - 1}`} className="px-3 py-2 border rounded hover:bg-secondary">
+          <Link href={`/blog/page/${page - 1}`} className="px-4 py-2 border rounded-md hover:bg-secondary transition-colors">
             ← Sebelumnya
           </Link>
         ) : (
-          <span />
+          <div />
         )}
         {page < totalPages ? (
-          <Link href={`/blog/page/${page + 1}`} className="px-3 py-2 border rounded hover:bg-secondary">
+          <Link href={`/blog/page/${page + 1}`} className="px-4 py-2 border rounded-md hover:bg-secondary transition-colors">
             Berikutnya →
           </Link>
         ) : (
-          <span />
+          <div />
         )}
       </div>
     </main>

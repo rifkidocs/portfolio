@@ -8,7 +8,7 @@ export default function ArticleCTA() {
         Ikuti update terbaru atau hubungi saya untuk kolaborasi.
       </p>
       <div className="mt-4 flex gap-3">
-        <Link href="#contact" className="px-4 py-2 rounded bg-primary text-primary-foreground">
+        <Link href="/#contact" className="px-4 py-2 rounded bg-primary text-primary-foreground">
           Hubungi Saya
         </Link>
         <Link href="/blog" className="px-4 py-2 rounded border hover:bg-secondary">

@@ -50,48 +50,63 @@ export default async function BlogIndex() {
 
   // Tags & categories clouds
   const tagCounts = new Map<string, number>();
-  posts.forEach((p) => (p.meta.tags ?? []).forEach((t) => tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1)));
-  const tagsSorted = Array.from(tagCounts.entries()).sort((a, b) => b[1] - a[1]).slice(0, 10);
-  const categories = Array.from(new Set(posts.map((p) => p.meta.category).filter(Boolean)));
+  posts.forEach((p) =>
+    (p.meta.tags ?? []).forEach((t) =>
+      tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1)
+    )
+  );
+  const tagsSorted = Array.from(tagCounts.entries())
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10);
+  const categories = Array.from(
+    new Set(posts.map((p) => p.meta.category).filter(Boolean))
+  );
 
   return (
-    <main className="container mx-auto px-4 py-10 pt-24">
-      <header className="max-w-3xl">
-        <h1 className="text-4xl font-bold">Blog</h1>
-        <p className="mt-2 text-muted-foreground">Artikel terbaru tentang pengembangan web, React/Next.js, dan pengalaman proyek.</p>
+    <main className='container mx-auto px-4 py-10 pt-24'>
+      <header className='max-w-3xl mb-8'>
+        <h1 className='text-4xl font-bold'>Blog</h1>
+        <p className='mt-3 text-muted-foreground'>
+          Artikel terbaru tentang pengembangan web, React/Next.js, dan
+          pengalaman proyek.
+        </p>
       </header>
 
-      <div className="mt-6 grid grid-cols-1 lg:grid-cols-4 gap-8">
-        <div className="lg:col-span-3 space-y-6">
-          <BlogSearch items={searchItems} />
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div className='grid grid-cols-1 lg:grid-cols-4 gap-10'>
+        <div className='lg:col-span-3 space-y-8'>
+          <div className='mb-6'>
+            <BlogSearch items={searchItems} />
+          </div>
+
+          <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8'>
             {items.map((post) => (
               <BlogCard key={post.slug} post={post} />
             ))}
           </div>
 
           {totalPages > 1 && (
-            <div className="mt-4 flex justify-end">
-              <Link href={`/blog/page/2`} className="px-3 py-2 border rounded hover:bg-secondary">
+            <div className='mt-8 flex justify-end'>
+              <Link
+                href={`/blog/page/2`}
+                className='px-4 py-2 border rounded-md hover:bg-secondary transition-colors'>
                 Halaman Berikutnya →
               </Link>
             </div>
           )}
         </div>
 
-        <aside className="lg:col-span-1 space-y-6">
-          <Card>
-            <CardHeader className="border-b">
-              <CardTitle className="text-base">Kategori</CardTitle>
+        <aside className='lg:col-span-1 space-y-8'>
+          <Card className='overflow-hidden'>
+            <CardHeader className='border-b py-3'>
+              <CardTitle className='text-lg'>Kategori</CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="mt-3 flex flex-wrap gap-2.5">
+            <CardContent className='px-4 pb-4'>
+              <div className='mt-4 flex flex-wrap gap-3'>
                 {categories.map((c) => (
                   <Link
                     key={c}
                     href={`/blog/category/${encodeURIComponent(c!)}`}
-                    className="px-2.5 py-1.5 text-xs rounded-md bg-muted text-foreground transition-colors hover:bg-secondary/60"
-                  >
+                    className='px-3 py-2 text-sm rounded-lg bg-muted text-foreground transition-colors hover:bg-secondary/60'>
                     #{c}
                   </Link>
                 ))}
@@ -99,20 +114,21 @@ export default async function BlogIndex() {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader className="border-b">
-              <CardTitle className="text-base">Tag Populer</CardTitle>
+          <Card className='overflow-hidden'>
+            <CardHeader className='border-b py-3'>
+              <CardTitle className='text-lg'>Tag Populer</CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="mt-3 flex flex-wrap gap-2.5">
+            <CardContent className='px-4 pb-4'>
+              <div className='mt-4 flex flex-wrap gap-3'>
                 {tagsSorted.map(([t, count]) => (
                   <Link
                     key={t}
                     href={`/blog/tag/${encodeURIComponent(t)}`}
-                    className="px-2.5 py-1.5 text-xs rounded-md border transition-colors hover:bg-secondary/50"
-                  >
+                    className='px-3 py-2 text-sm rounded-lg border transition-colors hover:bg-secondary/50'>
                     #{t}
-                    <span className="ml-1 text-muted-foreground">({count})</span>
+                    <span className='ml-2 text-muted-foreground'>
+                      ({count})
+                    </span>
                   </Link>
                 ))}
               </div>
@@ -121,7 +137,10 @@ export default async function BlogIndex() {
         </aside>
       </div>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
     </main>
   );
 }
