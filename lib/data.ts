@@ -33,6 +33,16 @@ export interface SocialLink {
 
 export const projects: Project[] = [
   {
+    id: "11",
+    title: "Kesra Banyuwangi – Government Service Website",
+    description:
+      "Developed the official information platform for Banyuwangi Regency's social welfare programs. This website serves as an official publication channel and streamlines digital communication between the local government and the community.",
+    image: "/kesra.png",
+    techStack: ["Next.js", "JavaScript", "Strapi", "Tailwind CSS", "React"],
+    liveUrl: "https://kesra.banyuwangikab.go.id/",
+    featured: true,
+  },
+  {
     id: "1",
     title: "PT Bumi Suksesindo - Corporate Website",
     description:
