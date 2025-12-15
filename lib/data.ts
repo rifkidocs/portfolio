@@ -293,5 +293,5 @@ export const personalInfo = {
   phone: "+62 85158912877",
   bio: "Passionate fullstack developer with 2+ years of experience building scalable web applications. I love creating innovative solutions and learning new technologies.",
   avatar: "/api/placeholder/300/300",
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "https://docs.google.com/document/d/1RyPvV8SyZzyJ9lrzgUn-O9nm2TuiySQSl7gnaoS3Q8Q/edit?usp=sharing",
 };

@@ -4,16 +4,7 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { Code, Award, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogClose,
-} from "@/components/ui/dialog";
+
 import { personalInfo } from "@/lib/data";
 import ProfileCard from "@/components/ProfileCard";
 import ProfileCardStatic from "@/components/ProfileCardStatic";
@@ -138,27 +129,16 @@ export function About() {
 
               {/* Download CV Button */}
               <div className="pt-4">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button size="lg">
-                      <Download className="w-4 h-4 mr-2" />
-                      Download Resume
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>Coming soon</DialogTitle>
-                      <DialogDescription>
-                        Resume is being updated. Please check back later.
-                      </DialogDescription>
-                    </DialogHeader>
-                    <DialogFooter>
-                      <DialogClose asChild>
-                        <Button>OK</Button>
-                      </DialogClose>
-                    </DialogFooter>
-                  </DialogContent>
-                </Dialog>
+                <Button size="lg" asChild>
+                  <a
+                    href={personalInfo.resumeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Download className="w-4 h-4 mr-2" />
+                    Download Resume
+                  </a>
+                </Button>
               </div>
 
               {/* Highlights */}
