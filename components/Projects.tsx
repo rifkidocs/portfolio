@@ -109,15 +109,15 @@ export function Projects() {
       <section
         id='projects'
         className='py-20 lg:py-32 relative w-full overflow-x-hidden'>
-        {/* Subtle Grid pattern background */}
+        {/* Grid pattern background */}
         <div
-          className='absolute inset-0 opacity-[0.08] dark:opacity-[0.05] pointer-events-none z-0'
+          className='absolute inset-0 opacity-20 pointer-events-none z-0'
           style={{
             backgroundImage: `
-              linear-gradient(to right, rgba(128, 128, 128, 0.2) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(128, 128, 128, 0.2) 1px, transparent 1px)
+              linear-gradient(to right, rgba(128, 128, 128, 0.1) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(128, 128, 128, 0.1) 1px, transparent 1px)
             `,
-            backgroundSize: "40px 40px",
+            backgroundSize: "20px 20px",
           }}
         />
 
@@ -144,22 +144,12 @@ export function Projects() {
               {featuredProjects.map((project, index) => (
                 <motion.div
                   key={project.id}
-                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: index * 0.15,
-                    type: "spring",
-                    stiffness: 100,
-                  }}
-                  viewport={{ once: true }}
-                  whileHover={{
-                    y: -8,
-                    transition: { type: "spring", stiffness: 300, damping: 15 },
-                  }}
-                  whileTap={{ scale: 0.98 }}>
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}>
                   <Card
-                    className='group h-full overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300 border-2 hover:border-primary/30 card-lift'
+                    className='group h-full overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300 border-2 hover:border-primary/20'
                     onClick={() => openProjectDialog(project)}>
                     {/* Project Image/Preview */}
                     <div className='relative aspect-video bg-linear-to-br from-primary/10 to-primary/5 overflow-hidden rounded-t-lg'>
@@ -305,26 +295,12 @@ export function Projects() {
                   {paginatedOtherProjects.map((project, index) => (
                     <motion.div
                       key={project.id}
-                      initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                      transition={{
-                        duration: 0.4,
-                        delay: index * 0.1,
-                        type: "spring",
-                        stiffness: 100,
-                      }}
-                      viewport={{ once: true }}
-                      whileHover={{
-                        y: -6,
-                        transition: {
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 15,
-                        },
-                      }}
-                      whileTap={{ scale: 0.98 }}>
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: index * 0.1 }}
+                      viewport={{ once: true }}>
                       <Card
-                        className='h-full group hover:shadow-xl transition-all duration-300 cursor-pointer border-2 hover:border-primary/20 card-lift'
+                        className='h-full group hover:shadow-xl transition-all duration-300 cursor-pointer border-2 hover:border-primary/10'
                         onClick={() => openProjectDialog(project)}>
                         <div className='aspect-video bg-linear-to-br from-primary/10 to-primary/5 relative overflow-hidden rounded-t-lg'>
                           {project.image &&

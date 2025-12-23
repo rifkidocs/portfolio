@@ -186,13 +186,13 @@ export function Skills() {
   return (
     <section
       id='skills'
-      className='py-20 lg:py-32 w-full overflow-x-hidden relative'>
-      {/* Subtle Dot pattern background */}
+      className='py-20 lg:py-32 bg-muted/30 w-full overflow-x-hidden relative'>
+      {/* Dot pattern background */}
       <div
-        className='absolute inset-0 opacity-[0.1] dark:opacity-[0.05] pointer-events-none z-0'
+        className='absolute inset-0 opacity-40 pointer-events-none z-0'
         style={{
-          backgroundImage: `radial-gradient(circle, rgba(128, 128, 128, 0.4) 1px, transparent 1px)`,
-          backgroundSize: "24px 24px",
+          backgroundImage: `radial-gradient(circle, rgba(128, 128, 128, 0.3) 1px, transparent 1px)`,
+          backgroundSize: "20px 20px",
         }}
       />
 
@@ -202,19 +202,13 @@ export function Skills() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             className='text-center mb-16'>
-            <h2 className='text-4xl md:text-5xl font-bold mb-4 gradient-text'>
+            <h2 className='text-4xl md:text-5xl font-bold mb-4'>
               Skills & Technologies
             </h2>
-            <motion.div
-              className='w-24 h-1 bg-primary mx-auto rounded-full mb-6'
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              viewport={{ once: true }}
-            />
+            <div className='w-24 h-1 bg-primary mx-auto rounded-full mb-6' />
             <p className='text-lg text-muted-foreground max-w-2xl mx-auto'>
               Here are the technologies and tools I work with to bring ideas to
               life

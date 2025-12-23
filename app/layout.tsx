@@ -5,7 +5,6 @@ import "highlight.js/styles/github.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { BackgroundEffect } from "@/components/BackgroundEffect";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -65,7 +64,6 @@ export default function RootLayout({
           defaultTheme='system'
           enableSystem
           disableTransitionOnChange>
-          <BackgroundEffect />
           <Navbar />
           {children}
           <Footer />

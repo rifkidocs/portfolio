@@ -31,13 +31,13 @@ export function Experience() {
   return (
     <section
       id='experience'
-      className='py-20 lg:py-32 w-full overflow-x-hidden relative'>
-      {/* Subtle Dot pattern background */}
+      className='py-20 lg:py-32 bg-muted/30 w-full overflow-x-hidden relative'>
+      {/* Dot pattern background */}
       <div
-        className='absolute inset-0 opacity-[0.1] dark:opacity-[0.05] pointer-events-none z-0'
+        className='absolute inset-0 opacity-40 pointer-events-none z-0'
         style={{
-          backgroundImage: `radial-gradient(circle, rgba(128, 128, 128, 0.4) 1px, transparent 1px)`,
-          backgroundSize: "24px 24px",
+          backgroundImage: `radial-gradient(circle, rgba(128, 128, 128, 0.3) 1px, transparent 1px)`,
+          backgroundSize: "20px 20px",
         }}
       />
 
@@ -76,37 +76,15 @@ export function Experience() {
                   className={`relative flex items-center ${
                     index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                   }`}>
-                  {/* Timeline Dot with Pulse */}
-                  <motion.div
-                    className='absolute left-4 md:left-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background transform md:-translate-x-2 z-10'
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 300,
-                      delay: index * 0.1,
-                    }}
-                    viewport={{ once: true }}>
-                    <motion.div
-                      className='absolute inset-0 rounded-full bg-primary'
-                      animate={{
-                        scale: [1, 1.5, 1],
-                        opacity: [0.5, 0, 0.5],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                    />
-                  </motion.div>
+                  {/* Timeline Dot */}
+                  <div className='absolute left-4 md:left-1/2 w-4 h-4 bg-primary rounded-full border-4 border-background transform md:-translate-x-2 z-10' />
 
                   {/* Content */}
                   <div
                     className={`ml-12 md:ml-0 md:w-1/2 ${
                       index % 2 === 0 ? "md:pr-8" : "md:pl-8"
                     }`}>
-                    <Card className='hover:shadow-xl transition-all duration-300 card-lift'>
+                    <Card className='hover:shadow-lg transition-shadow'>
                       <CardContent className='p-6'>
                         {/* Mobile: Stack vertically, Desktop: Horizontal */}
                         <div className='flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-4'>

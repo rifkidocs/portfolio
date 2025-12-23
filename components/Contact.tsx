@@ -58,15 +58,15 @@ export function Contact() {
     <section
       id='contact'
       className='py-20 lg:py-32 w-full overflow-x-hidden relative'>
-      {/* Subtle Grid pattern background */}
+      {/* Grid pattern background */}
       <div
-        className='absolute inset-0 opacity-[0.08] dark:opacity-[0.05] pointer-events-none z-0'
+        className='absolute inset-0 opacity-20 pointer-events-none z-0'
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(128, 128, 128, 0.2) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(128, 128, 128, 0.2) 1px, transparent 1px)
+            linear-gradient(to right, rgba(128, 128, 128, 0.1) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(128, 128, 128, 0.1) 1px, transparent 1px)
           `,
-          backgroundSize: "40px 40px",
+          backgroundSize: "20px 20px",
         }}
       />
 
@@ -105,28 +105,16 @@ export function Contact() {
                 {contactInfo.map((info, index) => (
                   <motion.div
                     key={info.label}
-                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{
-                      duration: 0.4,
-                      delay: index * 0.1,
-                      type: "spring",
-                      stiffness: 100,
-                    }}
-                    viewport={{ once: true }}
-                    whileHover={{
-                      y: -5,
-                      transition: { type: "spring", stiffness: 300 },
-                    }}>
-                    <Card className='h-full hover:shadow-xl transition-all duration-300 card-lift'>
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    viewport={{ once: true }}>
+                    <Card className='h-full hover:shadow-lg transition-shadow'>
                       <CardContent className='p-6'>
                         <div className='flex flex-col items-center text-center space-y-3'>
-                          <motion.div
-                            className='bg-foreground p-3 rounded-lg'
-                            whileHover={{ scale: 1.1, rotate: 5 }}
-                            transition={{ type: "spring", stiffness: 400 }}>
+                          <div className='bg-foreground p-3 rounded-lg'>
                             <div className='text-background'>{info.icon}</div>
-                          </motion.div>
+                          </div>
                           <div>
                             <p className='font-medium mb-1'>{info.label}</p>
                             <a
@@ -152,43 +140,25 @@ export function Contact() {
                 {socialLinks.map((social, index) => (
                   <motion.div
                     key={social.name}
-                    initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{
-                      duration: 0.4,
-                      delay: index * 0.1,
-                      type: "spring",
-                      stiffness: 100,
-                    }}
-                    viewport={{ once: true }}
-                    whileHover={{
-                      scale: 1.1,
-                      y: -5,
-                      transition: {
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 10,
-                      },
-                    }}
-                    whileTap={{ scale: 0.95 }}>
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    viewport={{ once: true }}>
                     <Button
                       variant='outline'
                       size='lg'
                       asChild
-                      className='transition-all duration-300 h-auto py-4 px-6 hover:border-primary hover:shadow-lg'>
+                      className='hover:scale-110 transition-transform h-auto py-4 px-6'>
                       <a
                         href={social.url}
                         target='_blank'
                         rel='noopener noreferrer'
                         className='flex flex-col items-center space-y-2'>
-                        <motion.div
-                          className='bg-foreground p-2 rounded'
-                          whileHover={{ rotate: [0, -10, 10, 0] }}
-                          transition={{ duration: 0.4 }}>
+                        <div className='bg-foreground p-2 rounded'>
                           <div className='text-background'>
                             {getSocialIcon(social.name)}
                           </div>
-                        </motion.div>
+                        </div>
                         <span className='text-sm font-medium'>
                           {social.name}
                         </span>
