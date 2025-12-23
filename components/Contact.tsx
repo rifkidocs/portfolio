@@ -18,19 +18,19 @@ import { personalInfo, socialLinks } from "@/lib/data";
 export function Contact() {
   const contactInfo = [
     {
-      icon: <Mail className="w-5 h-5" />,
+      icon: <Mail className='w-5 h-5' />,
       label: "Email",
       value: personalInfo.email,
       href: `mailto:${personalInfo.email}`,
     },
     {
-      icon: <Phone className="w-5 h-5" />,
+      icon: <Phone className='w-5 h-5' />,
       label: "Phone",
       value: personalInfo.phone,
       href: `tel:${personalInfo.phone}`,
     },
     {
-      icon: <MapPin className="w-5 h-5" />,
+      icon: <MapPin className='w-5 h-5' />,
       label: "Location",
       value: personalInfo.location,
       href: "#",
@@ -40,15 +40,15 @@ export function Contact() {
   const getSocialIcon = (name: string) => {
     switch (name) {
       case "GitHub":
-        return <Github className="w-5 h-5" />;
+        return <Github className='w-5 h-5' />;
       case "LinkedIn":
-        return <Linkedin className="w-5 h-5" />;
+        return <Linkedin className='w-5 h-5' />;
       case "Instagram":
-        return <Instagram className="w-5 h-5" />;
+        return <Instagram className='w-5 h-5' />;
       case "Discord":
-        return <MessageCircle className="w-5 h-5" />;
+        return <MessageCircle className='w-5 h-5' />;
       case "Email":
-        return <Mail className="w-5 h-5" />;
+        return <Mail className='w-5 h-5' />;
       default:
         return null;
     }
@@ -56,36 +56,34 @@ export function Contact() {
 
   return (
     <section
-      id="contact"
-      className="py-20 lg:py-32 w-full overflow-x-hidden relative"
-    >
-      {/* Grid pattern background */}
+      id='contact'
+      className='py-20 lg:py-32 w-full overflow-x-hidden relative'>
+      {/* Subtle Grid pattern background */}
       <div
-        className="absolute inset-0 opacity-20 pointer-events-none z-0"
+        className='absolute inset-0 opacity-[0.08] dark:opacity-[0.05] pointer-events-none z-0'
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(128, 128, 128, 0.1) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(128, 128, 128, 0.1) 1px, transparent 1px)
+            linear-gradient(to right, rgba(128, 128, 128, 0.2) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(128, 128, 128, 0.2) 1px, transparent 1px)
           `,
-          backgroundSize: "20px 20px",
+          backgroundSize: "40px 40px",
         }}
       />
 
-      <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="max-w-4xl mx-auto">
+      <div className='container mx-auto px-4 lg:px-8 relative z-10'>
+        <div className='max-w-4xl mx-auto'>
           {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            className='text-center mb-16'>
+            <h2 className='text-4xl md:text-5xl font-bold mb-4'>
               Get In Touch
             </h2>
-            <div className="w-24 h-1 bg-primary mx-auto rounded-full mb-6" />
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <div className='w-24 h-1 bg-primary mx-auto rounded-full mb-6' />
+            <p className='text-lg text-muted-foreground max-w-2xl mx-auto'>
               Have a project in mind or want to collaborate? I&apos;d love to
               hear from you!
             </p>
@@ -97,34 +95,43 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="space-y-12"
-          >
+            className='space-y-12'>
             {/* Contact Details */}
             <div>
-              <h3 className="text-2xl font-bold mb-6 text-center">
+              <h3 className='text-2xl font-bold mb-6 text-center'>
                 Contact Information
               </h3>
-              <div className="grid md:grid-cols-3 gap-4">
+              <div className='grid md:grid-cols-3 gap-4'>
                 {contactInfo.map((info, index) => (
                   <motion.div
                     key={info.label}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: index * 0.1,
+                      type: "spring",
+                      stiffness: 100,
+                    }}
                     viewport={{ once: true }}
-                  >
-                    <Card className="h-full hover:shadow-lg transition-shadow">
-                      <CardContent className="p-6">
-                        <div className="flex flex-col items-center text-center space-y-3">
-                          <div className="bg-foreground p-3 rounded-lg">
-                            <div className="text-background">{info.icon}</div>
-                          </div>
+                    whileHover={{
+                      y: -5,
+                      transition: { type: "spring", stiffness: 300 },
+                    }}>
+                    <Card className='h-full hover:shadow-xl transition-all duration-300 card-lift'>
+                      <CardContent className='p-6'>
+                        <div className='flex flex-col items-center text-center space-y-3'>
+                          <motion.div
+                            className='bg-foreground p-3 rounded-lg'
+                            whileHover={{ scale: 1.1, rotate: 5 }}
+                            transition={{ type: "spring", stiffness: 400 }}>
+                            <div className='text-background'>{info.icon}</div>
+                          </motion.div>
                           <div>
-                            <p className="font-medium mb-1">{info.label}</p>
+                            <p className='font-medium mb-1'>{info.label}</p>
                             <a
                               href={info.href}
-                              className="text-sm text-muted-foreground hover:text-primary transition-colors break-all"
-                            >
+                              className='text-sm text-muted-foreground hover:text-primary transition-colors break-all'>
                               {info.value}
                             </a>
                           </div>
@@ -138,36 +145,51 @@ export function Contact() {
 
             {/* Social Links */}
             <div>
-              <h4 className="text-2xl font-bold mb-8 text-center">
+              <h4 className='text-2xl font-bold mb-8 text-center'>
                 Let&apos;s Connect
               </h4>
-              <div className="flex flex-wrap justify-center gap-4">
+              <div className='flex flex-wrap justify-center gap-4'>
                 {socialLinks.map((social, index) => (
                   <motion.div
                     key={social.name}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: index * 0.1,
+                      type: "spring",
+                      stiffness: 100,
+                    }}
                     viewport={{ once: true }}
-                  >
+                    whileHover={{
+                      scale: 1.1,
+                      y: -5,
+                      transition: {
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 10,
+                      },
+                    }}
+                    whileTap={{ scale: 0.95 }}>
                     <Button
-                      variant="outline"
-                      size="lg"
+                      variant='outline'
+                      size='lg'
                       asChild
-                      className="hover:scale-110 transition-transform h-auto py-4 px-6"
-                    >
+                      className='transition-all duration-300 h-auto py-4 px-6 hover:border-primary hover:shadow-lg'>
                       <a
                         href={social.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex flex-col items-center space-y-2"
-                      >
-                        <div className="bg-foreground p-2 rounded">
-                          <div className="text-background">
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='flex flex-col items-center space-y-2'>
+                        <motion.div
+                          className='bg-foreground p-2 rounded'
+                          whileHover={{ rotate: [0, -10, 10, 0] }}
+                          transition={{ duration: 0.4 }}>
+                          <div className='text-background'>
                             {getSocialIcon(social.name)}
                           </div>
-                        </div>
-                        <span className="text-sm font-medium">
+                        </motion.div>
+                        <span className='text-sm font-medium'>
                           {social.name}
                         </span>
                       </a>
@@ -183,9 +205,8 @@ export function Contact() {
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
-              className="text-center"
-            >
-              <p className="text-muted-foreground">
+              className='text-center'>
+              <p className='text-muted-foreground'>
                 Feel free to reach out through any of the platforms above.
                 I&apos;m always open to discussing new projects, opportunities,
                 or just having a chat!

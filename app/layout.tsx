@@ -5,6 +5,7 @@ import "highlight.js/styles/github.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { BackgroundEffect } from "@/components/BackgroundEffect";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -56,16 +57,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="overflow-x-hidden">
+    <html lang='en' suppressHydrationWarning className='overflow-x-hidden'>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden bg-background`}
-      >
+        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden bg-background`}>
         <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
+          attribute='class'
+          defaultTheme='system'
           enableSystem
-          disableTransitionOnChange
-        >
+          disableTransitionOnChange>
+          <BackgroundEffect />
           <Navbar />
           {children}
           <Footer />

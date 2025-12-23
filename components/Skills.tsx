@@ -185,33 +185,37 @@ const techLogos = [
 export function Skills() {
   return (
     <section
-      id="skills"
-      className="py-20 lg:py-32 bg-muted/30 w-full overflow-x-hidden relative"
-    >
-      {/* Dot pattern background */}
+      id='skills'
+      className='py-20 lg:py-32 w-full overflow-x-hidden relative'>
+      {/* Subtle Dot pattern background */}
       <div
-        className="absolute inset-0 opacity-40 pointer-events-none z-0"
+        className='absolute inset-0 opacity-[0.1] dark:opacity-[0.05] pointer-events-none z-0'
         style={{
-          backgroundImage: `radial-gradient(circle, rgba(128, 128, 128, 0.3) 1px, transparent 1px)`,
-          backgroundSize: "20px 20px",
+          backgroundImage: `radial-gradient(circle, rgba(128, 128, 128, 0.4) 1px, transparent 1px)`,
+          backgroundSize: "24px 24px",
         }}
       />
 
-      <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="max-w-6xl mx-auto">
+      <div className='container mx-auto px-4 lg:px-8 relative z-10'>
+        <div className='max-w-6xl mx-auto'>
           {/* Section Header */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            className='text-center mb-16'>
+            <h2 className='text-4xl md:text-5xl font-bold mb-4 gradient-text'>
               Skills & Technologies
             </h2>
-            <div className="w-24 h-1 bg-primary mx-auto rounded-full mb-6" />
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <motion.div
+              className='w-24 h-1 bg-primary mx-auto rounded-full mb-6'
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              viewport={{ once: true }}
+            />
+            <p className='text-lg text-muted-foreground max-w-2xl mx-auto'>
               Here are the technologies and tools I work with to bring ideas to
               life
             </p>
@@ -228,19 +232,18 @@ export function Skills() {
               position: "relative",
               overflow: "hidden",
             }}
-            className="mt-8"
-          >
+            className='mt-8'>
             <LogoLoop
               logos={techLogos}
               speed={120}
-              direction="left"
+              direction='left'
               logoHeight={48}
               gap={40}
               pauseOnHover
               scaleOnHover
               fadeOut
-              fadeOutColor="bg-muted/30"
-              ariaLabel="Technology partners"
+              fadeOutColor='bg-muted/30'
+              ariaLabel='Technology partners'
             />
           </motion.div>
         </div>

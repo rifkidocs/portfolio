@@ -107,56 +107,62 @@ export function Projects() {
   return (
     <>
       <section
-        id="projects"
-        className="py-20 lg:py-32 relative w-full overflow-x-hidden"
-      >
-        {/* Grid pattern background */}
+        id='projects'
+        className='py-20 lg:py-32 relative w-full overflow-x-hidden'>
+        {/* Subtle Grid pattern background */}
         <div
-          className="absolute inset-0 opacity-20 pointer-events-none z-0"
+          className='absolute inset-0 opacity-[0.08] dark:opacity-[0.05] pointer-events-none z-0'
           style={{
             backgroundImage: `
-              linear-gradient(to right, rgba(128, 128, 128, 0.1) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(128, 128, 128, 0.1) 1px, transparent 1px)
+              linear-gradient(to right, rgba(128, 128, 128, 0.2) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(128, 128, 128, 0.2) 1px, transparent 1px)
             `,
-            backgroundSize: "20px 20px",
+            backgroundSize: "40px 40px",
           }}
         />
 
-        <div className="container mx-auto px-4 lg:px-8 relative z-10">
-          <div className="max-w-7xl mx-auto">
+        <div className='container mx-auto px-4 lg:px-8 relative z-10'>
+          <div className='max-w-7xl mx-auto'>
             {/* Section Header */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-linear-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
+              className='text-center mb-16'>
+              <h2 className='text-4xl md:text-5xl font-bold mb-4 bg-linear-to-r from-foreground to-foreground/60 bg-clip-text text-transparent'>
                 Featured Projects
               </h2>
-              <div className="w-24 h-1 bg-linear-to-r from-transparent via-primary to-transparent mx-auto rounded-full mb-6" />
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <div className='w-24 h-1 bg-linear-to-r from-transparent via-primary to-transparent mx-auto rounded-full mb-6' />
+              <p className='text-lg text-muted-foreground max-w-2xl mx-auto'>
                 Explore my recent work that showcases my skills and creativity
               </p>
             </motion.div>
 
             {/* Featured Projects Grid */}
-            <div className="grid md:grid-cols-2 gap-8 mb-20">
+            <div className='grid md:grid-cols-2 gap-8 mb-20'>
               {featuredProjects.map((project, index) => (
                 <motion.div
                   key={project.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: index * 0.15,
+                    type: "spring",
+                    stiffness: 100,
+                  }}
                   viewport={{ once: true }}
-                >
+                  whileHover={{
+                    y: -8,
+                    transition: { type: "spring", stiffness: 300, damping: 15 },
+                  }}
+                  whileTap={{ scale: 0.98 }}>
                   <Card
-                    className="group h-full overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300 border-2 hover:border-primary/20"
-                    onClick={() => openProjectDialog(project)}
-                  >
+                    className='group h-full overflow-hidden cursor-pointer hover:shadow-2xl transition-all duration-300 border-2 hover:border-primary/30 card-lift'
+                    onClick={() => openProjectDialog(project)}>
                     {/* Project Image/Preview */}
-                    <div className="relative aspect-video bg-linear-to-br from-primary/10 to-primary/5 overflow-hidden rounded-t-lg">
+                    <div className='relative aspect-video bg-linear-to-br from-primary/10 to-primary/5 overflow-hidden rounded-t-lg'>
                       {project.image &&
                       project.image !== "/api/placeholder/600/400" ? (
                         <>
@@ -164,44 +170,42 @@ export function Projects() {
                             src={project.image}
                             alt={project.title}
                             fill
-                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            className='object-cover group-hover:scale-105 transition-transform duration-300'
                           />
                           {/* Overlay on Hover */}
-                          <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          <div className='absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
                         </>
                       ) : (
                         <>
                           {/* Animated Background Pattern */}
-                          <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity">
+                          <div className='absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity'>
                             <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iY3VycmVudENvbG9yIiBzdHJva2Utd2lkdGg9IjAuNSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')]"></div>
                           </div>
 
                           {/* Project Icon */}
-                          <div className="absolute inset-0 flex items-center justify-center">
+                          <div className='absolute inset-0 flex items-center justify-center'>
                             <motion.div
-                              className="relative z-10"
+                              className='relative z-10'
                               whileHover={{ scale: 1.1 }}
-                              transition={{ type: "spring", stiffness: 300 }}
-                            >
-                              <div className="bg-foreground p-6 rounded-2xl shadow-2xl">
-                                <Eye className="w-12 h-12 mx-auto text-background" />
+                              transition={{ type: "spring", stiffness: 300 }}>
+                              <div className='bg-foreground p-6 rounded-2xl shadow-2xl'>
+                                <Eye className='w-12 h-12 mx-auto text-background' />
                               </div>
                             </motion.div>
                           </div>
 
                           {/* Overlay on Hover */}
-                          <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          <div className='absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
                         </>
                       )}
 
                       {/* Tech Stack Preview */}
-                      <div className="absolute bottom-4 left-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                      <div className='absolute bottom-4 left-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10'>
                         {project.techStack.slice(0, 3).map((tech) => (
                           <Badge
                             key={tech}
-                            variant="secondary"
-                            className="backdrop-blur-sm bg-background/80"
-                          >
+                            variant='secondary'
+                            className='backdrop-blur-sm bg-background/80'>
                             {tech}
                           </Badge>
                         ))}
@@ -209,77 +213,74 @@ export function Projects() {
                     </div>
 
                     {/* Project Info */}
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex-1">
-                          <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">
+                    <CardContent className='p-6'>
+                      <div className='flex items-start justify-between mb-3'>
+                        <div className='flex-1'>
+                          <h3 className='text-2xl font-bold mb-2 group-hover:text-primary transition-colors'>
                             {project.title}
                           </h3>
-                          <p className="text-muted-foreground text-sm line-clamp-2">
+                          <p className='text-muted-foreground text-sm line-clamp-2'>
                             {project.description}
                           </p>
                         </div>
-                        <Badge variant="secondary" className="ml-2 shrink-0">
+                        <Badge variant='secondary' className='ml-2 shrink-0'>
                           Featured
                         </Badge>
                       </div>
 
                       {/* Tech Stack Icons */}
-                      <div className="flex flex-wrap gap-2 mb-4">
+                      <div className='flex flex-wrap gap-2 mb-4'>
                         {project.techStack.slice(0, 4).map((tech) => (
                           <Badge
                             key={tech}
-                            variant="outline"
-                            className="flex items-center gap-1.5"
-                          >
+                            variant='outline'
+                            className='flex items-center gap-1.5'>
                             {techLogos[tech] ? (
                               <Image
                                 src={techLogos[tech]}
                                 alt={tech}
                                 width={16}
                                 height={16}
-                                className="w-4 h-4"
+                                className='w-4 h-4'
                               />
                             ) : (
-                              <Code2 className="w-3 h-3" />
+                              <Code2 className='w-3 h-3' />
                             )}
-                            <span className="text-xs">{tech}</span>
+                            <span className='text-xs'>{tech}</span>
                           </Badge>
                         ))}
                         {project.techStack.length > 4 && (
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant='outline' className='text-xs'>
                             +{project.techStack.length - 4}
                           </Badge>
                         )}
                       </div>
 
                       {/* Action Buttons */}
-                      <div className="flex gap-2">
+                      <div className='flex gap-2'>
                         {project.liveUrl && (
                           <Button
-                            size="sm"
-                            variant="default"
-                            className="flex-1"
+                            size='sm'
+                            variant='default'
+                            className='flex-1'
                             onClick={(e) => {
                               e.stopPropagation();
                               window.open(project.liveUrl, "_blank");
-                            }}
-                          >
-                            <ExternalLink className="w-4 h-4 mr-2" />
+                            }}>
+                            <ExternalLink className='w-4 h-4 mr-2' />
                             Visit Site
                           </Button>
                         )}
                         {project.githubUrl && (
                           <Button
-                            size="sm"
-                            variant="outline"
-                            className="flex-1"
+                            size='sm'
+                            variant='outline'
+                            className='flex-1'
                             onClick={(e) => {
                               e.stopPropagation();
                               window.open(project.githubUrl, "_blank");
-                            }}
-                          >
-                            <Github className="w-4 h-4 mr-2" />
+                            }}>
+                            <Github className='w-4 h-4 mr-2' />
                             Code
                           </Button>
                         )}
@@ -296,71 +297,81 @@ export function Projects() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-              >
-                <h3 className="text-3xl font-bold text-center mb-12">
+                viewport={{ once: true }}>
+                <h3 className='text-3xl font-bold text-center mb-12'>
                   Other Projects
                 </h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
                   {paginatedOtherProjects.map((project, index) => (
                     <motion.div
                       key={project.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay: index * 0.1 }}
+                      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{
+                        duration: 0.4,
+                        delay: index * 0.1,
+                        type: "spring",
+                        stiffness: 100,
+                      }}
                       viewport={{ once: true }}
-                    >
+                      whileHover={{
+                        y: -6,
+                        transition: {
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 15,
+                        },
+                      }}
+                      whileTap={{ scale: 0.98 }}>
                       <Card
-                        className="h-full group hover:shadow-xl transition-all duration-300 cursor-pointer border-2 hover:border-primary/10"
-                        onClick={() => openProjectDialog(project)}
-                      >
-                        <div className="aspect-video bg-linear-to-br from-primary/10 to-primary/5 relative overflow-hidden rounded-t-lg">
+                        className='h-full group hover:shadow-xl transition-all duration-300 cursor-pointer border-2 hover:border-primary/20 card-lift'
+                        onClick={() => openProjectDialog(project)}>
+                        <div className='aspect-video bg-linear-to-br from-primary/10 to-primary/5 relative overflow-hidden rounded-t-lg'>
                           {project.image &&
                           project.image !== "/api/placeholder/600/400" ? (
                             <Image
                               src={project.image}
                               alt={project.title}
                               fill
-                              className="object-cover group-hover:scale-105 transition-transform duration-300"
+                              className='object-cover group-hover:scale-105 transition-transform duration-300'
                             />
                           ) : (
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <div className="bg-foreground p-4 rounded-xl">
-                                <Eye className="w-8 h-8 text-background" />
+                            <div className='absolute inset-0 flex items-center justify-center'>
+                              <div className='bg-foreground p-4 rounded-xl'>
+                                <Eye className='w-8 h-8 text-background' />
                               </div>
                             </div>
                           )}
                         </div>
-                        <CardContent className="p-4 space-y-3">
-                          <h4 className="font-semibold text-lg group-hover:text-primary transition-colors">
+                        <CardContent className='p-4 space-y-3'>
+                          <h4 className='font-semibold text-lg group-hover:text-primary transition-colors'>
                             {project.title}
                           </h4>
-                          <p className="text-sm text-muted-foreground line-clamp-2">
+                          <p className='text-sm text-muted-foreground line-clamp-2'>
                             {project.description}
                           </p>
-                          <div className="flex flex-wrap gap-1.5">
+                          <div className='flex flex-wrap gap-1.5'>
                             {project.techStack.slice(0, 3).map((tech) => (
                               <Badge
                                 key={tech}
-                                variant="outline"
-                                className="flex items-center gap-1.5 text-xs"
-                              >
+                                variant='outline'
+                                className='flex items-center gap-1.5 text-xs'>
                                 {techLogos[tech] ? (
                                   <Image
                                     src={techLogos[tech]}
                                     alt={tech}
                                     width={14}
                                     height={14}
-                                    className="w-3.5 h-3.5"
+                                    className='w-3.5 h-3.5'
                                   />
                                 ) : (
-                                  <Code2 className="w-3 h-3" />
+                                  <Code2 className='w-3 h-3' />
                                 )}
                                 <span>{tech}</span>
                               </Badge>
                             ))}
                             {project.techStack.length > 3 && (
-                              <Badge variant="outline" className="text-xs">
+                              <Badge variant='outline' className='text-xs'>
                                 +{project.techStack.length - 3}
                               </Badge>
                             )}
@@ -371,13 +382,12 @@ export function Projects() {
                   ))}
                 </div>
                 {totalOtherPages > 1 && (
-                  <div className="mt-8 flex items-center justify-center gap-2">
+                  <div className='mt-8 flex items-center justify-center gap-2'>
                     <Button
-                      variant="outline"
-                      size="sm"
+                      variant='outline'
+                      size='sm'
                       disabled={otherPage === 1}
-                      onClick={() => setOtherPage((p) => Math.max(1, p - 1))}
-                    >
+                      onClick={() => setOtherPage((p) => Math.max(1, p - 1))}>
                       Prev
                     </Button>
                     {Array.from(
@@ -386,22 +396,20 @@ export function Projects() {
                     ).map((pageNum) => (
                       <Button
                         key={pageNum}
-                        size="sm"
+                        size='sm'
                         variant={pageNum === otherPage ? "default" : "outline"}
                         onClick={() => setOtherPage(pageNum)}
-                        className="w-9"
-                      >
+                        className='w-9'>
                         {pageNum}
                       </Button>
                     ))}
                     <Button
-                      variant="outline"
-                      size="sm"
+                      variant='outline'
+                      size='sm'
                       disabled={otherPage === totalOtherPages}
                       onClick={() =>
                         setOtherPage((p) => Math.min(totalOtherPages, p + 1))
-                      }
-                    >
+                      }>
                       Next
                     </Button>
                   </div>
@@ -418,7 +426,7 @@ export function Projects() {
           <>
             {/* Backdrop with Blur */}
             <motion.div
-              className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm"
+              className='fixed inset-0 z-50 bg-black/80 backdrop-blur-sm'
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -428,14 +436,13 @@ export function Projects() {
 
             {/* Dialog Content */}
             <motion.div
-              className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
+              className='fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none'
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
+              transition={{ duration: 0.2 }}>
               <motion.div
-                className="relative w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-2xl border bg-card shadow-2xl pointer-events-auto"
+                className='relative w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-2xl border bg-card shadow-2xl pointer-events-auto'
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
@@ -444,53 +451,51 @@ export function Projects() {
                   damping: 25,
                   stiffness: 400,
                   duration: 0.3,
-                }}
-              >
+                }}>
                 {/* Close Button */}
                 <button
                   onClick={closeDialog}
-                  className="absolute top-4 right-4 z-10 rounded-full p-2 bg-background/80 backdrop-blur-sm hover:bg-background transition-colors"
-                >
-                  <X className="w-5 h-5" />
+                  className='absolute top-4 right-4 z-10 rounded-full p-2 bg-background/80 backdrop-blur-sm hover:bg-background transition-colors'>
+                  <X className='w-5 h-5' />
                 </button>
 
                 {/* Dialog Content */}
-                <div className="overflow-y-auto max-h-[90vh]">
+                <div className='overflow-y-auto max-h-[90vh]'>
                   {/* Header Image */}
                   {selectedProject.image &&
                   selectedProject.image !== "/api/placeholder/600/400" ? (
-                    <div className="w-full flex justify-center bg-linear-to-br from-primary/20 to-primary/5 overflow-hidden">
-                      <div className="relative w-full max-h-[60vh]">
+                    <div className='w-full flex justify-center bg-linear-to-br from-primary/20 to-primary/5 overflow-hidden'>
+                      <div className='relative w-full max-h-[60vh]'>
                         <Image
                           src={selectedProject.image}
                           alt={selectedProject.title}
                           width={1200}
                           height={675}
-                          className="w-full h-auto object-contain"
+                          className='w-full h-auto object-contain'
                           priority
                         />
                       </div>
                     </div>
                   ) : (
-                    <div className="relative h-64 w-full bg-linear-to-br from-primary/20 to-primary/5 overflow-hidden">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="bg-foreground p-8 rounded-2xl shadow-xl">
-                          <Eye className="w-16 h-16 text-background" />
+                    <div className='relative h-64 w-full bg-linear-to-br from-primary/20 to-primary/5 overflow-hidden'>
+                      <div className='absolute inset-0 flex items-center justify-center'>
+                        <div className='bg-foreground p-8 rounded-2xl shadow-xl'>
+                          <Eye className='w-16 h-16 text-background' />
                         </div>
                       </div>
                     </div>
                   )}
 
                   {/* Content */}
-                  <div className="p-4 sm:p-8 space-y-4 sm:space-y-6">
+                  <div className='p-4 sm:p-8 space-y-4 sm:space-y-6'>
                     {/* Title and Badge */}
-                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                    <div className='flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3'>
                       <div>
-                        <h2 className="text-2xl sm:text-3xl font-bold mb-2">
+                        <h2 className='text-2xl sm:text-3xl font-bold mb-2'>
                           {selectedProject.title}
                         </h2>
-                        <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                          <Calendar className="w-4 h-4" />
+                        <div className='flex items-center gap-2 text-muted-foreground text-sm'>
+                          <Calendar className='w-4 h-4' />
                           {selectedProject.featured
                             ? "Featured Project"
                             : "Project"}
@@ -498,9 +503,8 @@ export function Projects() {
                       </div>
                       {selectedProject.featured && (
                         <Badge
-                          variant="secondary"
-                          className="text-sm self-start"
-                        >
+                          variant='secondary'
+                          className='text-sm self-start'>
                           Featured
                         </Badge>
                       )}
@@ -508,40 +512,38 @@ export function Projects() {
 
                     {/* Description */}
                     <div>
-                      <h3 className="text-lg font-semibold mb-2">About</h3>
-                      <p className="text-muted-foreground leading-relaxed">
+                      <h3 className='text-lg font-semibold mb-2'>About</h3>
+                      <p className='text-muted-foreground leading-relaxed'>
                         {selectedProject.description}
                       </p>
                     </div>
 
                     {/* Tech Stack */}
                     <div>
-                      <h3 className="text-lg font-semibold mb-3">
+                      <h3 className='text-lg font-semibold mb-3'>
                         Technologies
                       </h3>
-                      <div className="flex flex-wrap gap-2">
+                      <div className='flex flex-wrap gap-2'>
                         {selectedProject.techStack.map((tech, techIndex) => (
                           <motion.div
                             key={tech}
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: techIndex * 0.05 }}
-                          >
+                            transition={{ delay: techIndex * 0.05 }}>
                             <Badge
-                              variant="outline"
-                              className="flex items-center gap-2 px-3 py-1.5 text-sm"
-                            >
-                              <span className="bg-background p-1 rounded">
+                              variant='outline'
+                              className='flex items-center gap-2 px-3 py-1.5 text-sm'>
+                              <span className='bg-background p-1 rounded'>
                                 {techLogos[tech] ? (
                                   <Image
                                     src={techLogos[tech]}
                                     alt={tech}
                                     width={18}
                                     height={18}
-                                    className="w-4 h-4"
+                                    className='w-4 h-4'
                                   />
                                 ) : (
-                                  <Code2 className="w-4 h-4" />
+                                  <Code2 className='w-4 h-4' />
                                 )}
                               </span>
                               <span>{tech}</span>
@@ -552,39 +554,35 @@ export function Projects() {
                     </div>
 
                     {/* Actions */}
-                    <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t">
+                    <div className='flex flex-col sm:flex-row gap-3 pt-4 border-t'>
                       {selectedProject.liveUrl && (
                         <Button
-                          size="lg"
-                          className="flex-1 py-3 bg-foreground text-background hover:bg-foreground/90"
-                          asChild
-                        >
+                          size='lg'
+                          className='flex-1 py-3 bg-foreground text-background hover:bg-foreground/90'
+                          asChild>
                           <a
                             href={selectedProject.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <Globe className="w-5 h-5 mr-2" />
+                            target='_blank'
+                            rel='noopener noreferrer'>
+                            <Globe className='w-5 h-5 mr-2' />
                             Visit Site
-                            <ExternalLink className="w-4 h-4 ml-2" />
+                            <ExternalLink className='w-4 h-4 ml-2' />
                           </a>
                         </Button>
                       )}
                       {selectedProject.githubUrl && (
                         <Button
-                          size="lg"
-                          variant="outline"
-                          className="flex-1 py-3"
-                          asChild
-                        >
+                          size='lg'
+                          variant='outline'
+                          className='flex-1 py-3'
+                          asChild>
                           <a
                             href={selectedProject.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <Github className="w-5 h-5 mr-2" />
+                            target='_blank'
+                            rel='noopener noreferrer'>
+                            <Github className='w-5 h-5 mr-2' />
                             View Source Code
-                            <ExternalLink className="w-4 h-4 ml-2" />
+                            <ExternalLink className='w-4 h-4 ml-2' />
                           </a>
                         </Button>
                       )}
