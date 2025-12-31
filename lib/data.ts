@@ -33,6 +33,16 @@ export interface SocialLink {
 
 export const projects: Project[] = [
   {
+    id: "12",
+    title: "JuraganIT - Digital Agency Website",
+    description:
+      "Developed the official platform for JuraganIT, a digital creative agency under CV. Juragan Karya Digital Teknologi. The website serves as a comprehensive hub for digital transformation services, including professional web development, mobile application development, and IT consultancy. The platform is designed to showcase the agency's commitment to high-performance, SEO-ready, and mobile-friendly solutions, featuring a detailed service showcase and dynamic portfolio integration.",
+    image: "/JuraganIT.png",
+    techStack: ["Next.js", "JavaScript", "Strapi", "Tailwind CSS", "React"],
+    liveUrl: "https://juraganitweb.co.id/",
+    featured: true,
+  },
+  {
     id: "11",
     title: "Kesra Banyuwangi – Government Service Website",
     description:
