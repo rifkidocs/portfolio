@@ -47,15 +47,29 @@ export function Hero() {
         {/* Base background color matching Hero */}
         <div className='absolute inset-0 bg-background' />
 
-        {/* Grid pattern for mobile and light mode desktop */}
+        {/* Colorful blur orbs for light mode */}
+        <div className='absolute top-20 -left-32 w-[500px] h-[500px] bg-blue-400/15 dark:bg-transparent rounded-full blur-3xl pointer-events-none' />
+        <div className='absolute top-40 right-0 w-96 h-96 bg-purple-400/12 dark:bg-transparent rounded-full blur-3xl pointer-events-none' />
+        <div className='absolute bottom-40 left-1/3 w-80 h-80 bg-cyan-400/10 dark:bg-transparent rounded-full blur-3xl pointer-events-none' />
+        <div className='absolute bottom-20 right-1/4 w-72 h-72 bg-pink-400/10 dark:bg-transparent rounded-full blur-3xl pointer-events-none' />
+
+        {/* Noise texture overlay - light mode only */}
         <div
-          className='absolute inset-0 opacity-30 md:opacity-30 lg:opacity-30 md:dark:opacity-0 lg:dark:opacity-0'
+          className='absolute inset-0 opacity-[0.012] dark:opacity-0 pointer-events-none'
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          }}
+        />
+
+        {/* Grid pattern for mobile and light mode desktop - more visible */}
+        <div
+          className='absolute inset-0 opacity-40 md:opacity-40 lg:opacity-40 md:dark:opacity-0 lg:dark:opacity-0'
           style={{
             backgroundImage: `
-              linear-gradient(to right, rgba(128, 128, 128, 0.1) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(128, 128, 128, 0.1) 1px, transparent 1px)
+              linear-gradient(to right, rgba(128, 128, 128, 0.15) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(128, 128, 128, 0.15) 1px, transparent 1px)
             `,
-            backgroundSize: "20px 20px",
+            backgroundSize: "40px 40px",
           }}
         />
 
@@ -63,6 +77,9 @@ export function Hero() {
         <div className='absolute inset-0 opacity-0 dark:opacity-50'>
           <DarkVeil />
         </div>
+
+        {/* Bottom gradient for smooth transition to About */}
+        <div className='absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent to-muted/20 dark:to-[#0a0a0f] pointer-events-none' />
       </div>
 
       <div className='container mx-auto px-4 lg:px-8 relative z-10'>

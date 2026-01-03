@@ -76,6 +76,15 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Section backgrounds - Light mode (smooth transitions) */
+  --section-hero-bg: oklch(1 0 0);
+  --section-about-bg: oklch(0.985 0.002 80);
+  --section-github-bg: oklch(0.99 0 0);
+  --section-skills-bg: oklch(0.982 0.003 70);
+  --section-projects-bg: oklch(0.995 0 0);
+  --section-experience-bg: oklch(0.98 0.003 80);
+  --section-contact-bg: oklch(0.985 0.002 75);
 }
 
 .dark {
@@ -110,6 +119,15 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  /* Section backgrounds - Dark mode (smooth transitions) */
+  --section-hero-bg: oklch(0.145 0 0);
+  --section-about-bg: oklch(0.16 0.008 260);
+  --section-github-bg: oklch(0.155 0.005 250);
+  --section-skills-bg: oklch(0.16 0.006 270);
+  --section-projects-bg: oklch(0.15 0.003 255);
+  --section-experience-bg: oklch(0.155 0.008 265);
+  --section-contact-bg: oklch(0.148 0.005 260);
 }
 
 @layer base {

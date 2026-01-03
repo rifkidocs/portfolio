@@ -27,18 +27,37 @@ export function About() {
   return (
     <section
       id='about'
-      className='py-20 lg:py-32 bg-muted/30 dark:bg-transparent w-full overflow-x-hidden relative'>
-      {/* Grid pattern background */}
+      className='py-20 lg:py-32 w-full overflow-x-hidden relative bg-gradient-to-b from-background via-muted/20 to-muted/30 dark:from-[#0a0a0f] dark:via-[#0d0d14] dark:to-[#101018]'>
+      {/* Colorful blur orbs */}
+      <div className='absolute top-20 -left-32 w-96 h-96 bg-blue-500/10 dark:bg-blue-500/5 rounded-full blur-3xl pointer-events-none' />
+      <div className='absolute top-40 right-0 w-80 h-80 bg-purple-500/10 dark:bg-purple-500/5 rounded-full blur-3xl pointer-events-none' />
+      <div className='absolute bottom-20 left-1/3 w-72 h-72 bg-cyan-400/8 dark:bg-cyan-400/4 rounded-full blur-3xl pointer-events-none' />
+
+      {/* Noise texture overlay */}
       <div
-        className='absolute inset-0 opacity-20 pointer-events-none z-0'
+        className='absolute inset-0 opacity-[0.015] dark:opacity-[0.03] pointer-events-none z-0'
         style={{
-          backgroundImage: `
-            linear-gradient(to right, rgba(128, 128, 128, 0.1) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(128, 128, 128, 0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: "20px 20px",
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         }}
       />
+
+      {/* Grid pattern background - more visible */}
+      <div
+        className='absolute inset-0 opacity-40 dark:opacity-20 pointer-events-none z-0'
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(128, 128, 128, 0.15) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(128, 128, 128, 0.15) 1px, transparent 1px)
+          `,
+          backgroundSize: "40px 40px",
+        }}
+      />
+
+      {/* Top blend gradient */}
+      <div className='absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background dark:from-[#0a0a0f] to-transparent pointer-events-none z-0' />
+
+      {/* Bottom blend gradient */}
+      <div className='absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-muted/40 dark:from-[#101018] to-transparent pointer-events-none z-0' />
 
       <div className='container mx-auto px-4 lg:px-8 relative z-10'>
         <div className='max-w-6xl mx-auto'>
