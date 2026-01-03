@@ -188,13 +188,13 @@ export function Skills() {
       id='skills'
       className='py-20 lg:py-32 w-full overflow-x-hidden relative bg-gradient-to-b from-muted/30 via-muted/40 to-muted/30 dark:from-[#0e0e16] dark:via-[#121220] dark:to-[#0f0f18]'>
       {/* Colorful blur orbs */}
-      <div className='absolute top-32 -right-20 w-96 h-96 bg-violet-500/10 dark:bg-violet-500/5 rounded-full blur-3xl pointer-events-none' />
-      <div className='absolute top-20 left-10 w-72 h-72 bg-indigo-400/8 dark:bg-indigo-400/4 rounded-full blur-3xl pointer-events-none' />
-      <div className='absolute bottom-10 left-1/2 w-80 h-80 bg-fuchsia-400/8 dark:bg-fuchsia-400/4 rounded-full blur-3xl pointer-events-none' />
+      <div className='absolute top-32 -right-20 w-96 h-96 bg-violet-500/10 dark:hidden rounded-full blur-3xl pointer-events-none' />
+      <div className='absolute top-20 left-10 w-72 h-72 bg-indigo-400/8 dark:hidden rounded-full blur-3xl pointer-events-none' />
+      <div className='absolute bottom-10 left-1/2 w-80 h-80 bg-fuchsia-400/8 dark:hidden rounded-full blur-3xl pointer-events-none' />
 
       {/* Noise texture overlay */}
       <div
-        className='absolute inset-0 opacity-[0.02] dark:opacity-[0.03] pointer-events-none z-0'
+        className='absolute inset-0 opacity-[0.02] dark:hidden pointer-events-none z-0'
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         }}

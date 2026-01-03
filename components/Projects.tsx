@@ -110,14 +110,14 @@ export function Projects() {
         id='projects'
         className='py-20 lg:py-32 relative w-full overflow-x-hidden bg-gradient-to-b from-muted/30 via-background to-muted/20 dark:from-[#0f0f18] dark:via-[#0a0a10] dark:to-[#0d0d15]'>
         {/* Colorful blur orbs */}
-        <div className='absolute top-40 left-10 w-96 h-96 bg-orange-400/8 dark:bg-orange-400/4 rounded-full blur-3xl pointer-events-none' />
-        <div className='absolute top-1/3 -right-20 w-80 h-80 bg-rose-500/10 dark:bg-rose-500/5 rounded-full blur-3xl pointer-events-none' />
-        <div className='absolute bottom-40 left-1/4 w-72 h-72 bg-amber-400/8 dark:bg-amber-400/4 rounded-full blur-3xl pointer-events-none' />
-        <div className='absolute bottom-20 right-1/4 w-64 h-64 bg-pink-400/8 dark:bg-pink-400/4 rounded-full blur-3xl pointer-events-none' />
+        <div className='absolute top-40 left-10 w-96 h-96 bg-orange-400/8 dark:hidden rounded-full blur-3xl pointer-events-none' />
+        <div className='absolute top-1/3 -right-20 w-80 h-80 bg-rose-500/10 dark:hidden rounded-full blur-3xl pointer-events-none' />
+        <div className='absolute bottom-40 left-1/4 w-72 h-72 bg-amber-400/8 dark:hidden rounded-full blur-3xl pointer-events-none' />
+        <div className='absolute bottom-20 right-1/4 w-64 h-64 bg-pink-400/8 dark:hidden rounded-full blur-3xl pointer-events-none' />
 
         {/* Noise texture overlay */}
         <div
-          className='absolute inset-0 opacity-[0.015] dark:opacity-[0.025] pointer-events-none z-0'
+          className='absolute inset-0 opacity-[0.015] dark:hidden pointer-events-none z-0'
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
           }}
