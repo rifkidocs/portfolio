@@ -79,6 +79,9 @@ export function Projects() {
     WordPress:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg",
     PHP: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",
+    Laravel: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg",
+    SQLite: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg",
+    Flowbite: "https://api.iconify.design/logos:flowbite.svg",
     Django:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg",
     AWS: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg",
@@ -96,6 +99,8 @@ export function Projects() {
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg",
     "OpenWeather API":
       "https://api.iconify.design/simple-icons:openweathermap.svg",
+    Cloudinary: "https://api.iconify.design/logos:cloudinary-icon.svg",
+    "@dnd-kit": "https://api.iconify.design/material-symbols:drag-pan-rounded.svg",
     NextUI: "https://nextui.org/favicon.ico",
     docx: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/microsoft-word.png",
     jspdf:

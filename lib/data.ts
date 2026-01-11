@@ -33,6 +33,16 @@ export interface SocialLink {
 
 export const projects: Project[] = [
   {
+    id: "13",
+    title: "Predator Rubber - Premium Livestock Flooring",
+    description:
+      "I developed the official website for Predator Rubber, a premium livestock flooring provider. The platform showcases high-quality cow mats designed to enhance cattle comfort, health, and productivity using anti-slip technology and durable materials, featuring a robust backend built with Laravel and MySQL.",
+    image: "/predatorrubber.png",
+    techStack: ["PHP", "Laravel", "Tailwind CSS", "MySQL", "Vite"],
+    liveUrl: "https://www.predatorrubber.com/",
+    featured: true,
+  },
+  {
     id: "12",
     title: "JuraganIT - Digital Agency Website",
     description:
@@ -100,6 +110,23 @@ export const projects: Project[] = [
     image: "/yppti.png",
     techStack: ["WordPress", "PHP", "Premium Plugins", "MySQL"],
     liveUrl: "http://ypptisunangiri.or.id/",
+    featured: false,
+  },
+  {
+    id: "14",
+    title: "Personal Linktree Alternative",
+    description:
+      "I built a self-hosted, personal Linktree alternative that gives users full control over their landing page. It features a dynamic drag-and-drop interface for link management, real-time updates, and a clean, mobile-first design.",
+    image: "/linktree.png",
+    techStack: [
+      "Next.js",
+      "Firebase",
+      "Cloudinary",
+      "Tailwind CSS",
+      "Framer Motion",
+      "@dnd-kit",
+    ],
+    githubUrl: "https://github.com/rifkidocs/link-tree-tuntas",
     featured: false,
   },
   {
