@@ -107,6 +107,12 @@ export function Projects() {
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
     "Premium Plugins":
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg",
+    "Google Gemini":
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg",
+    Redis:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
+    "Next.js 16":
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
   };
 
   return (

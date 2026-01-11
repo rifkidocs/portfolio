@@ -33,6 +33,27 @@ export interface SocialLink {
 
 export const projects: Project[] = [
   {
+    id: "15",
+    title: "AI-Powered Collaborative Workspace",
+    description:
+      "I developed a Notion-style, AI-powered collaborative platform featuring real-time document editing and live cursor tracking. Built with a scalable microservices architecture using Next.js 16 and Express.js, it integrates Google Gemini for AI content generation, Yjs & Socket.io for instant synchronization, and PostgreSQL for robust data management.",
+    image: "/notes.png",
+    techStack: [
+      "Next.js 16",
+      "TypeScript",
+      "Google Gemini",
+      "Socket.io",
+      "Express.js",
+      "PostgreSQL",
+      "Prisma",
+      "Redis",
+      "Docker",
+    ],
+    liveUrl: "https://rifki-notes-ai.vercel.app/",
+    githubUrl: "https://github.com/rifkidocs/frontend-notes-ai",
+    featured: true,
+  },
+  {
     id: "13",
     title: "Predator Rubber - Premium Livestock Flooring",
     description:
