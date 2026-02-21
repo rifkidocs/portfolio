@@ -33,6 +33,26 @@ export interface SocialLink {
 
 export const projects: Project[] = [
   {
+    id: "17",
+    title: "MomenPesta - Digital Invitation SaaS",
+    description:
+      "A comprehensive Software as a Service (SaaS) platform for creating elegant digital invitations. It features a user-friendly interface for customizing wedding and event invitations, integrated with Midtrans for secure payments, Firebase for real-time data management, and GSAP for high-quality interactive animations.",
+    image: "/momenpesta.png",
+    techStack: ["Next.js", "Firebase", "Midtrans", "GSAP", "Tailwind CSS", "TypeScript"],
+    liveUrl: "https://www.momenpesta.id/",
+    featured: true,
+  },
+  {
+    id: "16",
+    title: "PMB UNISLA - University Admission System",
+    description:
+      "The official student admission system for Universitas Islam Lamongan (UNISLA). This platform simplifies the enrollment process for thousands of prospective students, featuring a modern React-based frontend, a robust Laravel 12 backend, and fluid interactive elements powered by GSAP.",
+    image: "/pmb.png",
+    techStack: ["Laravel", "React", "GSAP", "Tailwind CSS", "MySQL"],
+    liveUrl: "https://pmb.unisla.ac.id/",
+    featured: true,
+  },
+  {
     id: "15",
     title: "AI-Powered Collaborative Workspace",
     description:

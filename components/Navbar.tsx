@@ -1,8 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -13,7 +14,13 @@ import {
   Building2,
   Mail,
   Menu,
+  X,
   Newspaper,
+  Github,
+  Linkedin,
+  Instagram,
+  MessageCircle,
+  ExternalLink,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import GlassSurface from "./GlassSurface";
@@ -25,6 +32,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { socialLinks } from "@/lib/data";
 
 const navigation = [
   { name: "Home", href: "#home", icon: <Home className='w-4 h-4' /> },
@@ -189,110 +197,169 @@ export function Navbar() {
     : "text-muted-foreground";
   const activeTextColorClass = isDarkBackground ? "text-white" : "text-primary";
 
+  const getSocialIcon = (name: string) => {
+    switch (name) {
+      case "GitHub":
+        return <Github className='w-4 h-4' />;
+      case "LinkedIn":
+        return <Linkedin className='w-4 h-4' />;
+      case "Instagram":
+        return <Instagram className='w-4 h-4' />;
+      case "Discord":
+        return <MessageCircle className='w-4 h-4' />;
+      case "Email":
+        return <Mail className='w-4 h-4' />;
+      default:
+        return <ExternalLink className='w-4 h-4' />;
+    }
+  };
+
   return (
     <>
-      {/* Mobile Layout - Full-width top-attached glass bar */}
-      <motion.nav
-        initial={{ y: 0, opacity: 1 }}
-        animate={{
-          y: isScrollingUp ? 0 : -100,
-          opacity: isScrollingUp ? 1 : 0,
-        }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-        className='fixed top-0 left-0 right-0 z-50 lg:hidden w-screen'>
-        <div className='w-full h-14 flex items-center justify-between px-4 bg-background/60 backdrop-blur-md border-b border-border/30 supports-backdrop-filter:bg-background/60'>
-          {/* Theme toggle on the left */}
-          <div className='flex items-center'>
-            <ThemeToggle />
-          </div>
+      {/* Mobile Layout - Full-width top-attached glass bar with improved dropdown */}
+      <nav
+        className='fixed top-0 left-0 right-0 z-50 lg:hidden w-screen h-16 flex items-center justify-between px-6 bg-background/80 backdrop-blur-xl border-b border-border/40 supports-backdrop-filter:bg-background/60'>
+        {/* Mobile Logo/Brand */}
+        <Link href="/" className='flex items-center gap-2'>
+          <Image 
+            src="/logo-r.svg" 
+            alt="R Logo" 
+            width={32} 
+            height={32} 
+            className="w-8 h-8 rounded-lg shadow-sm"
+          />
+          <span className='font-bold text-lg tracking-tight'>Portfolio</span>
+        </Link>
 
-          {/* Hamburger menu on the right */}
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild>
-              <Button variant='ghost' size='sm' className='lg:hidden'>
-                <Menu className='h-5 w-5' />
-                <span className='sr-only'>Open menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent
-              side='right'
-              className='w-64 p-0 [&>button]:hidden bg-background/80 backdrop-blur-xl border-l border-border/30 backdrop-saturate-150'
-              style={{
-                boxShadow:
-                  "inset 0 1px 0 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 0 rgba(255, 255, 255, 0.04)",
-              }}>
-              <SheetHeader className='p-4 border-b border-border/30'>
-                <SheetTitle className='text-xl font-bold'>
-                  Navigation Menu
-                </SheetTitle>
-              </SheetHeader>
-              <div className='flex flex-col h-full'>
-                <div className='flex items-center justify-between p-4 border-b border-border/30'>
-                  <h2 className='text-lg font-semibold'>Rifki</h2>
-                  <ThemeToggle />
-                </div>
-                <nav className='flex-1 px-2 py-4 space-y-1'>
-                  {navigation.map((item) => {
-                    const isRoute = !item.href.startsWith("#");
-                    const isActive = isRoute
-                      ? pathname?.startsWith(item.href)
-                      : pathname === "/" &&
-                        activeSection === item.href.substring(1);
-                    const baseClass =
-                      "group flex items-center px-2 py-2 text-sm font-medium rounded-md w-full text-left transition-colors space-x-3";
-                    const cls = cn(
-                      baseClass,
-                      isActive
-                        ? "bg-accent/50 text-accent-foreground backdrop-blur-sm"
-                        : "text-foreground hover:bg-accent/30 hover:text-accent-foreground"
-                    );
-                    const iconCls = cn(
-                      isActive
-                        ? "text-accent-foreground"
-                        : "text-foreground group-hover:text-accent-foreground"
-                    );
-                    if (isRoute) {
-                      return (
+        {/* Action Buttons */}
+        <div className='flex items-center gap-4'>
+          <ThemeToggle />
+          <Button
+            variant='ghost'
+            size='icon'
+            className='relative z-50 h-10 w-10 rounded-full bg-muted/50'
+            onClick={() => setIsOpen(!isOpen)}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={isOpen ? "close" : "open"}
+                initial={{ opacity: 0, rotate: -90, scale: 0.8 }}
+                animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                exit={{ opacity: 0, rotate: 90, scale: 0.8 }}
+                transition={{ duration: 0.2 }}
+                className="flex items-center justify-center"
+              >
+                {isOpen ? (
+                  <X className="h-6 w-6 text-foreground" />
+                ) : (
+                  <Menu className="h-6 w-6 text-foreground" />
+                )}
+              </motion.div>
+            </AnimatePresence>
+            <span className='sr-only'>Toggle menu</span>
+          </Button>
+        </div>
+
+        {/* Full-screen Mobile Menu Overlay */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: "circOut" }}
+              className='fixed inset-0 top-0 left-0 w-full h-screen bg-background/95 backdrop-blur-2xl z-40 overflow-y-auto pt-24 pb-12 px-8 flex flex-col'>
+              {/* Background Decorative Elements */}
+              <div className='absolute top-20 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -z-10' />
+              <div className='absolute bottom-20 left-0 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl -z-10' />
+
+              {/* Menu Items */}
+              <div className='flex flex-col space-y-2 mb-12'>
+                <p className='text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4 px-2'>
+                  Navigation
+                </p>
+                {navigation.map((item, idx) => {
+                  const isRoute = !item.href.startsWith("#");
+                  const isActive = isRoute
+                    ? pathname?.startsWith(item.href)
+                    : pathname === "/" &&
+                      activeSection === item.href.substring(1);
+
+                  return (
+                    <motion.div
+                      key={item.name}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.05 }}>
+                      {isRoute ? (
                         <Link
-                          key={item.name}
                           href={item.href}
                           onClick={() => setIsOpen(false)}
-                          className={cls}>
-                          <span className={iconCls}>{item.icon}</span>
-                          <span>{item.name}</span>
+                          className={cn(
+                            "flex items-center gap-4 py-4 px-4 rounded-2xl transition-all",
+                            isActive
+                              ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                              : "hover:bg-muted"
+                          )}>
+                          <span className={cn("p-2 rounded-lg", isActive ? "bg-white/20" : "bg-muted")}>
+                            {item.icon}
+                          </span>
+                          <span className='text-xl font-semibold'>{item.name}</span>
                         </Link>
-                      );
-                    }
-                    // Anchor item: if not on homepage, navigate to '/#section'
-                    const anchorHref = `/${item.href}`;
-                    if (pathname !== "/") {
-                      return (
-                        <Link
-                          key={item.name}
-                          href={anchorHref}
-                          onClick={() => setIsOpen(false)}
-                          className={cls}>
-                          <span className={iconCls}>{item.icon}</span>
-                          <span>{item.name}</span>
-                        </Link>
-                      );
-                    }
-                    return (
-                      <button
-                        key={item.name}
-                        onClick={() => scrollToSection(item.href)}
-                        className={cls}>
-                        <span className={iconCls}>{item.icon}</span>
-                        <span>{item.name}</span>
-                      </button>
-                    );
-                  })}
-                </nav>
+                      ) : (
+                        <button
+                          onClick={() => {
+                            if (pathname !== "/") {
+                              window.location.href = `/${item.href}`;
+                            } else {
+                              scrollToSection(item.href);
+                            }
+                            setIsOpen(false);
+                          }}
+                          className={cn(
+                            "w-full flex items-center gap-4 py-4 px-4 rounded-2xl transition-all text-left",
+                            isActive
+                              ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                              : "hover:bg-muted"
+                          )}>
+                          <span className={cn("p-2 rounded-lg", isActive ? "bg-white/20" : "bg-muted")}>
+                            {item.icon}
+                          </span>
+                          <span className='text-xl font-semibold'>{item.name}</span>
+                        </button>
+                      )}
+                    </motion.div>
+                  );
+                })}
               </div>
-            </SheetContent>
-          </Sheet>
-        </div>
-      </motion.nav>
+
+              {/* Socials & Info */}
+              <div className='mt-auto pt-8 border-t border-border/50'>
+                <p className='text-xs font-bold uppercase tracking-widest text-muted-foreground mb-6'>
+                  Let&apos;s Connect
+                </p>
+                <div className='grid grid-cols-2 gap-4'>
+                  {socialLinks.map((social, idx) => (
+                    <motion.a
+                      key={social.name}
+                      href={social.url}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 + idx * 0.05 }}
+                      className='flex items-center gap-3 p-3 rounded-xl bg-muted/50 hover:bg-primary/10 hover:text-primary transition-colors'>
+                      <div className='p-2 bg-background rounded-lg shadow-sm text-foreground'>
+                        {getSocialIcon(social.name)}
+                      </div>
+                      <span className='text-sm font-medium'>{social.name}</span>
+                    </motion.a>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
 
       {/* Desktop Layout - Notch Style with Glass Surface */}
       <motion.nav
@@ -316,15 +383,18 @@ export function Navbar() {
             }}>
             <div className='w-full h-full flex items-center justify-between px-8'>
               {/* Desktop Logo */}
-              <div className='flex items-center shrink-0'>
-                <h1
-                  className={cn(
-                    "text-xl font-bold transition-colors duration-300",
-                    textColorClass
-                  )}>
-                  Rifki
-                </h1>
-              </div>
+              <Link href="/" className='flex items-center gap-3 shrink-0 group'>
+                <div className='relative'>
+                  <Image 
+                    src="/logo-r.svg" 
+                    alt="R Logo" 
+                    width={36} 
+                    height={36} 
+                    className="w-9 h-9 rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className='absolute -inset-1 bg-primary/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity' />
+                </div>
+              </Link>
 
               {/* Desktop Navigation - Centered */}
               <div className='flex items-center justify-center flex-1 space-x-8'>
@@ -378,7 +448,7 @@ export function Navbar() {
                 })}
               </div>
 
-              {/* Desktop Theme Toggle */}
+              {/* Desktop Theme Toggle on the right */}
               <div className='flex items-center shrink-0'>
                 <ThemeToggle />
               </div>

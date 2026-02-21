@@ -113,6 +113,8 @@ export function Projects() {
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
     "Next.js 16":
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+    GSAP: "https://api.iconify.design/logos:greensock-icon.svg",
+    Midtrans: "https://api.iconify.design/material-symbols:payments-outline-rounded.svg",
   };
 
   return (
