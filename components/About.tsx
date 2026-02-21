@@ -241,7 +241,7 @@ export function About() {
                     viewport={{ once: true }}>
                     <SpotlightCard
                       className='h-full p-5 border border-border/50 bg-muted/30 dark:bg-muted/5'
-                      spotlightColor='rgba(var(--primary), 0.1)'>
+                      spotlightColor='rgba(99,102,241,0.15)'>
                       <div className='flex gap-4 items-start'>
                         <div className={`p-2.5 rounded-xl bg-primary/10 text-primary`}>
                           {highlight.icon}
