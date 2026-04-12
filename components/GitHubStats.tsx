@@ -3,6 +3,8 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { GitBranch, Activity, BarChart3 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function GitHubStats() {
   return (
@@ -42,10 +44,9 @@ export function GitHubStats() {
 
             <div className='w-full overflow-x-auto'>
               <div className='min-w-[700px]'>
-                <img
+                <GitHubImage 
                   src='https://github-readme-activity-graph.vercel.app/graph?username=rifkidocs&theme=react-dark&hide_border=true&area=true'
                   alt='GitHub Contribution Graph'
-                  className='w-full h-auto rounded opacity-90 hover:opacity-100 transition-opacity'
                 />
               </div>
             </div>
@@ -61,10 +62,9 @@ export function GitHubStats() {
               className="p-6 rounded-lg border bg-card"
             >
               <h4 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">System Stats</h4>
-              <img
+              <GitHubImage
                 src='https://github-readme-stats.vercel.app/api?username=rifkidocs&show_icons=true&theme=react&hide_border=true&bg_color=00000000&title_color=3b82f6&icon_color=3b82f6&text_color=94a3b8'
                 alt='GitHub Stats'
-                className='w-full h-auto'
               />
             </motion.div>
 
@@ -76,10 +76,9 @@ export function GitHubStats() {
               className="p-6 rounded-lg border bg-card"
             >
               <h4 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">Uptime Streak</h4>
-              <img
+              <GitHubImage
                 src='https://github-readme-streak-stats.herokuapp.com/?user=rifkidocs&theme=react&hide_border=true&background=00000000&ring=3b82f6&fire=3b82f6&currStreakLabel=94a3b8'
                 alt='GitHub Streak'
-                className='w-full h-auto'
               />
             </motion.div>
           </div>
@@ -98,5 +97,59 @@ export function GitHubStats() {
         </div>
       </div>
     </section>
+  );
+}
+
+function GitHubImage({ src, alt }: { src: string; alt: string }) {
+  const [status, setStatus] = React.useState<'loading' | 'error' | 'success'>('loading');
+  const timerRef = React.useRef<NodeJS.Timeout | null>(null);
+
+  React.useEffect(() => {
+    setStatus('loading');
+    if (timerRef.current) clearTimeout(timerRef.current);
+    
+    timerRef.current = setTimeout(() => {
+      if (status !== 'success') {
+        setStatus('error');
+      }
+    }, 8000); // 8s timeout
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
+
+  if (status === 'error') return (
+    <div className="flex flex-col items-center justify-center p-6 bg-muted/5 rounded-md border border-dashed h-[120px]">
+      <GitBranch className="w-4 h-4 text-muted-foreground/20 mb-2" />
+      <span className="text-[10px] font-medium text-muted-foreground/40">Data synchronization paused</span>
+    </div>
+  );
+
+  return (
+    <div className="relative min-h-[120px] flex items-center justify-center bg-muted/5 rounded-md overflow-hidden transition-all">
+      {status === 'loading' && (
+        <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-[1px] z-10">
+          <div className="w-4 h-4 border-2 border-primary/20 border-t-primary/60 rounded-full animate-spin" />
+        </div>
+      )}
+      
+      <img
+        src={src}
+        alt={alt}
+        className={cn(
+          "w-full h-auto transition-all duration-700",
+          status === 'success' ? "opacity-100 scale-100" : "opacity-0 scale-95 absolute"
+        )}
+        onLoad={() => {
+          if (timerRef.current) clearTimeout(timerRef.current);
+          setStatus('success');
+        }}
+        onError={() => {
+          if (timerRef.current) clearTimeout(timerRef.current);
+          setStatus('error');
+        }}
+      />
+    </div>
   );
 }
