@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "highlight.js/styles/github.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Navbar } from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import DocsLayout from "@/components/DocsLayout";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -58,15 +57,15 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning className='overflow-x-hidden'>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased overflow-x-hidden bg-background`}>
+        className={`${inter.variable} ${geistMono.variable} antialiased overflow-x-hidden bg-background font-sans`}>
         <ThemeProvider
           attribute='class'
           defaultTheme='system'
           enableSystem
           disableTransitionOnChange>
-          <Navbar />
-          {children}
-          <Footer />
+          <DocsLayout>
+            {children}
+          </DocsLayout>
         </ThemeProvider>
       </body>
     </html>

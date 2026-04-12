@@ -77,22 +77,26 @@ export default async function BlogIndex() {
   );
 
   return (
-    <main className='container mx-auto px-4 py-10 pt-24'>
-      <header className='max-w-3xl mb-8'>
-        <h1 className='text-4xl font-bold'>Blog</h1>
-        <p className='mt-3 text-muted-foreground'>
-          Artikel terbaru tentang pengembangan web, React/Next.js, dan
-          pengalaman proyek.
+    <div className='w-full'>
+      <header className='max-w-3xl mb-12'>
+        <div className="flex items-center gap-2 text-xs font-mono text-primary mb-4">
+          <span>Blog</span>
+          <span className="text-muted-foreground">/</span>
+          <span>Index</span>
+        </div>
+        <h1 className='text-4xl font-bold tracking-tight'>Technical Blog</h1>
+        <p className='mt-4 text-lg text-muted-foreground leading-relaxed'>
+          Sharing my journey, technical insights, and deep dives into modern web development.
         </p>
       </header>
 
-      <div className='grid grid-cols-1 lg:grid-cols-4 gap-10'>
-        <div className='lg:col-span-3 space-y-8'>
-          <div className='mb-6'>
+      <div className='grid grid-cols-1 lg:grid-cols-4 gap-12'>
+        <div className='lg:col-span-3 space-y-10'>
+          <div>
             <BlogSearch items={searchItems} />
           </div>
 
-          <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6'>
             {items.map((post) => (
               <BlogCard key={post.slug} post={post} />
             ))}
@@ -102,52 +106,41 @@ export default async function BlogIndex() {
             <div className='mt-8 flex justify-end'>
               <Link
                 href={`/blog/page/2`}
-                className='px-4 py-2 border rounded-md hover:bg-secondary transition-colors'>
-                Halaman Berikutnya →
+                className='px-4 py-2 border rounded-md hover:bg-secondary transition-colors text-sm font-medium'>
+                Next Page →
               </Link>
             </div>
           )}
         </div>
 
-        <aside className='lg:col-span-1 space-y-8'>
-          <Card className='overflow-hidden'>
-            <CardHeader className='border-b py-3'>
-              <CardTitle className='text-lg'>Kategori</CardTitle>
-            </CardHeader>
-            <CardContent className='px-4 pb-4'>
-              <div className='mt-4 flex flex-wrap gap-3'>
-                {categories.map((c) => (
-                  <Link
-                    key={c}
-                    href={`/blog/category/${encodeURIComponent(c!)}`}
-                    className='px-3 py-2 text-sm rounded-lg bg-muted text-foreground transition-colors hover:bg-secondary/60'>
-                    #{c}
-                  </Link>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+        <aside className='lg:col-span-1 space-y-10'>
+          <div id="categories" className="scroll-mt-24">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4">Categories</h3>
+            <div className='flex flex-wrap gap-2'>
+              {categories.map((c) => (
+                <Link
+                  key={c}
+                  href={`/blog/category/${encodeURIComponent(c!)}`}
+                  className='px-3 py-1.5 text-xs rounded-md bg-muted border hover:border-primary/50 transition-colors'>
+                  {c}
+                </Link>
+              ))}
+            </div>
+          </div>
 
-          <Card className='overflow-hidden'>
-            <CardHeader className='border-b py-3'>
-              <CardTitle className='text-lg'>Tag Populer</CardTitle>
-            </CardHeader>
-            <CardContent className='px-4 pb-4'>
-              <div className='mt-4 flex flex-wrap gap-3'>
-                {tagsSorted.map(([t, count]) => (
-                  <Link
-                    key={t}
-                    href={`/blog/tag/${encodeURIComponent(t)}`}
-                    className='px-3 py-2 text-sm rounded-lg border transition-colors hover:bg-secondary/50'>
-                    #{t}
-                    <span className='ml-2 text-muted-foreground'>
-                      ({count})
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          <div id="tags" className="scroll-mt-24">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-muted-foreground mb-4">Popular Tags</h3>
+            <div className='flex flex-wrap gap-2'>
+              {tagsSorted.map(([t, count]) => (
+                <Link
+                  key={t}
+                  href={`/blog/tag/${encodeURIComponent(t)}`}
+                  className='px-3 py-1.5 text-xs rounded-md border hover:bg-muted transition-colors'>
+                  {t} <span className="text-muted-foreground ml-1">({count})</span>
+                </Link>
+              ))}
+            </div>
+          </div>
         </aside>
       </div>
 
@@ -155,6 +148,6 @@ export default async function BlogIndex() {
         type='application/ld+json'
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-    </main>
+    </div>
   );
 }

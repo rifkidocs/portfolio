@@ -4,218 +4,116 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import {
   Mail,
-  Phone,
   MapPin,
   Github,
   Linkedin,
-  Instagram,
-  MessageCircle,
-  ExternalLink,
-  Send,
   MessageSquare,
+  HelpCircle,
+  ArrowUpRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { personalInfo, socialLinks } from "@/lib/data";
-import SpotlightCard from "@/components/SpotlightCard";
 
 export function Contact() {
-  const contactItems = [
+  const supportChannels = [
     {
-      icon: <Mail className="w-6 h-6" />,
-      label: "Email",
+      title: "Direct Inquiry",
+      description: "For professional collaborations and full-time opportunities.",
       value: personalInfo.email,
-      description: "Send me an email anytime",
       href: `mailto:${personalInfo.email}`,
-      color: "blue",
+      icon: <Mail className="w-5 h-5" />,
     },
     {
-      icon: <MessageSquare className="w-6 h-6" />,
-      label: "WhatsApp / Phone",
+      title: "Real-time Chat",
+      description: "Best for quick questions and project discussions.",
       value: personalInfo.phone,
-      description: "Available for quick chats",
       href: `https://wa.me/${personalInfo.phone.replace(/[^0-9]/g, "")}`,
-      color: "emerald",
-    },
-    {
-      icon: <MapPin className="w-6 h-6" />,
-      label: "Location",
-      value: personalInfo.location,
-      description: "Based in East Java, Indonesia",
-      href: "https://maps.google.com/?q=Lamongan,Indonesia",
-      color: "rose",
+      icon: <MessageSquare className="w-5 h-5" />,
     },
   ];
 
-  const getSocialIcon = (name: string) => {
-    switch (name) {
-      case "GitHub":
-        return <Github className="w-5 h-5" />;
-      case "LinkedIn":
-        return <Linkedin className="w-5 h-5" />;
-      case "Instagram":
-        return <Instagram className="w-5 h-5" />;
-      case "Discord":
-        return <MessageCircle className="w-5 h-5" />;
-      default:
-        return <ExternalLink className="w-5 h-5" />;
-    }
-  };
-
   return (
-    <section
-      id="contact"
-      className="py-20 lg:py-32 w-full overflow-x-hidden relative bg-gradient-to-b from-muted/25 via-muted/30 to-background dark:from-[#0e0e16] dark:via-[#0c0c14] dark:to-[#0a0a0f]"
-    >
-      {/* Background Elements */}
-      <div className="absolute top-20 left-1/4 w-80 h-80 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+    <section id='contact' className='py-16 lg:py-24'>
+      <div className='max-w-4xl'>
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className='mb-12'
+        >
+          <div className="flex items-center gap-2 text-xs font-mono text-primary mb-4">
+            <HelpCircle className="w-3 h-3" />
+            <span>Support</span>
+          </div>
+          <h2 className='text-3xl md:text-4xl font-bold tracking-tight mb-6'>Get in Touch</h2>
+          <p className='text-lg text-muted-foreground leading-relaxed'>
+            Select a communication channel below to start a conversation about your next project.
+          </p>
+        </motion.div>
 
-      <div
-        className="absolute inset-0 opacity-35 dark:opacity-18 pointer-events-none z-0"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, rgba(128, 128, 128, 0.12) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(128, 128, 128, 0.12) 1px, transparent 1px)
-          `,
-          backgroundSize: "35px 35px",
-        }}
-      />
+        <div className='grid md:grid-cols-2 gap-6 mb-12'>
+          {supportChannels.map((channel, idx) => (
+            <motion.div
+              key={channel.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              viewport={{ once: true }}
+              className="group p-6 rounded-lg border bg-card hover:border-primary/50 transition-colors"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <div className="p-2 rounded bg-primary/10 text-primary">
+                  {channel.icon}
+                </div>
+                <ArrowUpRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+              </div>
+              <h4 className="font-bold text-lg mb-1">{channel.title}</h4>
+              <p className="text-sm text-muted-foreground mb-4">{channel.description}</p>
+              <a 
+                href={channel.href} 
+                className="text-sm font-mono text-primary hover:underline underline-offset-4"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {channel.value}
+              </a>
+            </motion.div>
+          ))}
+        </div>
 
-      <div className="container mx-auto px-4 lg:px-8 relative z-10">
-        <div className="max-w-5xl mx-auto">
-          {/* Section Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              Get In Touch
-            </h2>
-            <div className="w-24 h-1 bg-primary mx-auto rounded-full mb-6" />
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Have a project in mind or want to collaborate? Feel free to reach
-              out through any of the platforms below!
-            </p>
-          </motion.div>
-
-          <div className="grid lg:grid-cols-12 gap-12">
-            {/* Left Column: Contact Cards */}
-            <div className="lg:col-span-7 space-y-6">
-              {contactItems.map((item, index) => (
-                <motion.div
-                  key={item.label}
-                  initial={{ opacity: 0, x: -30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block group"
-                  >
-                    <SpotlightCard className="p-6 border border-border/50 transition-all duration-300 group-hover:border-primary/50 group-hover:shadow-lg group-hover:shadow-primary/5">
-                      <div className="flex items-center gap-6">
-                        <div className="p-4 rounded-2xl bg-primary/10 text-primary group-hover:scale-110 transition-transform duration-300">
-                          {item.icon}
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-1 group-hover:text-primary transition-colors">
-                            {item.label}
-                          </p>
-                          <h3 className="text-xl font-bold mb-1 break-all">
-                            {item.value}
-                          </h3>
-                          <p className="text-sm text-muted-foreground">
-                            {item.description}
-                          </p>
-                        </div>
-                        <div className="hidden sm:block opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <ExternalLink className="w-5 h-5 text-muted-foreground" />
-                        </div>
-                      </div>
-                    </SpotlightCard>
+        {/* Community / Socials Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="p-8 rounded-lg bg-muted/30 border"
+        >
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="space-y-2 text-center md:text-left">
+              <h4 className="font-bold">Follow the Development</h4>
+              <p className="text-sm text-muted-foreground">Stay updated with my latest open-source projects and professional updates.</p>
+            </div>
+            <div className="flex gap-4">
+              {socialLinks.slice(0, 3).map((social) => (
+                <Button key={social.name} variant="outline" size="sm" asChild className="h-10 w-10 p-0">
+                  <a href={social.url} target="_blank" rel="noopener noreferrer" title={social.name}>
+                    {social.name === "GitHub" && <Github className="w-5 h-5" />}
+                    {social.name === "LinkedIn" && <Linkedin className="w-5 h-5" />}
                   </a>
-                </motion.div>
+                </Button>
               ))}
             </div>
-
-            {/* Right Column: CTA & Socials */}
-            <div className="lg:col-span-5 space-y-8">
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-              >
-                <SpotlightCard className="p-8 bg-primary/5 border-primary/20 flex flex-col items-center text-center space-y-6">
-                  <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
-                    <MessageSquare className="w-8 h-8 text-primary" />
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="text-2xl font-bold">Start a Conversation</h3>
-                    <p className="text-muted-foreground text-sm">
-                      I&apos;m currently available for freelance work and
-                      full-time opportunities.
-                    </p>
-                  </div>
-                  <Button
-                    size="lg"
-                    className="w-full rounded-full shadow-lg shadow-primary/20"
-                    asChild
-                  >
-                    <a
-                      href={`https://wa.me/${personalInfo.phone.replace(
-                        /[^0-9]/g,
-                        ""
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Chat on WhatsApp
-                    </a>
-                  </Button>
-                </SpotlightCard>
-              </motion.div>
-
-              {/* Social Grid */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="space-y-4"
-              >
-                <h4 className="text-sm font-bold uppercase tracking-widest text-center text-muted-foreground">
-                  Follow Me
-                </h4>
-                <div className="grid grid-cols-2 gap-3">
-                  {socialLinks
-                    .filter((s) => s.name !== "Email")
-                    .map((social, index) => (
-                      <a
-                        key={social.name}
-                        href={social.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 p-3 rounded-xl border border-border/50 bg-background hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 group"
-                      >
-                        <div className="p-2 rounded-lg bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
-                          {getSocialIcon(social.name)}
-                        </div>
-                        <span className="text-sm font-semibold">
-                          {social.name}
-                        </span>
-                      </a>
-                    ))}
-                </div>
-              </motion.div>
-            </div>
           </div>
+        </motion.div>
+
+        <div className="mt-16 text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
+          <MapPin className="w-3.5 h-3.5" />
+          <span>Lamongan, East Java, Indonesia</span>
+          <span className="mx-2">•</span>
+          <span>GMT+7</span>
         </div>
       </div>
     </section>

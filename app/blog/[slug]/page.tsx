@@ -67,57 +67,78 @@ export default async function BlogPost({ params }: Params) {
   };
 
   return (
-    <main className="container mx-auto px-4 py-10 pt-24">
-      <Link href="/blog" className="text-sm text-muted-foreground">← Kembali ke Blog</Link>
+    <div className="w-full">
+      <div className="flex items-center gap-2 text-xs font-mono text-primary mb-8">
+        <Link href="/blog" className="hover:underline">Blog</Link>
+        <span className="text-muted-foreground">/</span>
+        <span className="text-muted-foreground truncate">{post.meta.title}</span>
+      </div>
+
+      <header className="mb-10">
+        <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-6 leading-[1.1]">{post.meta.title}</h1>
+        
+        <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground border-y py-4">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-[10px] font-bold text-primary">
+              {post.meta.author?.charAt(0) ?? "R"}
+            </div>
+            <span className="font-medium text-foreground">{post.meta.author ?? "Rifki"}</span>
+          </div>
+          <div className="h-4 w-px bg-border hidden sm:block"></div>
+          <time dateTime={post.meta.date}>{new Date(post.meta.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
+          <div className="h-4 w-px bg-border hidden sm:block"></div>
+          <span>{post.readingTimeMin} min read</span>
+          {post.meta.category && (
+            <>
+              <div className="h-4 w-px bg-border hidden sm:block"></div>
+              <span className="px-2 py-0.5 rounded bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider">{post.meta.category}</span>
+            </>
+          )}
+        </div>
+      </header>
 
       {post.meta.cover && (
-        <div className="relative w-full h-52 sm:h-64 md:h-72 mt-4 rounded-xl overflow-hidden border">
+        <div className="relative aspect-video mb-12 rounded-xl overflow-hidden border bg-muted">
           <Image
             src={post.meta.cover}
             alt={post.meta.title}
             fill
             className="object-cover"
-            sizes="100vw"
+            sizes="(max-width: 768px) 100vw, 800px"
             priority
           />
         </div>
       )}
 
-      <h1 className="text-4xl font-bold mt-4 mb-2 leading-tight">{post.meta.title}</h1>
-      <p className="text-sm text-muted-foreground">
-        {new Date(post.meta.date).toLocaleDateString()} {post.meta.author ? `• ${post.meta.author}` : ""} • {post.readingTimeMin} min read
-      </p>
-
-      <div className="mt-6">
+      <article className="prose prose-zinc dark:prose-invert max-w-none">
         <MarkdownRenderer html={post.html} />
+      </article>
+
+      <div className="mt-16 pt-8 border-t">
+        <ArticleCTA />
       </div>
 
-      <ArticleCTA />
+      <div className="mt-12">
+        <RelatedPosts posts={related} />
+      </div>
 
-      <RelatedPosts posts={related} />
-
-      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          {prev ? (
-            <Link href={`/blog/${prev.slug}`} className="block border rounded p-3 hover:bg-secondary">
-              ← {prev.meta.title}
-            </Link>
-          ) : (
-            <span className="text-muted-foreground">Tidak ada artikel sebelumnya</span>
-          )}
-        </div>
-        <div className="sm:text-right">
-          {next ? (
-            <Link href={`/blog/${next.slug}`} className="inline-block border rounded p-3 hover:bg-secondary">
-              {next.meta.title} →
-            </Link>
-          ) : (
-            <span className="text-muted-foreground">Tidak ada artikel berikutnya</span>
-          )}
-        </div>
+      <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {prev ? (
+          <Link href={`/blog/${prev.slug}`} className="group flex flex-col gap-2 p-4 rounded-lg border hover:border-primary/50 transition-colors">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Previous Post</span>
+            <span className="font-semibold group-hover:text-primary transition-colors line-clamp-1">← {prev.meta.title}</span>
+          </Link>
+        ) : <div />}
+        
+        {next && (
+          <Link href={`/blog/${next.slug}`} className="group flex flex-col gap-2 p-4 rounded-lg border hover:border-primary/50 transition-colors text-right">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Next Post</span>
+            <span className="font-semibold group-hover:text-primary transition-colors line-clamp-1">{next.meta.title} →</span>
+          </Link>
+        )}
       </div>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-    </main>
+    </div>
   );
 }

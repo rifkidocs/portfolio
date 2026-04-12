@@ -2,263 +2,127 @@
 
 import * as React from "react";
 import { motion } from "framer-motion";
-import LogoLoop from "@/components/LogoLoop";
 import {
   SiReact,
   SiNextdotjs,
   SiTypescript,
   SiTailwindcss,
-  SiJavascript,
-  SiHtml5,
-  SiCss3,
   SiNodedotjs,
-  SiExpress,
   SiPython,
   SiPhp,
-  SiMongodb,
   SiPostgresql,
-  SiMysql,
-  SiRedis,
+  SiMongodb,
   SiPrisma,
   SiGit,
-  SiFigma,
-  SiFirebase,
-  SiBootstrap,
+  SiDocker,
   SiLaravel,
   SiSupabase,
-  SiSqlite,
 } from "react-icons/si";
+import { Code2, Server, Database, Wrench } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-const techLogos = [
-  // Frontend
+const skillCategories = [
   {
-    node: <SiHtml5 style={{ color: "#e34f26" }} />,
-    title: "HTML",
-    href: "https://developer.mozilla.org/en-US/docs/Web/HTML",
+    title: "Frontend Development",
+    icon: <Code2 className="w-4 h-4" />,
+    skills: [
+      { name: "React", icon: <SiReact className="text-[#61dafb]" />, level: "Advanced" },
+      { name: "Next.js", icon: <SiNextdotjs />, level: "Advanced" },
+      { name: "TypeScript", icon: <SiTypescript className="text-[#3178c6]" />, level: "Advanced" },
+      { name: "Tailwind CSS", icon: <SiTailwindcss className="text-[#06b6d4]" />, level: "Expert" },
+    ]
   },
   {
-    node: <SiCss3 style={{ color: "#1572b6" }} />,
-    title: "CSS",
-    href: "https://developer.mozilla.org/en-US/docs/Web/CSS",
+    title: "Backend & Systems",
+    icon: <Server className="w-4 h-4" />,
+    skills: [
+      { name: "Node.js", icon: <SiNodedotjs className="text-[#339933]" />, level: "Advanced" },
+      { name: "Laravel", icon: <SiLaravel className="text-[#ff2d20]" />, level: "Intermediate" },
+      { name: "Python", icon: <SiPython className="text-[#3776ab]" />, level: "Intermediate" },
+      { name: "PHP", icon: <SiPhp className="text-[#777bb4]" />, level: "Advanced" },
+    ]
   },
   {
-    node: <SiJavascript style={{ color: "#f7df1e" }} />,
-    title: "JavaScript",
-    href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+    title: "Database & Storage",
+    icon: <Database className="w-4 h-4" />,
+    skills: [
+      { name: "PostgreSQL", icon: <SiPostgresql className="text-[#336791]" />, level: "Advanced" },
+      { name: "MongoDB", icon: <SiMongodb className="text-[#47a248]" />, level: "Advanced" },
+      { name: "Supabase", icon: <SiSupabase className="text-[#3ecf8e]" />, level: "Advanced" },
+      { name: "Prisma", icon: <SiPrisma />, level: "Advanced" },
+    ]
   },
   {
-    node: <SiTypescript style={{ color: "#3178c6" }} />,
-    title: "TypeScript",
-    href: "https://www.typescriptlang.org",
-  },
-  {
-    node: <SiTailwindcss style={{ color: "#06b6d4" }} />,
-    title: "Tailwind CSS",
-    href: "https://tailwindcss.com",
-  },
-  {
-    node: <SiReact style={{ color: "#61dafb" }} />,
-    title: "React",
-    href: "https://react.dev",
-  },
-  {
-    node: <SiNextdotjs style={{ color: "#000000" }} />,
-    title: "Next.js",
-    href: "https://nextjs.org",
-  },
-  {
-    node: <SiBootstrap style={{ color: "#7952b3" }} />,
-    title: "Bootstrap",
-    href: "https://getbootstrap.com",
-  },
-  // Backend
-  {
-    node: <SiNodedotjs style={{ color: "#339933" }} />,
-    title: "Node.js",
-    href: "https://nodejs.org",
-  },
-  {
-    node: <SiExpress style={{ color: "#000000" }} />,
-    title: "Express.js",
-    href: "https://expressjs.com",
-  },
-  {
-    node: <SiPython style={{ color: "#3776ab" }} />,
-    title: "Python",
-    href: "https://www.python.org",
-  },
-  {
-    node: <SiPhp style={{ color: "#777bb4" }} />,
-    title: "PHP",
-    href: "https://www.php.net",
-  },
-  {
-    src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
-    alt: "Java",
-    title: "Java",
-    href: "https://www.java.com",
-  },
-  {
-    node: <SiLaravel style={{ color: "#ff2d20" }} />,
-    title: "Laravel",
-    href: "https://laravel.com",
-  },
-  // Database
-  {
-    node: <SiMysql style={{ color: "#4479a1" }} />,
-    title: "MySQL",
-    href: "https://www.mysql.com",
-  },
-  {
-    node: <SiPostgresql style={{ color: "#336791" }} />,
-    title: "PostgreSQL",
-    href: "https://www.postgresql.org",
-  },
-  {
-    node: <SiSqlite style={{ color: "#003b57" }} />,
-    title: "SQLite",
-    href: "https://www.sqlite.org",
-  },
-  {
-    node: <SiMongodb style={{ color: "#47a248" }} />,
-    title: "MongoDB",
-    href: "https://www.mongodb.com",
-  },
-  {
-    node: <SiRedis style={{ color: "#dc382d" }} />,
-    title: "Redis",
-    href: "https://redis.io",
-  },
-  {
-    node: <SiSupabase style={{ color: "#3ecf8e" }} />,
-    title: "Supabase",
-    href: "https://supabase.com",
-  },
-  // CMS
-  {
-    src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg",
-    alt: "WordPress",
-    title: "WordPress",
-    href: "https://wordpress.org",
-  },
-  {
-    src: "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/strapi.png",
-    alt: "Strapi",
-    title: "Strapi",
-    href: "https://strapi.io",
-  },
-  // Tools
-  {
-    src: "https://skillicons.dev/icons?i=docker",
-    alt: "Docker",
-    title: "Docker",
-    href: "https://www.docker.com",
-  },
-  {
-    node: <SiGit style={{ color: "#f05032" }} />,
-    title: "Git",
-    href: "https://git-scm.com",
-  },
-  {
-    node: <SiFigma style={{ color: "#f24e1e" }} />,
-    title: "Figma",
-    href: "https://www.figma.com",
-  },
-  {
-    node: <SiPrisma style={{ color: "#2d3748" }} />,
-    title: "Prisma",
-    href: "https://www.prisma.io",
-  },
-  {
-    node: <SiFirebase style={{ color: "#ffca28" }} />,
-    title: "Firebase",
-    href: "https://firebase.google.com",
-  },
-  {
-    src: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ubuntu/ubuntu-plain.svg",
-    alt: "Ubuntu",
-    title: "Ubuntu",
-    href: "https://ubuntu.com",
-  },
+    title: "DevOps & Tools",
+    icon: <Wrench className="w-4 h-4" />,
+    skills: [
+      { name: "Git", icon: <SiGit className="text-[#f05032]" />, level: "Expert" },
+      { name: "Docker", icon: <SiDocker className="text-[#2496ed]" />, level: "Intermediate" },
+    ]
+  }
 ];
 
 export function Skills() {
   return (
-    <section
-      id='skills'
-      className='py-20 lg:py-32 w-full overflow-x-hidden relative bg-gradient-to-b from-muted/30 via-muted/40 to-muted/30 dark:from-[#0e0e16] dark:via-[#121220] dark:to-[#0f0f18]'>
-      {/* Colorful blur orbs */}
-      <div className='absolute top-32 -right-20 w-96 h-96 bg-violet-500/10 dark:hidden rounded-full blur-3xl pointer-events-none' />
-      <div className='absolute top-20 left-10 w-72 h-72 bg-indigo-400/8 dark:hidden rounded-full blur-3xl pointer-events-none' />
-      <div className='absolute bottom-10 left-1/2 w-80 h-80 bg-fuchsia-400/8 dark:hidden rounded-full blur-3xl pointer-events-none' />
+    <section id='skills' className='py-16 lg:py-24 border-b'>
+      <div className='max-w-4xl'>
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className='mb-12'
+        >
+          <div className="flex items-center gap-2 text-xs font-mono text-primary mb-4">
+            <Code2 className="w-3 h-3" />
+            <span>Stack</span>
+          </div>
+          <h2 className='text-3xl md:text-4xl font-bold tracking-tight mb-6'>Technical Ecosystem</h2>
+          <p className='text-lg text-muted-foreground leading-relaxed'>
+            A comprehensive list of technologies, frameworks, and tools that I use to build robust software.
+          </p>
+        </motion.div>
 
-      {/* Noise texture overlay */}
-      <div
-        className='absolute inset-0 opacity-[0.02] dark:hidden pointer-events-none z-0'
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-        }}
-      />
-
-      {/* Dot pattern background - more visible */}
-      <div
-        className='absolute inset-0 opacity-50 dark:opacity-25 pointer-events-none z-0'
-        style={{
-          backgroundImage: `radial-gradient(circle, rgba(128, 128, 128, 0.25) 1.5px, transparent 1.5px)`,
-          backgroundSize: "30px 30px",
-        }}
-      />
-
-      {/* Top blend gradient */}
-      <div className='absolute top-0 left-0 right-0 h-28 bg-gradient-to-b from-muted/30 dark:from-[#0e0e16] to-transparent pointer-events-none z-0' />
-
-      {/* Bottom blend gradient */}
-      <div className='absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-muted/30 dark:from-[#0f0f18] to-transparent pointer-events-none z-0' />
-
-      <div className='container mx-auto px-4 lg:px-8 relative z-10'>
-        <div className='max-w-6xl mx-auto'>
-          {/* Section Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className='text-center mb-16'>
-            <h2 className='text-4xl md:text-5xl font-bold mb-4'>
-              Skills & Technologies
-            </h2>
-            <div className='w-24 h-1 bg-primary mx-auto rounded-full mb-6' />
-            <p className='text-lg text-muted-foreground max-w-2xl mx-auto'>
-              Here are the technologies and tools I work with to bring ideas to
-              life
-            </p>
-          </motion.div>
-
-          {/* LogoLoop Component */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            style={{
-              height: "120px",
-              position: "relative",
-              overflow: "hidden",
-            }}
-            className='mt-8'>
-            <LogoLoop
-              logos={techLogos}
-              speed={120}
-              direction='left'
-              logoHeight={48}
-              gap={40}
-              pauseOnHover
-              scaleOnHover
-              fadeOut
-              fadeOutColor='bg-muted/30'
-              ariaLabel='Technology partners'
-            />
-          </motion.div>
+        <div className='grid sm:grid-cols-2 gap-8'>
+          {skillCategories.map((category, idx) => (
+            <motion.div
+              key={category.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              viewport={{ once: true }}
+              className="space-y-4"
+            >
+              <div className="flex items-center gap-2 border-b pb-2">
+                <span className="text-primary">{category.icon}</span>
+                <h4 className="text-sm font-bold uppercase tracking-widest">{category.title}</h4>
+              </div>
+              <div className="grid grid-cols-1 gap-2">
+                {category.skills.map((skill) => (
+                  <div 
+                    key={skill.name}
+                    className="flex items-center justify-between p-3 rounded-md bg-muted/30 border hover:bg-muted/50 transition-colors group"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="text-xl opacity-80 group-hover:opacity-100 transition-opacity">
+                        {skill.icon}
+                      </span>
+                      <span className="text-sm font-medium">{skill.name}</span>
+                    </div>
+                    <span className={cn(
+                      "text-[10px] px-1.5 py-0.5 rounded font-mono uppercase tracking-tighter",
+                      skill.level === "Expert" ? "bg-emerald-500/10 text-emerald-500" :
+                      skill.level === "Advanced" ? "bg-blue-500/10 text-blue-500" :
+                      "bg-muted text-muted-foreground"
+                    )}>
+                      {skill.level}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
