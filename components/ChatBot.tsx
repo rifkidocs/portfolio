@@ -26,6 +26,7 @@ const QUICK_REPLIES = [
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showSuggestions, setShowSuggestions] = useState(true);
   
   const { messages, input, setInput, handleInputChange, handleSubmit, isLoading, append } = useChat({
     onError: (err) => {
@@ -183,17 +184,33 @@ export default function ChatBot() {
           </div>
 
           {/* Quick Replies Area */}
-          <div className="px-4 pb-3 flex flex-wrap gap-2 overflow-x-auto no-scrollbar">
-            {QUICK_REPLIES.map((reply) => (
-              <button
-                key={reply.label}
-                onClick={() => handleQuickReply(reply.prompt)}
-                disabled={isLoading}
-                className="whitespace-nowrap px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-[11px] font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          <div className="px-4 pb-3 flex flex-col gap-2">
+            <div className="flex items-center justify-between px-1">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50">
+                {showSuggestions ? "Suggestions" : ""}
+              </span>
+              <button 
+                onClick={() => setShowSuggestions(!showSuggestions)}
+                className="text-[10px] font-medium text-primary hover:underline transition-all"
               >
-                {reply.label}
+                {showSuggestions ? "Hide" : "Show Suggestions"}
               </button>
-            ))}
+            </div>
+            
+            {showSuggestions && (
+              <div className="flex flex-wrap gap-2 overflow-x-auto no-scrollbar animate-in fade-in slide-in-from-bottom-1 duration-300">
+                {QUICK_REPLIES.map((reply) => (
+                  <button
+                    key={reply.label}
+                    onClick={() => handleQuickReply(reply.prompt)}
+                    disabled={isLoading}
+                    className="whitespace-nowrap px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-[11px] font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {reply.label}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <form
