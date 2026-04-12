@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
 
+import { CommandMenu } from "./CommandMenu";
 import { SidebarContent } from "./DocsLayout";
 
 export function Navbar() {
@@ -66,20 +67,9 @@ export function Navbar() {
         </div>
 
         {/* Center: Search (Desktop) */}
-        <div className="hidden md:flex flex-1 max-w-md mx-8">
-          <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <Input 
-              placeholder="Search documentation..." 
-              className="pl-9 bg-muted/50 border-none focus-visible:ring-1 focus-visible:ring-primary h-9 text-sm"
-              readOnly
-              onClick={() => {
-                // Potential integration with BlogSearch or a global command palette
-              }}
-            />
-            <kbd className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none hidden sm:inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-              <span className="text-xs">⌘</span>K
-            </kbd>
+        <div className="hidden md:flex flex-1 justify-center px-8">
+          <div className="w-full max-w-md">
+            <CommandMenu />
           </div>
         </div>
 
