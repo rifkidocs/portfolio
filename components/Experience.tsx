@@ -36,11 +36,12 @@ export function Experience() {
             {experiences.map((experience, idx) => (
               <motion.div
                 key={experience.id}
+                id={`experience-${experience.id}`}
+                className="relative pl-8 md:pl-10 scroll-mt-24"
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
                 viewport={{ once: true }}
-                className="relative pl-8 md:pl-10"
               >
                 {/* Timeline Dot */}
                 <div className="absolute left-[-5px] top-1.5 w-[11px] h-[11px] rounded-full bg-background border-2 border-primary z-10"></div>

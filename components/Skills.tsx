@@ -166,11 +166,12 @@ export function Skills() {
           {skillCategories.map((category, idx) => (
             <motion.div
               key={category.title}
+              id={`skill-${category.title.toLowerCase().replace(/\s+/g, "-")}`}
+              className="space-y-4 scroll-mt-24"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: idx * 0.05 }}
               viewport={{ once: true }}
-              className="space-y-4"
             >
               <div className="flex items-center gap-2 border-b pb-2">
                 <span className="text-primary">{category.icon}</span>

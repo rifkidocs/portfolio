@@ -22,7 +22,7 @@ import {
   Newspaper,
   Github,
 } from "lucide-react";
-import { projects } from "@/lib/data";
+import { projects, experiences } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import {
   Dialog,
@@ -140,6 +140,17 @@ export function CommandMenu({ triggerOnlyIcon = false }: { triggerOnlyIcon?: boo
     command();
   }, []);
 
+  const skillCats = [
+    "AI-Assisted Development & Workflow",
+    "Programming & Technical Skills",
+    "Databases & Caching",
+    "Frameworks & UI Systems",
+    "CMS & Backend Services",
+    "DevOps & Deployment",
+    "Design & Prototyping",
+    "Tools & Workflow"
+  ];
+
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: commandStyles }} />
@@ -186,18 +197,6 @@ export function CommandMenu({ triggerOnlyIcon = false }: { triggerOnlyIcon?: boo
                   <User className="mr-2 h-4 w-4" />
                   <span>About Me</span>
                 </CommandItem>
-                <CommandItem onSelect={() => runCommand(() => router.push("/#skills"))}>
-                  <Code2 className="mr-2 h-4 w-4" />
-                  <span>Technical Stack</span>
-                </CommandItem>
-                <CommandItem onSelect={() => runCommand(() => router.push("/#projects"))}>
-                  <Laptop className="mr-2 h-4 w-4" />
-                  <span>Project Catalog</span>
-                </CommandItem>
-                <CommandItem onSelect={() => runCommand(() => router.push("/#experience"))}>
-                  <History className="mr-2 h-4 w-4" />
-                  <span>Milestones</span>
-                </CommandItem>
                 <CommandItem onSelect={() => runCommand(() => router.push("/blog"))}>
                   <Newspaper className="mr-2 h-4 w-4" />
                   <span>Technical Blog</span>
@@ -206,11 +205,39 @@ export function CommandMenu({ triggerOnlyIcon = false }: { triggerOnlyIcon?: boo
 
               <CommandSeparator />
 
+              <CommandGroup heading="Technical Milestones">
+                {experiences.map((exp) => (
+                  <CommandItem
+                    key={exp.id}
+                    onSelect={() => runCommand(() => router.push(`/#experience-${exp.id}`))}
+                  >
+                    <History className="mr-2 h-4 w-4" />
+                    <span>{exp.position} at {exp.company}</span>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+
+              <CommandSeparator />
+
+              <CommandGroup heading="Technical Ecosystem">
+                {skillCats.map((cat) => (
+                  <CommandItem
+                    key={cat}
+                    onSelect={() => runCommand(() => router.push(`/#skill-${cat.toLowerCase().replace(/\s+/g, "-")}`))}
+                  >
+                    <Code2 className="mr-2 h-4 w-4" />
+                    <span>{cat}</span>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+
+              <CommandSeparator />
+
               <CommandGroup heading="Reference Projects">
                 {projects.map((project) => (
                   <CommandItem
                     key={project.id}
-                    onSelect={() => runCommand(() => router.push(`/#projects`))}
+                    onSelect={() => runCommand(() => router.push(`/#project-${project.id}`))}
                   >
                     <Laptop className="mr-2 h-4 w-4" />
                     <span>{project.title}</span>
