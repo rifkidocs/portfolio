@@ -57,18 +57,33 @@ export async function POST(req: Request) {
       Nama: ${personalInfo.name}
       Role: ${personalInfo.title}
       Bio: ${personalInfo.bio}
-      Skills: ${skills.slice(0, 10).map(s => s.name).join(', ')}
-      Proyek: ${projects.map(p => p.title).join(', ')}
-      Data CV: ${liveCvText.slice(0, 2000)}
+      
+      DAFTAR SKILL LENGKAP:
+      ${skills.map(s => s.name).join(', ')}
+      
+      PENGALAMAN KERJA:
+      ${experiences.map(e => `- ${e.position} di ${e.company} (${e.duration}): ${e.description.join('. ')}`).join('\n')}
+
+      DAFTAR PROYEK (Urut terbaru ke lama):
+      ${projects.map((p, i) => `${i + 1}. ${p.title}
+         Deskripsi: ${p.description}
+         Teknologi (Tech Stack): ${p.techStack.join(', ')}`).join('\n\n')}
+      
+      DATA CV TAMBAHAN:
+      ${liveCvText.slice(0, 1500)}
     `;
 
     const result = streamText({
       model: groq('llama-3.3-70b-versatile'),
       messages,
       system: `Kamu adalah AI Assistant portfolio ${personalInfo.name}. 
-      Jawab dengan ramah, singkat (max 3 kalimat), dan gunakan Bahasa Indonesia. 
-      Data: ${resumeContext}. 
-      Jika ditanya hal yang tidak ada di data, katakan tidak tahu.`,
+      Tugas utama: Menjelaskan keahlian dan pengalaman ${personalInfo.name} kepada pengunjung.
+      
+      Panduan Jawaban:
+      1. Jika ditanya tentang teknologi spesifik (seperti Laravel, React, dsb), hubungkan dengan proyek yang relevan di daftar proyek.
+      2. Gaya bahasa: Ramah, santai, profesional, dan gunakan Bahasa Indonesia.
+      3. Singkat: Maksimal 3-4 kalimat per jawaban.
+      4. Jujur: Jika informasi benar-benar tidak ada di konteks "${resumeContext}", katakan tidak tahu secara sopan.`,
     });
 
     return result.toDataStreamResponse();
