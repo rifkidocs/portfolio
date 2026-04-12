@@ -10,6 +10,7 @@ import {
   MessageSquare,
   HelpCircle,
   ArrowUpRight,
+  Instagram,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { personalInfo, socialLinks } from "@/lib/data";
@@ -102,6 +103,7 @@ export function Contact() {
                   <a href={social.url} target="_blank" rel="noopener noreferrer" title={social.name}>
                     {social.name === "GitHub" && <Github className="w-5 h-5" />}
                     {social.name === "LinkedIn" && <Linkedin className="w-5 h-5" />}
+                    {social.name === "Instagram" && <Instagram className="w-5 h-5" />}
                   </a>
                 </Button>
               ))}
