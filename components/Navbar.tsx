@@ -75,6 +75,11 @@ export function Navbar() {
 
         {/* Right: Socials & Theme Toggle */}
         <div className="flex items-center gap-2">
+          {/* Mobile Search */}
+          <div className="md:hidden">
+            <CommandMenu triggerOnlyIcon />
+          </div>
+          
           <a 
             href="https://github.com/rifkidocs" 
             target="_blank" 
