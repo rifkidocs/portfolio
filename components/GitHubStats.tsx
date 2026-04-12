@@ -3,7 +3,7 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { GitBranch, Activity, BarChart3 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 export function GitHubStats() {
@@ -109,9 +109,7 @@ function GitHubImage({ src, alt }: { src: string; alt: string }) {
     if (timerRef.current) clearTimeout(timerRef.current);
     
     timerRef.current = setTimeout(() => {
-      if (status !== 'success') {
-        setStatus('error');
-      }
+      setStatus(prev => prev !== 'success' ? 'error' : prev);
     }, 8000); // 8s timeout
 
     return () => {
@@ -134,9 +132,12 @@ function GitHubImage({ src, alt }: { src: string; alt: string }) {
         </div>
       )}
       
-      <img
+      <Image
         src={src}
         alt={alt}
+        width={800}
+        height={400}
+        unoptimized
         className={cn(
           "w-full h-auto transition-all duration-700",
           status === 'success' ? "opacity-100 scale-100" : "opacity-0 scale-95 absolute"

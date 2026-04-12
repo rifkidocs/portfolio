@@ -3,7 +3,7 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Home, ArrowLeft, Search, FileQuestion } from "lucide-react";
+import { Home, ArrowLeft, FileQuestion } from "lucide-react";
 import Link from "next/link";
 
 export default function NotFound() {

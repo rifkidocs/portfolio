@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { getAllPostsCached, PAGE_SIZE, paginatePosts } from "@/lib/posts";
 import BlogCard from "@/components/BlogCard";
 import BlogSearch from "@/components/BlogSearch";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 export const revalidate = 60;
 

@@ -4,6 +4,7 @@ import "./globals.css";
 import "highlight.js/styles/github.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import DocsLayout from "@/components/DocsLayout";
+import ChatBot from "@/components/ChatBot";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -66,6 +67,7 @@ export default function RootLayout({
           <DocsLayout>
             {children}
           </DocsLayout>
+          <ChatBot />
         </ThemeProvider>
       </body>
     </html>

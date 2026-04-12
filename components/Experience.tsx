@@ -3,7 +3,7 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
-import { History, Milestone, Calendar, Building2 } from "lucide-react";
+import { History, Calendar, Building2 } from "lucide-react";
 import { experiences } from "@/lib/data";
 
 export function Experience() {

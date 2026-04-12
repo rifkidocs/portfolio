@@ -4,14 +4,10 @@ import * as React from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
   Menu,
-  X,
   Github,
-  Search,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -20,14 +16,12 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { Input } from "@/components/ui/input";
 
 import { CommandMenu } from "./CommandMenu";
 import { SidebarContent } from "./DocsLayout";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
-  const pathname = usePathname();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-[100] h-16 border-b bg-background/80 backdrop-blur-md">

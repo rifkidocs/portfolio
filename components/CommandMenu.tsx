@@ -23,12 +23,19 @@ import {
   Github,
 } from "lucide-react";
 import { projects, experiences } from "@/lib/data";
-import { cn } from "@/lib/utils";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
+
+interface BlogPostSearch {
+  slug: string;
+  meta: {
+    title: string;
+    category: string;
+  };
+}
 
 // Custom styles for cmdk
 const commandStyles = `
@@ -104,7 +111,7 @@ const commandStyles = `
 
 export function CommandMenu({ triggerOnlyIcon = false }: { triggerOnlyIcon?: boolean }) {
   const [open, setOpen] = React.useState(false);
-  const [blogPosts, setBlogPosts] = React.useState<any[]>([]);
+  const [blogPosts, setBlogPosts] = React.useState<BlogPostSearch[]>([]);
   const router = useRouter();
 
   // Fetch blog posts for search
