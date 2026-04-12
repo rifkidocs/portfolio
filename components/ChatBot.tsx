@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useChat } from "ai/react";
-import { MessageCircle, Send, Bot, User, Loader2, Sparkles } from "lucide-react";
+import { MessageCircle, Send, Bot, User, Loader2, Sparkles, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,7 +16,21 @@ import { personalInfo } from "@/lib/data";
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
+  const [error, setError] = useState<string | null>(null);
+  
+  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
+    onError: (err) => {
+      // Menangkap error dari server (seperti Rate Limit atau Pesan Terlalu Panjang)
+      try {
+        const errorData = JSON.parse(err.message);
+        setError(errorData.error || "Gagal mengirim pesan.");
+      } catch {
+        setError("Koneksi ke server terputus.");
+      }
+      setTimeout(() => setError(null), 4000);
+    }
+  });
+
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -55,7 +69,7 @@ export default function ChatBot() {
               </div>
               <div className="flex flex-col items-start">
                 <span>Tanya AI {personalInfo.name.split(" ")[1]}</span>
-                <span className="text-xs font-normal text-muted-foreground">Online & siap membantu</span>
+                <span className="text-xs font-normal text-muted-foreground">Online & aman</span>
               </div>
             </DialogTitle>
           </DialogHeader>
@@ -132,22 +146,37 @@ export default function ChatBot() {
 
           <form
             onSubmit={handleSubmit}
-            className='relative p-4 border-t border-border/50 bg-background/50 backdrop-blur-lg flex gap-3'
+            className='relative p-4 border-t border-border/50 bg-background/50 backdrop-blur-lg flex flex-col gap-2'
           >
-            <Input
-              value={input}
-              onChange={handleInputChange}
-              placeholder='Ketik pesan di sini...'
-              className='bg-background/80 border-border/50 focus-visible:ring-primary/30 focus-visible:border-primary transition-all duration-300 rounded-xl px-4 py-6 text-sm shadow-inner'
-            />
-            <Button 
-              type='submit' 
-              size='icon' 
-              disabled={isLoading || !input.trim()}
-              className="h-auto w-14 rounded-xl shadow-md transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100"
-            >
-              <Send className='h-5 w-5' />
-            </Button>
+            {error && (
+              <div className="flex items-center gap-2 text-xs text-red-500 bg-red-500/10 p-2 rounded-lg animate-in fade-in slide-in-from-top-1">
+                <AlertCircle className="h-3 w-3" />
+                {error}
+              </div>
+            )}
+            <div className="flex gap-3">
+              <Input
+                value={input}
+                onChange={handleInputChange}
+                maxLength={400} // Lapis 3: Batas karakter di sisi Client
+                placeholder='Ketik pesan di sini...'
+                className='bg-background/80 border-border/50 focus-visible:ring-primary/30 focus-visible:border-primary transition-all duration-300 rounded-xl px-4 py-6 text-sm shadow-inner'
+              />
+              <Button 
+                type='submit' 
+                size='icon' 
+                disabled={isLoading || !input.trim()}
+                className="h-auto w-14 rounded-xl shadow-md transition-all duration-300 hover:scale-105 active:scale-95 disabled:opacity-50 disabled:hover:scale-100"
+              >
+                <Send className='h-5 w-5' />
+              </Button>
+            </div>
+            <div className="flex justify-between px-1">
+              <span className="text-[10px] text-muted-foreground">AI Assistant Rifki v1.0</span>
+              <span className={`text-[10px] ${input.length > 350 ? "text-red-500" : "text-muted-foreground"}`}>
+                {input.length}/400
+              </span>
+            </div>
           </form>
         </DialogContent>
       </Dialog>
