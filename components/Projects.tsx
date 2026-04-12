@@ -161,7 +161,6 @@ function OtherProjectCard({ project, index }: { project: Project; index: number 
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4, delay: index * 0.05 }}
           viewport={{ once: true }}
-          className="flex flex-col border rounded-lg overflow-hidden bg-card hover:border-primary/50 transition-colors cursor-pointer group"
         >
           {/* Thumbnail - 16:9 */}
           <div className="relative aspect-video bg-muted border-b">
