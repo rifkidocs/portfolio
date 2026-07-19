@@ -51,7 +51,7 @@ export function Navbar() {
               alt="R Logo" 
               width={32} 
               height={32} 
-              className="w-8 h-8 rounded-lg shadow-sm group-hover:scale-105 transition-transform"
+              className="w-8 h-8 rounded-lg shadow-sm group-hover:shadow-md transition-shadow"
             />
             <div className="hidden sm:flex flex-col">
               <span className="font-bold text-sm tracking-tight leading-none">RIFKI</span>
@@ -74,16 +74,16 @@ export function Navbar() {
             <CommandMenu triggerOnlyIcon />
           </div>
           
-          <a 
-            href="https://github.com/rifkidocs" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="hidden sm:flex"
-          >
-            <Button variant="ghost" size="icon" className="h-9 w-9">
+          <Button variant="ghost" size="icon" className="h-9 w-9 hidden sm:flex" asChild>
+            <a 
+              href="https://github.com/rifkidocs" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              aria-label="View GitHub Profile"
+            >
               <Github className="h-5 w-5" />
-            </Button>
-          </a>
+            </a>
+          </Button>
           <ThemeToggle />
         </div>
       </div>

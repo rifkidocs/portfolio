@@ -23,6 +23,8 @@ export function Contact() {
       value: personalInfo.email,
       href: `mailto:${personalInfo.email}`,
       icon: <Mail className="w-5 h-5" />,
+      target: undefined,
+      rel: undefined,
     },
     {
       title: "Real-time Chat",
@@ -30,6 +32,8 @@ export function Contact() {
       value: personalInfo.phone,
       href: `https://wa.me/${personalInfo.phone.replace(/[^0-9]/g, "")}`,
       icon: <MessageSquare className="w-5 h-5" />,
+      target: "_blank",
+      rel: "noopener noreferrer",
     },
   ];
 
@@ -75,8 +79,8 @@ export function Contact() {
               <a 
                 href={channel.href} 
                 className="text-sm font-mono text-primary hover:underline underline-offset-4"
-                target="_blank"
-                rel="noopener noreferrer"
+                target={channel.target}
+                rel={channel.rel}
               >
                 {channel.value}
               </a>
@@ -100,7 +104,13 @@ export function Contact() {
             <div className="flex gap-4">
               {socialLinks.slice(0, 3).map((social) => (
                 <Button key={social.name} variant="outline" size="sm" asChild className="h-10 w-10 p-0">
-                  <a href={social.url} target="_blank" rel="noopener noreferrer" title={social.name}>
+                  <a 
+                    href={social.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    title={social.name}
+                    aria-label={`Visit my ${social.name} profile`}
+                  >
                     {social.name === "GitHub" && <Github className="w-5 h-5" />}
                     {social.name === "LinkedIn" && <Linkedin className="w-5 h-5" />}
                     {social.name === "Instagram" && <Instagram className="w-5 h-5" />}

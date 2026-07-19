@@ -47,6 +47,7 @@ export function GitHubStats() {
                 <GitHubImage 
                   src='https://github-readme-activity-graph.vercel.app/graph?username=rifkidocs&theme=react-dark&hide_border=true&area=true'
                   alt='GitHub Contribution Graph'
+                  aspectRatio="aspect-[800/300]"
                 />
               </div>
             </div>
@@ -65,6 +66,7 @@ export function GitHubStats() {
               <GitHubImage
                 src='https://github-readme-stats.vercel.app/api?username=rifkidocs&show_icons=true&theme=react&hide_border=true&bg_color=00000000&title_color=3b82f6&icon_color=3b82f6&text_color=94a3b8'
                 alt='GitHub Stats'
+                aspectRatio="aspect-[495/195]"
               />
             </motion.div>
 
@@ -79,6 +81,7 @@ export function GitHubStats() {
               <GitHubImage
                 src='https://github-readme-streak-stats.herokuapp.com/?user=rifkidocs&theme=react&hide_border=true&background=00000000&ring=3b82f6&fire=3b82f6&currStreakLabel=94a3b8'
                 alt='GitHub Streak'
+                aspectRatio="aspect-[495/195]"
               />
             </motion.div>
           </div>
@@ -100,7 +103,7 @@ export function GitHubStats() {
   );
 }
 
-function GitHubImage({ src, alt }: { src: string; alt: string }) {
+function GitHubImage({ src, alt, aspectRatio }: { src: string; alt: string; aspectRatio: string }) {
   const [status, setStatus] = React.useState<'loading' | 'error' | 'success'>('loading');
   const timerRef = React.useRef<NodeJS.Timeout | null>(null);
 
@@ -118,14 +121,14 @@ function GitHubImage({ src, alt }: { src: string; alt: string }) {
   }, []);
 
   if (status === 'error') return (
-    <div className="flex flex-col items-center justify-center p-6 bg-muted/5 rounded-md border border-dashed h-[120px]">
+    <div className={cn("flex flex-col items-center justify-center p-6 bg-muted/5 rounded-md border border-dashed w-full", aspectRatio)}>
       <GitBranch className="w-4 h-4 text-muted-foreground/20 mb-2" />
       <span className="text-[10px] font-medium text-muted-foreground/40">Data synchronization paused</span>
     </div>
   );
 
   return (
-    <div className="relative min-h-[120px] flex items-center justify-center bg-muted/5 rounded-md overflow-hidden transition-all">
+    <div className={cn("relative flex items-center justify-center bg-muted/5 rounded-md overflow-hidden transition-all w-full", aspectRatio)}>
       {status === 'loading' && (
         <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-[1px] z-10">
           <div className="w-4 h-4 border-2 border-primary/20 border-t-primary/60 rounded-full animate-spin" />

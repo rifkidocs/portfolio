@@ -92,7 +92,7 @@ export function About() {
                 My goal is to bridge the gap between complex backend systems and intuitive frontend interfaces. 
                 I believe in building applications that are not only functional but also maintainable and accessible to everyone.
               </p>
-              <blockquote className="border-l-4 border-primary pl-4 py-1 italic text-muted-foreground">
+              <blockquote className="border-l border-primary pl-4 py-1 italic text-muted-foreground">
                 &quot;Clean code always looks like it was written by someone who cares.&quot; — Michael Feathers
               </blockquote>
             </div>

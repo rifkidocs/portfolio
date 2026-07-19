@@ -84,13 +84,16 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
             </nav>
 
             <div className="mt-12 pt-8 border-t border-muted-foreground/10">
-              <div className="p-4 rounded-lg bg-primary/5 border border-primary/10">
-                <h5 className="text-[10px] font-bold uppercase tracking-widest mb-2">Need Help?</h5>
-                <p className="text-[11px] text-muted-foreground leading-relaxed mb-3">
-                  Have questions about my technical background or projects?
+              <div className="p-4 rounded-md border bg-muted/80 flex flex-col gap-2">
+                <div className="flex justify-between items-center">
+                  <span className="font-mono text-[10px] font-bold uppercase text-foreground">system_ok</span>
+                  <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                </div>
+                <p className="font-mono text-[10px] text-muted-foreground leading-relaxed">
+                  Built with Next.js 16 & Tailwind v4. Formatted with Swiss design alignment.
                 </p>
-                <a href="#contact" className="text-[11px] font-bold text-primary flex items-center gap-1 hover:underline">
-                  Contact Support <ArrowRight className="w-3 h-3" />
+                <a href="https://github.com/rifkidocs" target="_blank" rel="noopener noreferrer" className="font-mono text-[10px] font-bold text-primary flex items-center gap-1 hover:underline mt-1">
+                  cat source_code <ArrowRight className="w-3 h-3" />
                 </a>
               </div>
             </div>

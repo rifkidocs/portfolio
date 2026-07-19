@@ -5,6 +5,7 @@ import "highlight.js/styles/github.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import DocsLayout from "@/components/DocsLayout";
 import ChatBot from "@/components/ChatBot";
+import { MotionConfig } from "framer-motion";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -64,12 +65,17 @@ export default function RootLayout({
           defaultTheme='system'
           enableSystem
           disableTransitionOnChange>
-          <DocsLayout>
-            {children}
-          </DocsLayout>
-          <ChatBot />
+          <MotionConfig reducedMotion="user">
+            <DocsLayout>
+              {children}
+            </DocsLayout>
+            <ChatBot />
+          </MotionConfig>
         </ThemeProvider>
-      </body>
+      {/* impeccable-live-start */}
+<script src="http://localhost:8400/live.js"></script>
+{/* impeccable-live-end */}
+</body>
     </html>
   );
 }

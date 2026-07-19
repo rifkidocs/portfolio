@@ -44,7 +44,7 @@ const commandStyles = `
     flex-direction: column;
     width: 100%;
     height: 100%;
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     background: var(--background);
     color: var(--foreground);
   }
@@ -63,14 +63,12 @@ const commandStyles = `
     max-height: 400px;
     overflow-y: auto;
     overscroll-behavior: contain;
-    transition: 100ms ease;
-    transition-property: height;
   }
   [cmdk-item] {
     content-visibility: auto;
     cursor: pointer;
     height: 48px;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
     gap: 12px;
@@ -107,6 +105,7 @@ const commandStyles = `
     white-space: pre-wrap;
     color: var(--muted-foreground);
   }
+
 `;
 
 export function CommandMenu({ triggerOnlyIcon = false }: { triggerOnlyIcon?: boolean }) {
