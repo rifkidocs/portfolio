@@ -44,7 +44,7 @@ export function About() {
             className="md:col-span-1 space-y-8"
           >
             <div className="space-y-4">
-              <h4 className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Quick Info</h4>
+              <h3 className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Quick Info</h3>
               <div className="space-y-3">
                 <div className="flex items-center gap-3 text-sm">
                   <MapPin className="w-4 h-4 text-primary" />
@@ -101,11 +101,11 @@ export function About() {
               <h3 className="text-xl font-bold">Philosophy</h3>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="p-4 rounded-lg bg-muted/50 border">
-                  <h5 className="font-bold text-sm mb-1">Performance First</h5>
+                  <h4 className="font-bold text-sm mb-1">Performance First</h4>
                   <p className="text-xs text-muted-foreground">Every millisecond counts. Optimization is a priority, not an afterthought.</p>
                 </div>
                 <div className="p-4 rounded-lg bg-muted/50 border">
-                  <h5 className="font-bold text-sm mb-1">Type Safety</h5>
+                  <h4 className="font-bold text-sm mb-1">Type Safety</h4>
                   <p className="text-xs text-muted-foreground">Leveraging TypeScript to build robust, self-documenting codebases.</p>
                 </div>
               </div>

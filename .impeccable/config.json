@@ -1,0 +1,11 @@
+{
+  "detector": {
+    "ignoreRules": [
+      "overused-font",
+      "nested-cards"
+    ],
+    "designSystem": {
+      "enabled": true
+    }
+  }
+}
