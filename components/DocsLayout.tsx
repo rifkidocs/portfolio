@@ -84,16 +84,17 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
             </nav>
 
             <div className="mt-12 pt-8 border-t border-muted-foreground/10">
-              <div className="p-4 rounded-md border bg-muted/80 flex flex-col gap-2">
-                <div className="flex justify-between items-center">
-                  <span className="font-mono text-[10px] font-bold uppercase text-foreground">system_ok</span>
-                  <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-foreground">SYSTEM_ONLINE</span>
                 </div>
-                <p className="font-mono text-[10px] text-muted-foreground leading-relaxed">
-                  Built with Next.js 16 & Tailwind v4. Formatted with Swiss design alignment.
+                <p className="text-muted-foreground leading-relaxed text-xs">
+                  Built using Next.js 16 & Tailwind v4. Fully formatted with structural Swiss design alignment.
                 </p>
-                <a href="https://github.com/rifkidocs" target="_blank" rel="noopener noreferrer" className="font-mono text-[10px] font-bold text-primary flex items-center gap-1 hover:underline mt-1">
-                  cat source_code <ArrowRight className="w-3 h-3" />
+                <a href="https://github.com/rifkidocs" target="_blank" rel="noopener noreferrer" className="font-mono text-xs font-bold text-primary inline-flex items-center gap-1.5 hover:underline group">
+                  <span>cat source_code</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </a>
               </div>
             </div>

@@ -66,7 +66,7 @@ export default function ChatBot() {
             size='icon'
             className='group relative h-16 w-16 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 hover:shadow-primary/25 active:scale-95 bg-primary text-primary-foreground'
           >
-            <div className="absolute inset-0 rounded-full animate-ping opacity-20 bg-primary group-hover:animate-none"></div>
+            <div className="absolute -inset-1 rounded-full border border-primary/20 group-hover:scale-105 transition-transform duration-300 pointer-events-none" style={{ borderColor: '#2563eb', opacity: 0.4 }}></div>
             <MessageCircle className='h-8 w-8 transition-transform duration-300 group-hover:scale-110' />
             <Sparkles className="absolute top-0 right-0 h-4 w-4 -translate-y-1 translate-x-1 text-yellow-300 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </Button>

@@ -97,16 +97,22 @@ export function About() {
               </blockquote>
             </div>
 
-            <div className="space-y-4">
-              <h3 className="text-xl font-bold">Philosophy</h3>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div className="p-4 rounded-lg bg-muted/50 border">
-                  <h4 className="font-bold text-sm mb-1">Performance First</h4>
-                  <p className="text-xs text-muted-foreground">Every millisecond counts. Optimization is a priority, not an afterthought.</p>
+            <div className="space-y-6 pt-4 border-t">
+              <h3 className="text-xl font-bold tracking-tight">Philosophy</h3>
+              <div className="space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-8 group">
+                  <span className="text-xs font-mono text-primary font-bold w-32 shrink-0">01 / PERF_FIRST</span>
+                  <div className="space-y-1">
+                    <h4 className="font-bold text-sm text-foreground">Performance First</h4>
+                    <p className="text-xs text-muted-foreground max-w-md">Every millisecond counts. Optimization is a core architectural priority, not an afterthought.</p>
+                  </div>
                 </div>
-                <div className="p-4 rounded-lg bg-muted/50 border">
-                  <h4 className="font-bold text-sm mb-1">Type Safety</h4>
-                  <p className="text-xs text-muted-foreground">Leveraging TypeScript to build robust, self-documenting codebases.</p>
+                <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-8 group">
+                  <span className="text-xs font-mono text-primary font-bold w-32 shrink-0">02 / SAFE_TYPES</span>
+                  <div className="space-y-1">
+                    <h4 className="font-bold text-sm text-foreground">Type Safety</h4>
+                    <p className="text-xs text-muted-foreground max-w-md">Leveraging TypeScript statically to construct robust, self-documenting codebases.</p>
+                  </div>
                 </div>
               </div>
             </div>

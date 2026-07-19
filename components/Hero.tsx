@@ -63,7 +63,7 @@ export function Hero() {
           <Button
             size='lg'
             asChild
-            className='rounded-md px-8'
+            className='rounded-md px-8 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary'
           >
             <a href="#projects">
               View Documentation
@@ -74,7 +74,7 @@ export function Hero() {
             variant='outline'
             size='lg'
             asChild
-            className='rounded-md px-8'
+            className='rounded-md px-8 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary'
           >
             <Link href="/blog">
               <BookOpen className='w-4 h-4 mr-2' />

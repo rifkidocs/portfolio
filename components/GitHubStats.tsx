@@ -45,7 +45,7 @@ export function GitHubStats() {
             <div className='w-full overflow-x-auto'>
               <div className='min-w-[700px]'>
                 <GitHubImage 
-                  src='https://github-readme-activity-graph.vercel.app/graph?username=rifkidocs&theme=react-dark&hide_border=true&area=true'
+                  src='/api/github?type=graph'
                   alt='GitHub Contribution Graph'
                   aspectRatio="aspect-[800/300]"
                 />
@@ -64,7 +64,7 @@ export function GitHubStats() {
             >
               <h4 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">System Stats</h4>
               <GitHubImage
-                src='https://github-readme-stats.vercel.app/api?username=rifkidocs&show_icons=true&theme=react&hide_border=true&bg_color=00000000&title_color=3b82f6&icon_color=3b82f6&text_color=94a3b8'
+                src='/api/github?type=stats'
                 alt='GitHub Stats'
                 aspectRatio="aspect-[495/195]"
               />
@@ -79,7 +79,7 @@ export function GitHubStats() {
             >
               <h4 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">Uptime Streak</h4>
               <GitHubImage
-                src='https://github-readme-streak-stats.herokuapp.com/?user=rifkidocs&theme=react&hide_border=true&background=00000000&ring=3b82f6&fire=3b82f6&currStreakLabel=94a3b8'
+                src='/api/github?type=streak'
                 alt='GitHub Streak'
                 aspectRatio="aspect-[495/195]"
               />
