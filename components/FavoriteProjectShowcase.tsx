@@ -489,23 +489,22 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
 
   return (
     <>
-      <DialogContent className="sm:max-w-4xl max-h-[96vh] md:max-h-[92vh] overflow-y-auto p-0 gap-0 border-amber-500/30 shadow-2xl bg-card flex flex-col">
-        {/* Modal Header */}
-        <DialogHeader className="p-4 sm:p-6 bg-gradient-to-r from-amber-950/40 via-card to-card border-b border-border shrink-0">
-          <div className="flex items-center gap-2 text-xs font-mono text-amber-500 font-bold uppercase tracking-wider mb-1">
+      <DialogContent className="sm:max-w-4xl max-h-[94vh] overflow-y-auto p-4 sm:p-6 md:p-8 gap-6 border-amber-500/30 shadow-2xl bg-card block space-y-6">
+        {/* Modal Header - Unpinned, scrolls naturally with page */}
+        <DialogHeader className="bg-gradient-to-r from-amber-950/30 via-card to-card p-4 sm:p-6 rounded-xl border border-border/80">
+          <div className="flex items-center gap-2 text-xs font-mono text-amber-500 font-bold uppercase tracking-wider mb-1.5">
             <Sparkles className="w-4 h-4 fill-amber-500" />
             <span>Enterprise System Showcase</span>
           </div>
           <DialogTitle className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight">
             {getProjectTitle(project, lang)}
           </DialogTitle>
-          <DialogDescription className="text-xs sm:text-sm text-muted-foreground leading-relaxed mt-1">
+          <DialogDescription className="text-xs sm:text-sm text-muted-foreground leading-relaxed mt-1.5">
             {getProjectDescription(project, lang)}
           </DialogDescription>
         </DialogHeader>
 
-        <div className="p-4 sm:p-6 md:p-8 space-y-6 flex-1 overflow-y-auto">
-          {/* Module Filter Tabs with Arrow Buttons (Left/Right) */}
+        {/* Module Filter Tabs with Arrow Buttons (Left/Right) */}
           {slides.length > 0 && (
             <div className="w-full border-b border-border/60 pb-3 flex items-center gap-1.5">
               <button
@@ -734,7 +733,6 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
             Bumi Wiraraja Group ERP System Spec.v2
           </span>
         </div>
-      </div>
 
       <ImageLightboxModal
         isOpen={lightboxState.isOpen}
