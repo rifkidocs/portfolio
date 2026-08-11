@@ -16,17 +16,16 @@ import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { FavoriteProjectShowcase } from "@/components/FavoriteProjectShowcase";
-import { projects, Project } from "@/lib/data";
+import { projects, Project, getProjectTitle, getProjectDescription } from "@/lib/data";
 import { useLanguage } from "@/lib/language-context";
 
 export function Projects() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const favoriteProjects = projects.filter((project) => project.isFavorite);
   const featuredProjects = projects.filter((project) => project.featured && !project.isFavorite);
   const otherProjects = projects.filter((project) => !project.featured && !project.isFavorite);
@@ -52,28 +51,28 @@ export function Projects() {
           </p>
         </motion.div>
 
-        {/* Favorite Projects Spotlight (Standout Showcase) */}
-        {favoriteProjects.map((favProject) => (
-          <FavoriteProjectShowcase key={favProject.id} project={favProject} />
+        {/* Favorite Projects Showcase */}
+        {favoriteProjects.map((project, idx) => (
+          <FavoriteProjectShowcase key={project.id} project={project} index={idx} />
         ))}
 
-        {/* Featured Projects Grid */}
-        <div className='grid gap-8 mb-20'>
+        {/* Featured Projects List */}
+        <div className='grid gap-6 mb-12'>
           {featuredProjects.map((project, idx) => (
             <ProjectCard key={project.id} project={project} index={idx} />
           ))}
         </div>
 
-        {/* Other Projects Section */}
-        <motion.div
+        {/* Other Secondary Projects */}
+        <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
           className="mb-8 pt-12 border-t"
         >
-          <h3 className="text-xl font-bold tracking-tight mb-2">Other Projects</h3>
-          <p className="text-sm text-muted-foreground">Minor utilities, experiments, and secondary contributions.</p>
+          <h3 className="text-xl font-bold tracking-tight mb-2">{t.projects.otherProjectsTitle}</h3>
+          <p className="text-sm text-muted-foreground">{t.projects.otherProjectsSubtitle}</p>
         </motion.div>
 
         <div className='grid sm:grid-cols-2 gap-4'>
@@ -84,7 +83,10 @@ export function Projects() {
 
         <div className="mt-16 p-6 rounded-lg bg-muted/30 border border-dashed border-muted-foreground/30 text-center">
           <p className="text-sm text-muted-foreground">
-            Complete history available in the <a href="https://github.com/rifkidocs" className="text-primary hover:underline underline-offset-4 font-medium">GitHub Repository</a>.
+            {t.projects.githubHistoryText}{" "}
+            <a href="https://github.com/rifkidocs" className="text-primary hover:underline underline-offset-4 font-medium">
+              {t.projects.githubRepoLink}
+            </a>.
           </p>
         </div>
       </div>
@@ -93,6 +95,8 @@ export function Projects() {
 }
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const { t, lang } = useLanguage();
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -105,12 +109,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           viewport={{ once: true }}
         >
           <div className="grid md:grid-cols-5 gap-0">
-            {/* Project Image - 2 cols (16:9 ratio maintained via aspect-video) */}
+            {/* Project Image */}
             <div className="md:col-span-2 relative aspect-video bg-muted border-r">
               {project.image && project.image !== "/api/placeholder/600/400" ? (
                 <Image
                   src={project.image}
-                  alt={project.title}
+                  alt={getProjectTitle(project, lang)}
                   fill
                   className="object-cover opacity-90 group-hover:opacity-100 transition-opacity"
                 />
@@ -121,19 +125,19 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               )}
             </div>
 
-            {/* Project Info - 3 cols */}
+            {/* Project Info */}
             <div className="md:col-span-3 p-6 flex flex-col justify-between">
               <div>
                 <div className="flex items-start justify-between mb-2">
                   <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
-                    {project.title}
+                    {getProjectTitle(project, lang)}
                   </h3>
                   <Badge variant="outline" className="text-[10px] uppercase font-bold tracking-tighter shrink-0">
-                    Featured
+                    {t.projects.featuredBadge}
                   </Badge>
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2 mb-4">
-                  {project.description}
+                  {getProjectDescription(project, lang)}
                 </p>
                 <div className="flex flex-wrap gap-1.5 mb-4">
                   {project.techStack.slice(0, 4).map((tech) => (
@@ -147,7 +151,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 </div>
               </div>
               <div className="flex items-center text-xs font-medium text-primary">
-                View Details <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
+                {t.projects.viewDetails} <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
               </div>
             </div>
           </div>
@@ -159,6 +163,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 }
 
 function OtherProjectCard({ project, index }: { project: Project; index: number }) {
+  const { lang } = useLanguage();
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -170,12 +176,12 @@ function OtherProjectCard({ project, index }: { project: Project; index: number 
           transition={{ duration: 0.4, delay: index * 0.05 }}
           viewport={{ once: true }}
         >
-          {/* Thumbnail - 16:9 */}
+          {/* Thumbnail */}
           <div className="relative aspect-video bg-muted border-b">
             {project.image && project.image !== "/api/placeholder/600/400" ? (
               <Image
                 src={project.image}
-                alt={project.title}
+                alt={getProjectTitle(project, lang)}
                 fill
                 className="object-cover opacity-80 group-hover:opacity-100 transition-opacity"
               />
@@ -188,12 +194,16 @@ function OtherProjectCard({ project, index }: { project: Project; index: number 
 
           <div className="p-4 flex flex-col flex-1">
             <div className="flex items-start justify-between gap-4 mb-2">
-              <h4 className="font-bold group-hover:text-primary transition-colors line-clamp-1 text-sm">{project.title}</h4>
+              <h4 className="font-bold group-hover:text-primary transition-colors line-clamp-1 text-sm">
+                {getProjectTitle(project, lang)}
+              </h4>
               <div className="p-1 rounded-md bg-muted text-muted-foreground group-hover:text-primary group-hover:bg-primary/10 transition-colors shrink-0">
                 <Plus className="w-3 h-3" />
               </div>
             </div>
-            <p className="text-xs text-muted-foreground line-clamp-2 mb-4 leading-relaxed flex-1">{project.description}</p>
+            <p className="text-xs text-muted-foreground line-clamp-2 mb-4 leading-relaxed flex-1">
+              {getProjectDescription(project, lang)}
+            </p>
             <div className="flex flex-wrap gap-1">
               {project.techStack.slice(0, 3).map(tech => (
                 <span key={tech} className="text-[9px] font-mono text-muted-foreground bg-muted px-1.5 py-0.5 rounded italic">
@@ -213,7 +223,7 @@ function OtherProjectCard({ project, index }: { project: Project; index: number 
 }
 
 function ProjectDialogContent({ project }: { project: Project }) {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
 
   return (
     <DialogContent className="sm:max-w-3xl max-h-[96vh] md:max-h-[90vh] overflow-y-auto p-0 gap-0 border-none shadow-2xl flex flex-col">
@@ -222,7 +232,7 @@ function ProjectDialogContent({ project }: { project: Project }) {
         {project.image && project.image !== "/api/placeholder/600/400" ? (
           <Image
             src={project.image}
-            alt={project.title}
+            alt={getProjectTitle(project, lang)}
             fill
             className="object-cover"
           />
@@ -249,7 +259,7 @@ function ProjectDialogContent({ project }: { project: Project }) {
             <span>Ref: {project.id.padStart(3, '0')}</span>
           </div>
           <DialogTitle className="text-3xl md:text-4xl font-extrabold tracking-tight leading-none mb-2">
-            {project.title}
+            {getProjectTitle(project, lang)}
           </DialogTitle>
         </DialogHeader>
         
@@ -262,7 +272,7 @@ function ProjectDialogContent({ project }: { project: Project }) {
                 <h4>{t.projects.abstract}</h4>
               </div>
               <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
-                {project.description}
+                {getProjectDescription(project, lang)}
               </p>
             </section>
 
