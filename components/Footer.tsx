@@ -1,4 +1,9 @@
+"use client";
+
+import { useLanguage } from "@/lib/language-context";
+
 export default function Footer() {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -6,7 +11,7 @@ export default function Footer() {
       <div className='container mx-auto px-4 py-6'>
         <div className='flex flex-col items-center justify-center gap-2 text-center'>
           <p className='text-sm text-muted-foreground'>
-            © {currentYear} Rifki. All rights reserved.
+            © {currentYear} Rifki. {t.footer.rights}
           </p>
         </div>
       </div>

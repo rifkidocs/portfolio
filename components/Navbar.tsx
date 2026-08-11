@@ -1,13 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { ThemeToggle } from "@/components/theme-toggle";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Menu,
-  Github,
-} from "lucide-react";
+import { Menu, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -16,7 +12,8 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-
+import { ThemeToggle } from "@/components/theme-toggle";
+import { LanguageToggle } from "@/components/language-toggle";
 import { CommandMenu } from "./CommandMenu";
 import { SidebarContent } from "./DocsLayout";
 
@@ -67,7 +64,7 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Right: Socials & Theme Toggle */}
+        {/* Right: Socials, Language & Theme Toggle */}
         <div className="flex items-center gap-2">
           {/* Mobile Search */}
           <div className="md:hidden">
@@ -84,6 +81,7 @@ export function Navbar() {
               <Github className="h-5 w-5" />
             </a>
           </Button>
+          <LanguageToggle />
           <ThemeToggle />
         </div>
       </div>

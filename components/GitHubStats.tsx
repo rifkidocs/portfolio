@@ -6,7 +6,11 @@ import { GitBranch, Activity, BarChart3 } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
+import { useLanguage } from "@/lib/language-context";
+
 export function GitHubStats() {
+  const { t } = useLanguage();
+
   return (
     <section id='metrics' className='py-16 lg:py-24 border-b'>
       <div className='max-w-4xl'>
@@ -20,11 +24,11 @@ export function GitHubStats() {
         >
           <div className="flex items-center gap-2 text-xs font-mono text-primary mb-4">
             <BarChart3 className="w-3 h-3" />
-            <span>Metrics</span>
+            <span>{t.github.badge}</span>
           </div>
-          <h2 className='text-3xl md:text-4xl font-bold tracking-tight mb-6'>Development Activity</h2>
+          <h2 className='text-3xl md:text-4xl font-bold tracking-tight mb-6'>{t.github.title}</h2>
           <p className='text-lg text-muted-foreground leading-relaxed'>
-            Real-time statistics and contribution metrics from my GitHub profile.
+            {t.github.subtitle}
           </p>
         </motion.div>
 

@@ -51,13 +51,15 @@ export const metadata: Metadata = {
   },
 };
 
+import { LanguageProvider } from "@/lib/language-context";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' suppressHydrationWarning className='overflow-x-hidden'>
+    <html lang='id' suppressHydrationWarning className='overflow-x-hidden'>
       <body
         className={`${inter.variable} ${geistMono.variable} antialiased overflow-x-hidden bg-background font-sans`}>
         <ThemeProvider
@@ -65,12 +67,14 @@ export default function RootLayout({
           defaultTheme='system'
           enableSystem
           disableTransitionOnChange>
-          <MotionConfig reducedMotion="user">
-            <DocsLayout>
-              {children}
-            </DocsLayout>
-            <ChatBot />
-          </MotionConfig>
+          <LanguageProvider>
+            <MotionConfig reducedMotion="user">
+              <DocsLayout>
+                {children}
+              </DocsLayout>
+              <ChatBot />
+            </MotionConfig>
+          </LanguageProvider>
         </ThemeProvider>
       {/* impeccable-live-start */}
 <script src="http://localhost:8400/live.js"></script>

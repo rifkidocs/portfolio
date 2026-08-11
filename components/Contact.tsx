@@ -15,11 +15,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { personalInfo, socialLinks } from "@/lib/data";
 
+import { useLanguage } from "@/lib/language-context";
+
 export function Contact() {
+  const { t } = useLanguage();
+
   const supportChannels = [
     {
-      title: "Direct Inquiry",
-      description: "For professional collaborations and full-time opportunities.",
+      title: t.contact.directEmail,
+      description: t.contact.subtitle,
       value: personalInfo.email,
       href: `mailto:${personalInfo.email}`,
       icon: <Mail className="w-5 h-5" />,
@@ -27,8 +31,8 @@ export function Contact() {
       rel: undefined,
     },
     {
-      title: "Real-time Chat",
-      description: "Best for quick questions and project discussions.",
+      title: t.contact.phoneWhatsapp,
+      description: t.contact.subtitle,
       value: personalInfo.phone,
       href: `https://wa.me/${personalInfo.phone.replace(/[^0-9]/g, "")}`,
       icon: <MessageSquare className="w-5 h-5" />,
@@ -50,11 +54,11 @@ export function Contact() {
         >
           <div className="flex items-center gap-2 text-xs font-mono text-primary mb-4">
             <HelpCircle className="w-3 h-3" />
-            <span>Support</span>
+            <span>{t.contact.badge}</span>
           </div>
-          <h2 className='text-3xl md:text-4xl font-bold tracking-tight mb-6'>Get in Touch</h2>
+          <h2 className='text-3xl md:text-4xl font-bold tracking-tight mb-6'>{t.contact.title}</h2>
           <p className='text-lg text-muted-foreground leading-relaxed'>
-            Select a communication channel below to start a conversation about your next project.
+            {t.contact.subtitle}
           </p>
         </motion.div>
 

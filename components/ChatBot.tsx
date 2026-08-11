@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useChat } from "ai/react";
-import { MessageCircle, Send, Bot, User, Loader2, Sparkles, AlertCircle, Terminal } from "lucide-react";
+import { MessageCircle, Send, Bot, User, Loader2, Sparkles, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,28 +13,30 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { personalInfo } from "@/lib/data";
+import { useLanguage } from "@/lib/language-context";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-const QUICK_REPLIES = [
-  { label: "🚀 Proyek Terbaru", prompt: "Apa proyek terbarumu yang paling keren?" },
-  { label: "🛠️ Tech Stack", prompt: "Teknologi apa saja yang kamu kuasai?" },
-  { label: "📧 Kontak", prompt: "Gimana cara hubungi kamu?" },
-  { label: "📄 Link CV", prompt: "Boleh minta link CV kamu?" },
-];
-
 export default function ChatBot() {
+  const { t, lang } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showSuggestions, setShowSuggestions] = useState(true);
-  
+
+  const quickReplies = [
+    { label: "🚀 " + (lang === "id" ? "Proyek Terbaru" : "Latest Projects"), prompt: t.chatbot.suggestion1 },
+    { label: "🛠️ " + (lang === "id" ? "Tech Stack" : "Tech Stack"), prompt: t.chatbot.suggestion2 },
+    { label: "📧 " + (lang === "id" ? "Kontak" : "Contact"), prompt: t.chatbot.suggestion3 },
+    { label: "📄 " + (lang === "id" ? "Link CV" : "Work Experience"), prompt: t.chatbot.suggestion4 },
+  ];
+
   const { messages, input, setInput, handleInputChange, handleSubmit, isLoading, append } = useChat({
     onError: (err) => {
       try {
         const errorData = JSON.parse(err.message);
-        setError(errorData.error || "Gagal mengirim pesan.");
+        setError(errorData.error || "Failed to send message.");
       } catch {
-        setError("Koneksi ke server terputus.");
+        setError("Connection error.");
       }
       setTimeout(() => setError(null), 4000);
     }
@@ -64,14 +66,13 @@ export default function ChatBot() {
         <DialogTrigger asChild>
           <Button
             size='icon'
-            className='group relative h-16 w-16 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 hover:shadow-primary/25 active:scale-95 bg-primary text-primary-foreground'
+            className='group relative h-16 w-16 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 hover:shadow-primary/25 active:scale-95 bg-primary text-primary-foreground font-bold'
           >
-            <div className="absolute -inset-1 rounded-full border border-primary/20 group-hover:scale-105 transition-transform duration-300 pointer-events-none" style={{ borderColor: '#2563eb', opacity: 0.4 }}></div>
             <MessageCircle className='h-8 w-8 transition-transform duration-300 group-hover:scale-110' />
             <Sparkles className="absolute top-0 right-0 h-4 w-4 -translate-y-1 translate-x-1 text-yellow-300 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
           </Button>
         </DialogTrigger>
-        <DialogContent className='sm:max-w-[480px] p-0 gap-0 overflow-hidden border border-white/10 bg-background/80 backdrop-blur-xl shadow-2xl z-[200] sm:rounded-2xl'>
+        <DialogContent className='sm:max-w-[480px] p-0 gap-0 overflow-hidden border border-white/10 bg-background/95 backdrop-blur-xl shadow-2xl z-[200] sm:rounded-2xl'>
           <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none"></div>
           
           <DialogHeader className='relative p-5 border-b border-border/50 bg-muted/20 backdrop-blur-md'>
@@ -79,37 +80,30 @@ export default function ChatBot() {
               <div className="flex items-center gap-3 text-xl font-bold tracking-tight">
                 <div className='relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary/80 shadow-lg shadow-primary/20'>
                   <Bot className='h-5 w-5 text-primary-foreground' />
-                  <span className="absolute -bottom-1 -right-1 flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500 border-2 border-background"></span>
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold leading-none">{t.chatbot.title}</h3>
+                  <span className="text-[10px] text-muted-foreground font-mono font-medium block mt-1">
+                    {t.chatbot.subtitle}
                   </span>
                 </div>
-                <div className="flex flex-col items-start text-left">
-                  <span>AI Assistant</span>
-                  <span className="text-xs font-normal text-muted-foreground">Expert Mode Active</span>
-                </div>
-              </div>
-              <div className="flex gap-1">
-                <div className="h-1.5 w-1.5 rounded-full bg-red-500/50"></div>
-                <div className="h-1.5 w-1.5 rounded-full bg-yellow-500/50"></div>
-                <div className="h-1.5 w-1.5 rounded-full bg-green-500/50"></div>
               </div>
             </DialogTitle>
           </DialogHeader>
 
           <div 
             ref={scrollRef}
-            className='relative h-[400px] overflow-y-auto p-5 space-y-5 custom-scrollbar scroll-smooth'
+            className='relative h-[380px] overflow-y-auto p-5 space-y-5 custom-scrollbar scroll-smooth'
           >
             {messages.length === 0 && (
               <div className='flex flex-col items-center justify-center h-full text-center space-y-4 opacity-80 animate-in fade-in duration-700'>
-                <div className="h-20 w-20 rounded-2xl bg-primary/10 flex items-center justify-center mb-2 rotate-3 border border-primary/20">
-                  <Bot className='h-10 w-10 text-primary opacity-80' />
+                <div className="h-16 w-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-2 border border-primary/20">
+                  <Bot className='h-8 w-8 text-primary opacity-80' />
                 </div>
                 <div className="space-y-2 px-4">
-                  <p className='text-base font-semibold'>Halo! Saya asisten AI {personalInfo.name}.</p>
-                  <p className='text-sm text-muted-foreground leading-relaxed'>
-                    Saya sudah membaca seluruh CV dan portfolio Rifki. Kamu bisa tanya apapun tentang skill teknisnya!
+                  <p className='text-sm font-bold'>Hello! I am {personalInfo.name}&apos;s AI Assistant.</p>
+                  <p className='text-xs text-muted-foreground leading-relaxed'>
+                    {t.chatbot.subtitle}
                   </p>
                 </div>
               </div>
@@ -137,14 +131,14 @@ export default function ChatBot() {
                     {m.role === "user" ? <User className='h-4 w-4' /> : <Bot className='h-4 w-4' />}
                   </div>
                   <div
-                    className={`relative rounded-2xl px-4 py-2.5 text-sm shadow-sm transition-all ${
+                    className={`relative rounded-2xl px-4 py-2.5 text-xs shadow-sm transition-all ${
                       m.role === "user"
-                        ? "bg-primary text-primary-foreground rounded-tr-sm"
-                        : "bg-muted/60 backdrop-blur-md border border-border/50 text-foreground rounded-tl-sm prose prose-sm prose-invert dark:prose-invert max-w-full"
+                        ? "bg-primary text-primary-foreground rounded-tr-sm font-medium"
+                        : "bg-muted/60 backdrop-blur-md border border-border/50 text-foreground rounded-tl-sm prose prose-xs max-w-full"
                     }`}
                   >
                     {m.role === "assistant" ? (
-                      <div className="prose prose-sm dark:prose-invert max-w-full leading-relaxed break-words">
+                      <div className="prose prose-xs dark:prose-invert max-w-full leading-relaxed break-words">
                         <ReactMarkdown 
                           remarkPlugins={[remarkGfm]}
                           components={{
@@ -174,7 +168,7 @@ export default function ChatBot() {
                   <div className='h-8 w-8 rounded-lg bg-muted border border-border/50 flex items-center justify-center shadow-md'>
                     <Bot className='h-4 w-4 text-primary' />
                   </div>
-                  <div className='relative rounded-2xl rounded-tl-sm px-4 py-3 bg-muted/60 backdrop-blur-md border border-border/50 text-sm flex items-center gap-2'>
+                  <div className='relative rounded-2xl rounded-tl-sm px-4 py-3 bg-muted/60 backdrop-blur-md border border-border/50 text-xs flex items-center gap-2'>
                     <Loader2 className='h-3 w-3 animate-spin text-primary' />
                     <span className='font-medium text-muted-foreground animate-pulse text-xs'>Thinking...</span>
                   </div>
@@ -184,27 +178,15 @@ export default function ChatBot() {
           </div>
 
           {/* Quick Replies Area */}
-          <div className="px-4 pb-3 flex flex-col gap-2">
-            <div className="flex items-center justify-between px-1">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/50">
-                {showSuggestions ? "Suggestions" : ""}
-              </span>
-              <button 
-                onClick={() => setShowSuggestions(!showSuggestions)}
-                className="text-[10px] font-medium text-primary hover:underline transition-all"
-              >
-                {showSuggestions ? "Hide" : "Show Suggestions"}
-              </button>
-            </div>
-            
+          <div className="px-4 pb-2 flex flex-col gap-2">
             {showSuggestions && (
-              <div className="flex flex-wrap gap-2 overflow-x-auto no-scrollbar animate-in fade-in slide-in-from-bottom-1 duration-300">
-                {QUICK_REPLIES.map((reply) => (
+              <div className="flex flex-wrap gap-1.5 overflow-x-auto no-scrollbar">
+                {quickReplies.map((reply) => (
                   <button
                     key={reply.label}
                     onClick={() => handleQuickReply(reply.prompt)}
                     disabled={isLoading}
-                    className="whitespace-nowrap px-3 py-1.5 rounded-full border border-primary/20 bg-primary/5 text-[11px] font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="whitespace-nowrap px-2.5 py-1 rounded-full border border-primary/20 bg-primary/5 text-[10px] font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {reply.label}
                   </button>
@@ -229,12 +211,9 @@ export default function ChatBot() {
                   value={input}
                   onChange={handleInputChange}
                   maxLength={400}
-                  placeholder='Ask me something technical...'
+                  placeholder={t.chatbot.placeholder}
                   className='bg-background/80 border-border/50 focus-visible:ring-primary/20 focus-visible:border-primary/50 transition-all duration-300 rounded-xl pr-10 py-5 text-xs shadow-inner'
                 />
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] font-mono text-muted-foreground/50">
-                  {input.length}/400
-                </div>
               </div>
               <Button 
                 type='submit' 

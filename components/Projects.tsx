@@ -23,8 +23,10 @@ import {
 } from "@/components/ui/dialog";
 import { FavoriteProjectShowcase } from "@/components/FavoriteProjectShowcase";
 import { projects, Project } from "@/lib/data";
+import { useLanguage } from "@/lib/language-context";
 
 export function Projects() {
+  const { t } = useLanguage();
   const favoriteProjects = projects.filter((project) => project.isFavorite);
   const featuredProjects = projects.filter((project) => project.featured && !project.isFavorite);
   const otherProjects = projects.filter((project) => !project.featured && !project.isFavorite);
@@ -42,11 +44,11 @@ export function Projects() {
         >
           <div className="flex items-center gap-2 text-xs font-mono text-primary mb-4">
             <Layers className="w-3 h-3" />
-            <span>Showcase & Portfolio</span>
+            <span>{t.projects.badge}</span>
           </div>
-          <h2 className='text-3xl md:text-4xl font-bold tracking-tight mb-6'>Reference Projects</h2>
+          <h2 className='text-3xl md:text-4xl font-bold tracking-tight mb-6'>{t.projects.title}</h2>
           <p className='text-lg text-muted-foreground leading-relaxed'>
-            A collection of production-ready applications, enterprise platforms, and technical experiments.
+            {t.projects.subtitle}
           </p>
         </motion.div>
 
@@ -211,6 +213,8 @@ function OtherProjectCard({ project, index }: { project: Project; index: number 
 }
 
 function ProjectDialogContent({ project }: { project: Project }) {
+  const { t } = useLanguage();
+
   return (
     <DialogContent className="sm:max-w-3xl max-h-[96vh] md:max-h-[90vh] overflow-y-auto p-0 gap-0 border-none shadow-2xl flex flex-col">
       {/* Premium Header with Image */}
@@ -232,7 +236,7 @@ function ProjectDialogContent({ project }: { project: Project }) {
         {/* Status Badge on Image */}
         <div className="absolute top-4 left-4">
           <Badge className="bg-primary text-primary-foreground border-none px-3 py-1 text-[10px] font-bold uppercase tracking-widest shadow-lg">
-            Active Project
+            {t.projects.activeStatus}
           </Badge>
         </div>
       </div>
@@ -247,9 +251,6 @@ function ProjectDialogContent({ project }: { project: Project }) {
           <DialogTitle className="text-3xl md:text-4xl font-extrabold tracking-tight leading-none mb-2">
             {project.title}
           </DialogTitle>
-          <DialogDescription className="text-base text-muted-foreground/80 font-medium">
-            Detailed technical overview and implementation specifications.
-          </DialogDescription>
         </DialogHeader>
         
         <div className="grid md:grid-cols-3 gap-10">
@@ -258,7 +259,7 @@ function ProjectDialogContent({ project }: { project: Project }) {
             <section className="space-y-3">
               <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-foreground">
                 <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                <h4>Abstract</h4>
+                <h4>{t.projects.abstract}</h4>
               </div>
               <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
                 {project.description}
@@ -268,7 +269,7 @@ function ProjectDialogContent({ project }: { project: Project }) {
             <section className="space-y-4">
               <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-foreground">
                 <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                <h4>Stack & Dependencies</h4>
+                <h4>{t.projects.stackHeader}</h4>
               </div>
               <div className="flex flex-wrap gap-2">
                 {project.techStack.map((tech) => (
@@ -288,13 +289,13 @@ function ProjectDialogContent({ project }: { project: Project }) {
           <div className="space-y-8">
             <section className="p-6 rounded-xl bg-muted/30 border border-muted-foreground/10 space-y-6">
               <div className="space-y-4">
-                <h5 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Deployment</h5>
+                <h5 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t.projects.deployment}</h5>
                 <div className="space-y-3">
                   {project.liveUrl && (
                     <Button variant="default" size="sm" asChild className="w-full justify-start font-bold h-10 shadow-md">
                       <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                         <Globe className="w-4 h-4 mr-2" />
-                        Live Instance
+                        {t.projects.liveInstance}
                       </a>
                     </Button>
                   )}
@@ -302,7 +303,7 @@ function ProjectDialogContent({ project }: { project: Project }) {
                     <Button variant="outline" size="sm" asChild className="w-full justify-start font-bold h-10">
                       <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                         <Github className="w-4 h-4 mr-2" />
-                        Repository
+                        {t.projects.repository}
                       </a>
                     </Button>
                   )}
@@ -310,14 +311,14 @@ function ProjectDialogContent({ project }: { project: Project }) {
               </div>
 
               <div className="pt-6 border-t border-muted-foreground/10 space-y-4">
-                <h5 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Meta Data</h5>
+                <h5 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t.projects.metaData}</h5>
                 <div className="grid grid-cols-2 gap-4 text-[10px] font-mono">
                   <div>
-                    <span className="text-muted-foreground block mb-1">VERSION</span>
+                    <span className="text-muted-foreground block mb-1">{t.projects.specVersion}</span>
                     <span className="font-bold">1.0.4-stable</span>
                   </div>
                   <div>
-                    <span className="text-muted-foreground block mb-1">LICENSE</span>
+                    <span className="text-muted-foreground block mb-1">{t.projects.license}</span>
                     <span className="font-bold">MIT-Standard</span>
                   </div>
                 </div>

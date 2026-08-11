@@ -33,6 +33,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Project, ProjectSlide } from "@/lib/data";
+import { useLanguage } from "@/lib/language-context";
 
 const moduleTabs = [
   { label: "Dashboard", icon: LayoutDashboard },
@@ -51,28 +52,42 @@ interface FavoriteProjectShowcaseProps {
 }
 
 export function FavoriteProjectShowcase({ project, index = 0 }: FavoriteProjectShowcaseProps) {
+  const { t } = useLanguage();
+
+  const getModuleLabel = (idx: number) => {
+    const keys: (keyof typeof t.modules)[] = [
+      "dashboard",
+      "masterPerumahan",
+      "progresLapangan",
+      "marketing",
+      "piutangKonsumen",
+      "logistikGudang",
+      "hrmWorkers",
+      "accountingCOA",
+    ];
+    const key = keys[idx % keys.length];
+    return t.modules[key] || moduleTabs[idx % moduleTabs.length].label;
+  };
+
   return (
     <div className="mb-8">
       <Dialog>
         <DialogTrigger asChild>
           <motion.div
             id={`project-${project.id}`}
-            className="group relative border rounded-xl overflow-hidden bg-gradient-to-b from-card via-card to-card/95 border-amber-500/40 hover:border-amber-500/90 transition-all duration-300 cursor-pointer scroll-mt-24 shadow-lg hover:shadow-amber-500/15"
+            className="group relative border rounded-xl overflow-hidden bg-card hover:border-amber-500/50 transition-all duration-300 cursor-pointer shadow-sm hover:shadow-xl scroll-mt-24"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true }}
           >
-            {/* Top Banner Accent */}
-            <div className="bg-gradient-to-r from-amber-500/15 via-orange-500/15 to-amber-500/15 border-b border-amber-500/20 px-5 py-2.5 flex items-center justify-between text-xs">
-              <div className="flex items-center gap-2 text-amber-500 font-bold tracking-wider text-[11px] uppercase">
-                <Sparkles className="w-3.5 h-3.5 fill-amber-500" />
-                <span>Favorite Project Spotlight</span>
+            {/* Top Favorite Spotlight Ribbon */}
+            <div className="bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 text-black px-4 py-1.5 flex items-center justify-between font-bold text-xs">
+              <div className="flex items-center gap-2 uppercase tracking-wider font-mono text-[11px]">
+                <Sparkles className="w-3.5 h-3.5 fill-black" />
+                <span>{t.projects.favoriteBadge}</span>
               </div>
-              <div className="flex items-center gap-2 text-[11px] font-mono text-muted-foreground">
-                <Monitor className="w-3.5 h-3.5 text-amber-500" />
-                <span className="font-semibold text-foreground">Interactive Module Showcase</span>
-              </div>
+              <span className="text-[10px] font-mono opacity-90 font-semibold">Bumi Wiraraja Group ERP</span>
             </div>
 
             <div className="grid md:grid-cols-5 gap-0">
@@ -88,7 +103,7 @@ export function FavoriteProjectShowcase({ project, index = 0 }: FavoriteProjectS
 
                 <div className="absolute bottom-3 left-3 flex items-center gap-1.5 px-3 py-1 rounded-md bg-black/80 backdrop-blur-md border border-white/10 text-[10px] font-mono text-amber-400 font-bold">
                   <Monitor className="w-3 h-3" />
-                  <span>8 System Modules Inside</span>
+                  <span>8 {t.projects.modulesBadge}</span>
                 </div>
               </div>
 
@@ -100,7 +115,7 @@ export function FavoriteProjectShowcase({ project, index = 0 }: FavoriteProjectS
                       {project.title}
                     </h3>
                     <Badge className="bg-amber-500 text-black font-extrabold text-[10px] uppercase tracking-tighter shrink-0 border-none">
-                      Favorite
+                      {t.projects.favoriteBadge.split(" ")[0]}
                     </Badge>
                   </div>
 
@@ -128,23 +143,24 @@ export function FavoriteProjectShowcase({ project, index = 0 }: FavoriteProjectS
 
                 <div className="flex items-center justify-between text-xs font-semibold text-amber-500 pt-3 border-t border-border/40">
                   <span className="flex items-center group-hover:translate-x-1 transition-transform">
-                    Buka Detail & Galeri Modul System <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                    {t.projects.favoriteButton} <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                   </span>
-                  <span className="text-[10px] font-mono text-muted-foreground">Klik untuk membuka</span>
+                  <span className="text-[10px] font-mono text-muted-foreground">Open</span>
                 </div>
               </div>
             </div>
           </motion.div>
         </DialogTrigger>
 
-        {/* Modal Showcase (Tampilan Foto di Atas, Penjelasan di Bawah) */}
-        <FavoriteProjectDialogContent project={project} />
+        {/* Modal Showcase */}
+        <FavoriteProjectDialogContent project={project} getModuleLabel={getModuleLabel} />
       </Dialog>
     </div>
   );
 }
 
-function FavoriteProjectDialogContent({ project }: { project: Project }) {
+function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Project, getModuleLabel: (idx: number) => string }) {
+  const { t } = useLanguage();
   const slides = project.slides || [];
   const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0);
 
@@ -194,7 +210,7 @@ function FavoriteProjectDialogContent({ project }: { project: Project }) {
                     }`}
                   >
                     <IconComponent className={`w-3.5 h-3.5 shrink-0 ${isActive ? "text-primary-foreground" : "text-muted-foreground"}`} />
-                    <span className="truncate">{tabInfo.label}</span>
+                    <span className="truncate">{getModuleLabel(idx)}</span>
                   </button>
                 );
               })}
@@ -264,7 +280,7 @@ function FavoriteProjectDialogContent({ project }: { project: Project }) {
               <div className="md:col-span-7 space-y-3">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-500 border border-amber-500/20 text-[11px] font-mono font-bold uppercase tracking-wider">
-                    {moduleTabs[currentSlideIndex % moduleTabs.length].label}
+                    {getModuleLabel(currentSlideIndex)}
                   </span>
                   <span className="text-xs text-muted-foreground font-mono">
                     {activeSlide.subtitle}
@@ -285,7 +301,7 @@ function FavoriteProjectDialogContent({ project }: { project: Project }) {
                 <div className="space-y-2">
                   <h6 className="text-xs font-bold uppercase tracking-widest text-foreground flex items-center gap-1.5">
                     <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                    Kapabilitas & Fitur Modul
+                    {t.projects.capabilitiesHeader}
                   </h6>
                   <ul className="space-y-1.5">
                     {activeSlide.keyFeatures.map((feature, i) => (
@@ -308,7 +324,7 @@ function FavoriteProjectDialogContent({ project }: { project: Project }) {
               <Button variant="default" size="sm" asChild className="font-bold shadow-md h-10">
                 <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                   <Globe className="w-4 h-4 mr-2" />
-                  Kunjungi Live Website
+                  {t.projects.liveInstance}
                 </a>
               </Button>
             )}
@@ -316,7 +332,7 @@ function FavoriteProjectDialogContent({ project }: { project: Project }) {
               <Button variant="outline" size="sm" asChild className="font-bold h-10">
                 <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
                   <Github className="w-4 h-4 mr-2" />
-                  Repository
+                  {t.projects.repository}
                 </a>
               </Button>
             )}

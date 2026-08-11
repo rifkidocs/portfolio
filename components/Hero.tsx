@@ -12,7 +12,11 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { personalInfo } from "@/lib/data";
 
+import { useLanguage } from "@/lib/language-context";
+
 export function Hero() {
+  const { t } = useLanguage();
+
   return (
     <section
       id='home'
@@ -40,7 +44,7 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className='text-4xl md:text-6xl font-extrabold tracking-tight mb-6'
         >
-          Building <span className="text-primary italic">scalable</span> digital experiences.
+          {t.hero.greeting} <span className="text-primary italic">{personalInfo.name}</span>
         </motion.h1>
 
         {/* Description */}
@@ -50,7 +54,7 @@ export function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className='text-xl text-muted-foreground mb-10 leading-relaxed'
         >
-          I&apos;m <span className="text-foreground font-semibold">{personalInfo.name}</span>, a {personalInfo.title} specialized in crafting high-performance web applications with React, Next.js, and Node.js.
+          {t.hero.tagline}
         </motion.p>
 
         {/* CTA Buttons */}
@@ -63,10 +67,10 @@ export function Hero() {
           <Button
             size='lg'
             asChild
-            className='rounded-md px-8 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary'
+            className='rounded-md px-8 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary font-bold'
           >
             <a href="#projects">
-              View Documentation
+              {t.hero.ctaProjects}
               <ArrowRight className='w-4 h-4 ml-2' />
             </a>
           </Button>
@@ -74,11 +78,11 @@ export function Hero() {
             variant='outline'
             size='lg'
             asChild
-            className='rounded-md px-8 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary'
+            className='rounded-md px-8 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary font-bold'
           >
             <Link href="/blog">
               <BookOpen className='w-4 h-4 mr-2' />
-              Read Blog
+              {t.nav.blog}
             </Link>
           </Button>
         </motion.div>
@@ -90,14 +94,14 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.5 }}
           className="mt-16 flex items-center gap-6 text-sm text-muted-foreground"
         >
-          <a href="https://github.com/rifkidocs" className="hover:text-foreground transition-colors flex items-center gap-1.5">
+          <a href="https://github.com/rifkidocs" className="hover:text-foreground transition-colors flex items-center gap-1.5 font-medium">
             <Github className="w-4 h-4" /> GitHub
           </a>
-          <a href="mailto:rifkidocs@gmail.com" className="hover:text-foreground transition-colors flex items-center gap-1.5">
+          <a href="mailto:rifkidocs@gmail.com" className="hover:text-foreground transition-colors flex items-center gap-1.5 font-medium">
             <Mail className="w-4 h-4" /> Email
           </a>
           <div className="h-4 w-px bg-border"></div>
-          <span className="font-mono text-[10px] uppercase tracking-widest">Available for hire</span>
+          <span className="font-mono text-[10px] uppercase tracking-widest text-emerald-500 font-bold">{t.hero.statusBadge}</span>
         </motion.div>
       </div>
     </section>

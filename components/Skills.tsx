@@ -160,7 +160,11 @@ const skillCategories = [
   }
 ];
 
+import { useLanguage } from "@/lib/language-context";
+
 export function Skills() {
+  const { t } = useLanguage();
+
   return (
     <section id='skills' className='py-16 lg:py-24 border-b'>
       <div className='max-w-4xl'>
@@ -174,11 +178,11 @@ export function Skills() {
         >
           <div className="flex items-center gap-2 text-xs font-mono text-primary mb-4">
             <Code2 className="w-3 h-3" />
-            <span>Stack</span>
+            <span>{t.skills.badge}</span>
           </div>
-          <h2 className='text-3xl md:text-4xl font-bold tracking-tight mb-6'>Technical Ecosystem</h2>
+          <h2 className='text-3xl md:text-4xl font-bold tracking-tight mb-6'>{t.skills.title}</h2>
           <p className='text-lg text-muted-foreground leading-relaxed'>
-            A comprehensive list of technologies, frameworks, and tools that I use to build robust software.
+            {t.skills.subtitle}
           </p>
         </motion.div>
 

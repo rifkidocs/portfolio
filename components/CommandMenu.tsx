@@ -108,7 +108,10 @@ const commandStyles = `
 
 `;
 
+import { useLanguage } from "@/lib/language-context";
+
 export function CommandMenu({ triggerOnlyIcon = false }: { triggerOnlyIcon?: boolean }) {
+  const { t } = useLanguage();
   const [open, setOpen] = React.useState(false);
   const [blogPosts, setBlogPosts] = React.useState<BlogPostSearch[]>([]);
   const router = useRouter();
@@ -175,8 +178,8 @@ export function CommandMenu({ triggerOnlyIcon = false }: { triggerOnlyIcon?: boo
           className="relative inline-flex h-9 w-full items-center justify-start rounded-md border bg-muted/50 px-4 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
         >
           <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
-          <span className="hidden lg:inline-flex">Search documentation...</span>
-          <span className="inline-flex lg:hidden">Search...</span>
+          <span className="hidden lg:inline-flex">{t.nav.searchPlaceholder}</span>
+          <span className="inline-flex lg:hidden">{t.nav.searchPlaceholder.slice(0, 12)}...</span>
           <kbd className="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
             <span className="text-xs">⌘</span>K
           </kbd>
@@ -188,13 +191,13 @@ export function CommandMenu({ triggerOnlyIcon = false }: { triggerOnlyIcon?: boo
           <DialogTitle className="sr-only">Search Documentation</DialogTitle>
           <Command className="flex flex-col h-full bg-background rounded-xl">
             <CommandInput 
-              placeholder="Type a command or search..." 
+              placeholder={t.command.placeholder} 
               className="outline-none border-none focus:ring-0 p-4 w-full bg-transparent border-b"
             />
             <CommandList>
-              <CommandEmpty>No results found.</CommandEmpty>
+              <CommandEmpty>{t.command.noResults}</CommandEmpty>
               
-              <CommandGroup heading="Navigation">
+              <CommandGroup heading={t.command.groupNavigation}>
                 <CommandItem onSelect={() => runCommand(() => router.push("/"))}>
                   <Layout className="mr-2 h-4 w-4" />
                   <span>Introduction</span>

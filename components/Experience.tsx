@@ -6,7 +6,11 @@ import { Badge } from "@/components/ui/badge";
 import { History, Calendar, Building2 } from "lucide-react";
 import { experiences } from "@/lib/data";
 
+import { useLanguage } from "@/lib/language-context";
+
 export function Experience() {
+  const { t } = useLanguage();
+
   return (
     <section id='experience' className='py-16 lg:py-24 border-b'>
       <div className='max-w-4xl'>
@@ -20,11 +24,11 @@ export function Experience() {
         >
           <div className="flex items-center gap-2 text-xs font-mono text-primary mb-4">
             <History className="w-3 h-3" />
-            <span>History</span>
+            <span>{t.experience.badge}</span>
           </div>
-          <h2 className='text-3xl md:text-4xl font-bold tracking-tight mb-6'>Professional Milestones</h2>
+          <h2 className='text-3xl md:text-4xl font-bold tracking-tight mb-6'>{t.experience.title}</h2>
           <p className='text-lg text-muted-foreground leading-relaxed'>
-            A chronological record of my career path and significant achievements.
+            {t.experience.subtitle}
           </p>
         </motion.div>
 

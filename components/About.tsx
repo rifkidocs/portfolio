@@ -12,7 +12,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { personalInfo } from "@/lib/data";
 
+import { useLanguage } from "@/lib/language-context";
+
 export function About() {
+  const { t } = useLanguage();
+
   return (
     <section id='about' className='py-16 lg:py-24 border-b'>
       <div className='max-w-4xl'>
@@ -26,11 +30,11 @@ export function About() {
         >
           <div className="flex items-center gap-2 text-xs font-mono text-primary mb-4">
             <User className="w-3 h-3" />
-            <span>Identity</span>
+            <span>{t.about.badge}</span>
           </div>
-          <h2 className='text-3xl md:text-4xl font-bold tracking-tight mb-6'>About the Developer</h2>
+          <h2 className='text-3xl md:text-4xl font-bold tracking-tight mb-6'>{t.about.title}</h2>
           <p className='text-lg text-muted-foreground leading-relaxed'>
-            An overview of my professional background, philosophy, and current focus.
+            {t.about.subtitle}
           </p>
         </motion.div>
 
@@ -48,23 +52,23 @@ export function About() {
               <div className="space-y-3">
                 <div className="flex items-center gap-3 text-sm">
                   <MapPin className="w-4 h-4 text-primary" />
-                  <span>{personalInfo.location}</span>
+                  <span>{t.hero.location}</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                   <Briefcase className="w-4 h-4 text-primary" />
-                  <span>Available for Hire</span>
+                  <span>{t.hero.statusBadge}</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                   <Terminal className="w-4 h-4 text-primary" />
-                  <span>Fullstack Web</span>
+                  <span>{t.hero.role}</span>
                 </div>
               </div>
             </div>
 
             <div className="pt-6 border-t">
-              <Button variant="outline" size="sm" asChild className="w-full justify-between">
+              <Button variant="outline" size="sm" asChild className="w-full justify-between font-bold">
                 <a href={personalInfo.resumeUrl} target="_blank" rel="noopener noreferrer">
-                  Download Resume
+                  {t.hero.ctaResume}
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </Button>
@@ -82,39 +86,33 @@ export function About() {
             <div className="space-y-4">
               <h3 className="text-xl font-bold">Biography</h3>
               <p className="text-muted-foreground leading-relaxed">
-                {personalInfo.bio}
+                {t.about.bio1}
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                {t.about.bio2}
               </p>
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-xl font-bold">Mission</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                My goal is to bridge the gap between complex backend systems and intuitive frontend interfaces. 
-                I believe in building applications that are not only functional but also maintainable and accessible to everyone.
-              </p>
-              <blockquote className="border-l border-primary pl-4 py-1 italic text-muted-foreground">
-                &quot;Clean code always looks like it was written by someone who cares.&quot; — Michael Feathers
-              </blockquote>
-            </div>
-
-            <div className="space-y-6 pt-4 border-t">
-              <h3 className="text-xl font-bold tracking-tight">Philosophy</h3>
-              <div className="space-y-6">
-                <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-8 group">
-                  <span className="text-xs font-mono text-primary font-bold w-32 shrink-0">01 / PERF_FIRST</span>
-                  <div className="space-y-1">
-                    <h4 className="font-bold text-sm text-foreground">Performance First</h4>
-                    <p className="text-xs text-muted-foreground max-w-md">Every millisecond counts. Optimization is a core architectural priority, not an afterthought.</p>
-                  </div>
-                </div>
-                <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-8 group">
-                  <span className="text-xs font-mono text-primary font-bold w-32 shrink-0">02 / SAFE_TYPES</span>
-                  <div className="space-y-1">
-                    <h4 className="font-bold text-sm text-foreground">Type Safety</h4>
-                    <p className="text-xs text-muted-foreground max-w-md">Leveraging TypeScript statically to construct robust, self-documenting codebases.</p>
-                  </div>
-                </div>
-              </div>
+              <h3 className="text-xl font-bold">{t.about.highlightsTitle}</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  <span>{t.about.highlight1}</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  <span>{t.about.highlight2}</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  <span>{t.about.highlight3}</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  <span>{t.about.highlight4}</span>
+                </li>
+              </ul>
             </div>
           </motion.div>
         </div>
