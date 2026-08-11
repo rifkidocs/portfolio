@@ -108,6 +108,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: index * 0.1 }}
           viewport={{ once: true }}
+          suppressHydrationWarning
         >
           <div className="grid md:grid-cols-5 gap-0">
             {/* Project Image */}

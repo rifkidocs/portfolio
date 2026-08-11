@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -370,7 +371,7 @@ export function FavoriteProjectShowcase({ project, index = 0 }: FavoriteProjectS
   };
 
   return (
-    <div className="mb-8">
+    <div className="mb-8" suppressHydrationWarning>
       <Dialog>
         <DialogTrigger asChild>
           <motion.div
@@ -380,6 +381,7 @@ export function FavoriteProjectShowcase({ project, index = 0 }: FavoriteProjectS
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true }}
+            suppressHydrationWarning
           >
             {/* Top Favorite Spotlight Ribbon */}
             <div className="bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 text-black px-4 py-1.5 flex items-center justify-between font-bold text-xs">
@@ -489,7 +491,7 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
 
   return (
     <>
-      <DialogContent className="sm:max-w-4xl max-h-[94vh] overflow-y-auto p-4 sm:p-6 md:p-8 gap-6 border-amber-500/30 shadow-2xl bg-card block space-y-6">
+      <DialogContent className="sm:max-w-4xl max-h-[94vh] overflow-y-auto p-4 sm:p-6 md:p-8 gap-6 border-amber-500/30 shadow-2xl bg-card block space-y-6" suppressHydrationWarning>
         {/* Modal Header - Unpinned, scrolls naturally with page */}
         <DialogHeader className="bg-gradient-to-r from-amber-950/30 via-card to-card p-4 sm:p-6 rounded-xl border border-border/80">
           <div className="flex items-center gap-2 text-xs font-mono text-amber-500 font-bold uppercase tracking-wider mb-1.5">
@@ -756,6 +758,12 @@ export function ImageLightboxModal({
   src: string;
   alt: string;
 }) {
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -770,16 +778,16 @@ export function ImageLightboxModal({
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
-  return (
+  return createPortal(
     <div 
-      className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-2xl flex flex-col justify-between p-2 sm:p-6 animate-in fade-in-0 duration-200"
+      className="fixed inset-0 z-[99999] bg-black/95 backdrop-blur-2xl flex flex-col justify-between p-2 sm:p-6 animate-in fade-in-0 duration-200"
       onClick={onClose}
     >
-      {/* Lightbox Header Bar (Non-overlapping, high z-index) */}
+      {/* Lightbox Header Bar (Non-overlapping, top level layer) */}
       <div 
-        className="flex items-center justify-between gap-3 z-[210] p-2.5 sm:p-4 bg-slate-900/90 rounded-xl border border-white/15 text-white shadow-2xl shrink-0 mt-1 mx-1 sm:mx-0" 
+        className="flex items-center justify-between gap-3 z-[100000] p-2.5 sm:p-4 bg-slate-900/90 rounded-xl border border-white/15 text-white shadow-2xl shrink-0 mt-1 mx-1 sm:mx-0" 
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center gap-2 max-w-[calc(100%-3.5rem)] overflow-hidden">
@@ -812,9 +820,10 @@ export function ImageLightboxModal({
       </div>
 
       {/* Lightbox Footer */}
-      <div className="text-center z-[210] text-[10px] sm:text-xs font-mono text-slate-400 py-1.5 shrink-0 bg-slate-950/80 rounded-lg mx-1 sm:mx-0 border border-white/5">
+      <div className="text-center z-[100000] text-[10px] sm:text-xs font-mono text-slate-400 py-1.5 shrink-0 bg-slate-950/80 rounded-lg mx-1 sm:mx-0 border border-white/5">
         <span>Ketuk layar atau tombol X untuk menutup preview</span>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
