@@ -500,54 +500,32 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
           </DialogDescription>
         </DialogHeader>
 
-        {/* Module Filter Tabs with Arrow Buttons (Left/Right) */}
-          {slides.length > 0 && (
-            <div className="w-full border-b border-border/60 pb-3 flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={() => scrollTabs("left")}
-                className="p-1.5 sm:p-2 rounded-lg bg-muted/70 hover:bg-primary hover:text-primary-foreground text-muted-foreground border border-border/50 transition-all shrink-0 active:scale-95"
-                title="Geser Kiri"
-                aria-label="Geser Kiri"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-
-              <div ref={tabsRef} className="w-full overflow-x-auto no-scrollbar scroll-smooth">
-                <div className="flex items-center gap-2 min-w-max">
-                  {slides.map((_, idx) => {
-                    const tabInfo = moduleTabs[idx % moduleTabs.length];
-                    const IconComponent = tabInfo.icon;
-                    const isActive = idx === currentSlideIndex;
-                    return (
-                      <button
-                        key={idx}
-                        onClick={() => setCurrentSlideIndex(idx)}
-                        className={`flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 shrink-0 ${
-                          isActive
-                            ? "bg-primary text-primary-foreground font-bold shadow-md"
-                            : "bg-muted/50 hover:bg-muted text-muted-foreground hover:text-foreground border border-border/50"
-                        }`}
-                      >
-                        <IconComponent className={`w-3.5 h-3.5 shrink-0 ${isActive ? "text-primary-foreground" : "text-muted-foreground"}`} />
-                        <span>{getModuleLabel(idx)}</span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => scrollTabs("right")}
-                className="p-1.5 sm:p-2 rounded-lg bg-muted/70 hover:bg-primary hover:text-primary-foreground text-muted-foreground border border-border/50 transition-all shrink-0 active:scale-95"
-                title="Geser Kanan"
-                aria-label="Geser Kanan"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
+        {/* Module Filter Tabs (Touch scrollable) */}
+        {slides.length > 0 && (
+          <div className="w-full border-b border-border/60 pb-3 overflow-x-auto no-scrollbar scroll-smooth">
+            <div className="flex items-center gap-2 min-w-max">
+              {slides.map((_, idx) => {
+                const tabInfo = moduleTabs[idx % moduleTabs.length];
+                const IconComponent = tabInfo.icon;
+                const isActive = idx === currentSlideIndex;
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentSlideIndex(idx)}
+                    className={`flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 shrink-0 cursor-pointer ${
+                      isActive
+                        ? "bg-primary text-primary-foreground font-bold shadow-md"
+                        : "bg-muted/50 hover:bg-muted text-muted-foreground hover:text-foreground border border-border/50"
+                    }`}
+                  >
+                    <IconComponent className={`w-3.5 h-3.5 shrink-0 ${isActive ? "text-primary-foreground" : "text-muted-foreground"}`} />
+                    <span>{getModuleLabel(idx)}</span>
+                  </button>
+                );
+              })}
             </div>
-          )}
+          </div>
+        )}
 
           {activeSlide && (
             <div className="space-y-6">

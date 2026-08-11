@@ -48,15 +48,12 @@ export function ImageLightbox({
     setZoom(1);
   }, [src, isOpen]);
 
-  // Mobile ghost-click prevention on close
   const handleClose = (e?: React.SyntheticEvent) => {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
     }
-    setTimeout(() => {
-      onClose();
-    }, 60);
+    onClose();
   };
 
   const handleZoomIn = (e?: React.SyntheticEvent) => {
@@ -139,24 +136,18 @@ export function ImageLightbox({
     <DialogPrimitive.Root 
       open={isOpen} 
       onOpenChange={(open) => { 
-        if (!open) {
-          setTimeout(() => {
-            onClose();
-          }, 60);
-        }
+        if (!open) onClose();
       }}
     >
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay 
           className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-2xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 duration-200"
           onClick={(e) => e.stopPropagation()}
-          onTouchEnd={(e) => e.stopPropagation()}
         />
         <DialogPrimitive.Content 
           data-slot="lightbox-content"
           className="fixed inset-0 z-[210] flex flex-col justify-between p-0 border-none bg-transparent outline-none focus:outline-none shadow-none text-white select-none overflow-hidden duration-200"
           onClick={(e) => e.stopPropagation()}
-          onTouchEnd={(e) => e.stopPropagation()}
         >
           <DialogPrimitive.Title className="sr-only">
             {title || "Image Preview"}
@@ -165,40 +156,39 @@ export function ImageLightbox({
             {subtitle || "Full screen image preview"}
           </DialogPrimitive.Description>
 
-          {/* Header Controls Bar */}
-          <div className="relative z-30 flex items-center justify-between p-4 sm:p-6 bg-gradient-to-b from-black/95 via-black/70 to-transparent">
-            {/* Title / Info */}
-            <div className="flex items-center gap-3 max-w-[60%]">
-              <div className="p-2 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/30 shrink-0">
-                <Maximize2 className="w-4 h-4" />
+          {/* Responsive Header Controls Bar */}
+          <div className="relative z-30 flex items-center justify-between gap-2 p-3 sm:p-6 bg-gradient-to-b from-black/95 via-black/80 to-transparent">
+            {/* Title / Info Container (Flex-1 + Truncate) */}
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+              <div className="p-1.5 sm:p-2 rounded-lg bg-amber-500/20 text-amber-400 border border-amber-500/30 shrink-0">
+                <Maximize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </div>
-              <div className="truncate">
+              <div className="min-w-0 flex-1">
                 {title && (
-                  <h3 className="text-sm sm:text-base font-bold text-white truncate leading-tight">
+                  <h3 className="text-xs sm:text-base font-bold text-white truncate leading-tight">
                     {title}
                   </h3>
                 )}
                 {subtitle && (
-                  <p className="text-xs text-zinc-400 truncate mt-0.5">
+                  <p className="text-[10px] sm:text-xs text-zinc-400 truncate mt-0.5">
                     {subtitle}
                   </p>
                 )}
               </div>
               {isMulti && currentIndex !== undefined && (
-                <span className="hidden sm:inline-block ml-2 px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-xs font-mono font-bold border border-amber-500/30">
+                <span className="hidden sm:inline-block px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-[10px] sm:text-xs font-mono font-bold border border-amber-500/30 shrink-0">
                   {currentIndex + 1} / {totalImages}
                 </span>
               )}
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex items-center gap-1.5 sm:gap-2">
+            {/* Action Buttons (Shrink-0: Never Overflow) */}
+            <div className="flex items-center gap-1 sm:gap-2 shrink-0">
               <button
                 type="button"
                 onClick={handleZoomIn}
-                onTouchEnd={handleZoomIn}
                 disabled={zoom >= 3.5}
-                className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white disabled:opacity-30 transition-all active:scale-95 border border-white/10 cursor-pointer"
+                className="p-1.5 sm:p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white disabled:opacity-30 transition-all active:scale-95 border border-white/10 cursor-pointer touch-manipulation"
                 title={textDict.zoomIn}
                 aria-label={textDict.zoomIn}
               >
@@ -208,9 +198,8 @@ export function ImageLightbox({
               <button
                 type="button"
                 onClick={handleZoomOut}
-                onTouchEnd={handleZoomOut}
                 disabled={zoom <= 1}
-                className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white disabled:opacity-30 transition-all active:scale-95 border border-white/10 cursor-pointer"
+                className="p-1.5 sm:p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white disabled:opacity-30 transition-all active:scale-95 border border-white/10 cursor-pointer touch-manipulation"
                 title={textDict.zoomOut}
                 aria-label={textDict.zoomOut}
               >
@@ -221,27 +210,25 @@ export function ImageLightbox({
                 <button
                   type="button"
                   onClick={handleResetZoom}
-                  onTouchEnd={handleResetZoom}
-                  className="p-2 rounded-lg bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 transition-all active:scale-95 text-xs font-mono font-bold flex items-center gap-1 border border-amber-500/30 cursor-pointer"
+                  className="p-1.5 sm:p-2 rounded-lg bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 transition-all active:scale-95 text-[10px] sm:text-xs font-mono font-bold flex items-center gap-1 border border-amber-500/30 cursor-pointer touch-manipulation"
                   title={textDict.reset}
                   aria-label={textDict.reset}
                 >
-                  <RotateCcw className="w-4 h-4" />
+                  <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   <span className="hidden md:inline">{Math.round(zoom * 100)}%</span>
                 </button>
               )}
 
-              <div className="w-px h-6 bg-white/20 mx-1" />
+              <div className="w-px h-5 sm:h-6 bg-white/20 mx-0.5 sm:mx-1" />
 
               <button
                 type="button"
                 onClick={handleClose}
-                onTouchEnd={handleClose}
-                className="p-2.5 rounded-lg bg-red-500/20 hover:bg-red-600 text-white transition-all active:scale-95 border border-red-500/40 shadow-lg font-bold cursor-pointer"
+                className="p-2 sm:p-2.5 rounded-lg bg-red-500/20 hover:bg-red-600 text-white transition-all active:scale-95 border border-red-500/40 shadow-lg font-bold cursor-pointer touch-manipulation shrink-0"
                 title={textDict.close}
                 aria-label={textDict.close}
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </div>
           </div>
@@ -257,13 +244,15 @@ export function ImageLightbox({
             {isMulti && onPrev && (
               <button
                 type="button"
-                onClick={(e) => { e.stopPropagation(); onPrev(); }}
-                onTouchEnd={(e) => { e.stopPropagation(); onPrev(); }}
-                className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 p-3 sm:p-4 rounded-full bg-black/80 hover:bg-amber-500 text-white border border-white/20 shadow-2xl transition-all active:scale-95 group cursor-pointer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onPrev();
+                }}
+                className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 z-30 p-2.5 sm:p-4 rounded-full bg-black/80 hover:bg-amber-500 text-white border border-white/20 shadow-2xl transition-all active:scale-95 group cursor-pointer touch-manipulation"
                 title={textDict.prev}
                 aria-label={textDict.prev}
               >
-                <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7 group-hover:-translate-x-0.5 transition-transform" />
+                <ChevronLeft className="w-5 h-5 sm:w-7 sm:h-7 group-hover:-translate-x-0.5 transition-transform" />
               </button>
             )}
 
@@ -300,19 +289,21 @@ export function ImageLightbox({
             {isMulti && onNext && (
               <button
                 type="button"
-                onClick={(e) => { e.stopPropagation(); onNext(); }}
-                onTouchEnd={(e) => { e.stopPropagation(); onNext(); }}
-                className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-30 p-3 sm:p-4 rounded-full bg-black/80 hover:bg-amber-500 text-white border border-white/20 shadow-2xl transition-all active:scale-95 group cursor-pointer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onNext();
+                }}
+                className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 z-30 p-2.5 sm:p-4 rounded-full bg-black/80 hover:bg-amber-500 text-white border border-white/20 shadow-2xl transition-all active:scale-95 group cursor-pointer touch-manipulation"
                 title={textDict.next}
                 aria-label={textDict.next}
               >
-                <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7 group-hover:translate-x-0.5 transition-transform" />
+                <ChevronRight className="w-5 h-5 sm:w-7 sm:h-7 group-hover:translate-x-0.5 transition-transform" />
               </button>
             )}
           </div>
 
           {/* Footer Bar / Navigation Info */}
-          <div className="relative z-30 p-4 bg-gradient-to-t from-black/95 via-black/70 to-transparent flex flex-col items-center justify-center gap-2">
+          <div className="relative z-30 p-3 sm:p-4 bg-gradient-to-t from-black/95 via-black/70 to-transparent flex flex-col items-center justify-center gap-1.5">
             {isMulti && currentIndex !== undefined && (
               <div className="flex items-center gap-1.5 mb-1">
                 {Array.from({ length: totalImages || 0 }).map((_, idx) => (
@@ -327,7 +318,7 @@ export function ImageLightbox({
                 ))}
               </div>
             )}
-            <p className="text-[11px] sm:text-xs text-zinc-400 font-mono text-center">
+            <p className="text-[10px] sm:text-xs text-zinc-400 font-mono text-center truncate max-w-full px-2">
               {textDict.hint}
             </p>
           </div>

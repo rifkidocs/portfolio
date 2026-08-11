@@ -113,19 +113,25 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         >
           <div className="grid md:grid-cols-5 gap-0">
             {/* Project Image */}
-            <div className="md:col-span-2 relative aspect-video bg-muted border-r">
+            <div className="md:col-span-2 relative aspect-video bg-muted border-r overflow-hidden">
               {project.image && project.image !== "/api/placeholder/600/400" ? (
                 <Image
                   src={project.image}
                   alt={getProjectTitle(project, lang)}
                   fill
-                  className="object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                  className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
                 />
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
                   <Code2 className="w-12 h-12 opacity-20" />
                 </div>
               )}
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none z-10">
+                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/90 backdrop-blur-md border border-amber-500/40 text-white text-xs font-bold shadow-lg">
+                  <Maximize2 className="w-3.5 h-3.5 text-amber-400 animate-pulse shrink-0" />
+                  <span className="text-white text-[11px] font-bold">{t.projects.viewDetails}</span>
+                </div>
+              </div>
             </div>
 
             {/* Project Info */}
@@ -254,10 +260,10 @@ function ProjectDialogContent({ project }: { project: Project }) {
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
           
           {/* Hover Overlay Hint */}
-          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none z-10">
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/85 backdrop-blur-md border border-primary/40 text-primary-foreground text-xs font-bold shadow-2xl tracking-wide">
-              <Maximize2 className="w-4 h-4 text-primary animate-pulse" />
-              <span>{t.projects.clickToEnlarge}</span>
+          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none z-10">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/90 backdrop-blur-md border border-amber-500/40 text-white text-xs font-bold shadow-2xl tracking-wide">
+              <Maximize2 className="w-4 h-4 text-amber-400 animate-pulse shrink-0" />
+              <span className="text-white font-bold">{t.projects.clickToEnlarge}</span>
             </div>
           </div>
 
