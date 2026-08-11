@@ -41,15 +41,11 @@ export function ImageLightbox({
 }: ImageLightboxProps) {
   const { lang } = useLanguage();
   const [zoom, setZoom] = React.useState<number>(1);
-  const [pan, setPan] = React.useState<{ x: number; y: number }>({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = React.useState<boolean>(false);
-  const [dragStart, setDragStart] = React.useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [lastTap, setLastTap] = React.useState<number>(0);
 
-  // Reset zoom & pan when image src or isOpen changes
+  // Reset zoom when image src or isOpen changes
   React.useEffect(() => {
     setZoom(1);
-    setPan({ x: 0, y: 0 });
   }, [src, isOpen]);
 
   // Mobile ghost-click prevention on close
@@ -70,17 +66,12 @@ export function ImageLightbox({
 
   const handleZoomOut = (e?: React.SyntheticEvent) => {
     if (e) e.stopPropagation();
-    setZoom((prev) => {
-      const next = Math.max(Number((prev - 0.5).toFixed(1)), 1);
-      if (next === 1) setPan({ x: 0, y: 0 });
-      return next;
-    });
+    setZoom((prev) => Math.max(Number((prev - 0.5).toFixed(1)), 1));
   };
 
   const handleResetZoom = (e?: React.SyntheticEvent) => {
     if (e) e.stopPropagation();
     setZoom(1);
-    setPan({ x: 0, y: 0 });
   };
 
   const handleDoubleClick = () => {
@@ -106,25 +97,6 @@ export function ImageLightbox({
     } else if (e.deltaY > 0) {
       handleZoomOut();
     }
-  };
-
-  // Mouse drag handler for panning when zoomed in
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (zoom <= 1) return;
-    setIsDragging(true);
-    setDragStart({ x: e.clientX - pan.x, y: e.clientY - pan.y });
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging || zoom <= 1) return;
-    setPan({
-      x: e.clientX - dragStart.x,
-      y: e.clientY - dragStart.y,
-    });
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
   };
 
   // Keyboard controls for arrows
@@ -159,8 +131,8 @@ export function ImageLightbox({
     prev: lang === "en" ? "Previous Image" : "Gambar Sebelumnya",
     next: lang === "en" ? "Next Image" : "Gambar Selanjutnya",
     hint: lang === "en"
-      ? "Scroll / Double tap to zoom • Drag to pan • Arrow keys for navigation"
-      : "Scroll / Double-tap untuk zoom • Drag untuk menggeser • Panah keyboard untuk navigasi",
+      ? "Scroll / Double tap to zoom • Drag to pan when zoomed • Arrow keys to navigate"
+      : "Scroll / Double-tap untuk zoom • Drag/geser gambar saat zoom • Panah keyboard untuk navigasi",
   };
 
   return (
@@ -274,14 +246,10 @@ export function ImageLightbox({
             </div>
           </div>
 
-          {/* Main Display Area with Framer Motion Zoom */}
+          {/* Main Display Area with Native Framer Motion Drag Panning */}
           <div
             className="relative flex-1 flex items-center justify-center p-2 sm:p-6 overflow-hidden cursor-default"
             onWheel={handleWheel}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
             onDoubleClick={handleDoubleClick}
             onTouchEnd={handleTouchEndImage}
           >
@@ -299,15 +267,24 @@ export function ImageLightbox({
               </button>
             )}
 
-            {/* Image Container with Framer Motion Zoom Animation */}
+            {/* Image Container with Native Framer Motion Drag Panning when Zoomed */}
             <motion.div
               key={src}
               initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: zoom, opacity: 1, x: pan.x, y: pan.y }}
+              animate={{ scale: zoom, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
+              drag={zoom > 1}
+              dragConstraints={{
+                left: -450 * (zoom - 1),
+                right: 450 * (zoom - 1),
+                top: -350 * (zoom - 1),
+                bottom: 350 * (zoom - 1),
+              }}
+              dragElastic={0.08}
+              dragMomentum={false}
               transition={{ type: "spring", stiffness: 300, damping: 28 }}
               style={{
-                cursor: zoom > 1 ? (isDragging ? "grabbing" : "grab") : "zoom-in",
+                cursor: zoom > 1 ? "grab" : "zoom-in",
               }}
               className="relative max-w-full max-h-full flex items-center justify-center select-none"
             >
@@ -315,7 +292,7 @@ export function ImageLightbox({
               <img
                 src={src}
                 alt={alt}
-                className="max-h-[80vh] max-w-[90vw] object-contain rounded-lg shadow-2xl pointer-events-none"
+                className="max-h-[80vh] max-w-[90vw] object-contain rounded-lg shadow-2xl pointer-events-none select-none"
               />
             </motion.div>
 

@@ -102,7 +102,7 @@ export const projects: Project[] = [
       "React 19",
       "Strapi v4",
       "Tailwind CSS",
-      "PostgreSQL",
+      "MySQL",
       "CurrencyInput",
       "Framer Motion",
       "Recharts",
