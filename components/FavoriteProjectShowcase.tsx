@@ -21,6 +21,7 @@ import {
   Calculator,
   Target,
   FileText,
+  Layers,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -53,6 +54,233 @@ const moduleTabs = [
   { label: "Logistik Gudang", icon: Boxes },
   { label: "HRM & Workers", icon: Users },
   { label: "Accounting & COA", icon: FileText },
+];
+
+const adminSystemFeatureCatalog = [
+  {
+    category: "Pusat Kontrol Eksekutif & Dashboard",
+    categoryEn: "Executive Dashboard & Analytics",
+    icon: LayoutDashboard,
+    features: [
+      {
+        name: "Agregator Progres Fisik Lintas Proyek",
+        nameEn: "Cross-Project Physical Progress Aggregator",
+        desc: "Visualisasi Kurva-S otomatis untuk membandingkan akumulasi progres riil pembangunan unit rumah & fasum terhadap target timeline.",
+        descEn: "Automated S-Curve visualization comparing cumulative actual construction progress against targeted project timelines."
+      },
+      {
+        name: "Indikator Kolektabilitas & Likuiditas Kas",
+        nameEn: "Collection Rate & Liquidity Indicators",
+        desc: "Monitoring persentase penerimaan piutang konsumen, sisa tagihan berjalan, dan proyeksi arus kas masuk secara harian.",
+        descEn: "Monitoring consumer receivable collection percentages, outstanding balances, and daily cash inflow projections."
+      },
+      {
+        name: "Feed Aktivitas Operasional Terpusat",
+        nameEn: "Centralized Activity Stream Feed",
+        desc: "Pencatatan real-time setiap perubahan data (pembayaran piutang, otorisasi progres harian, transaksi gudang) untuk audit trail.",
+        descEn: "Real-time logging of all system data mutations (receivable payments, progress approvals, warehouse actions) for audit trails."
+      }
+    ]
+  },
+  {
+    category: "Master Data Perumahan & Developer",
+    categoryEn: "Housing & Developer Master Data",
+    icon: Building2,
+    features: [
+      {
+        name: "Manajemen Developer & PT Pengembang",
+        nameEn: "Housing Developer Entity Management",
+        desc: "Pencatatan data legalitas, rekening resmi pengembang, kontak penanggung jawab, dan pemetaan ke lokasi perumahan.",
+        descEn: "Recording developer legal entities, official bank accounts, management contacts, and site-level project assignments."
+      },
+      {
+        name: "Master Tipe Unit & Spesifikasi Arsitektur",
+        nameEn: "Unit Type Master & Blueprint Specs",
+        desc: "Konfigurasi detail Tipe 36, 45, 54, 70, luas tanah/bangunan, denah kavling, spesifikasi pondasi, struktur, dan finishing material.",
+        descEn: "Detailed configuration of Type 36, 45, 54, 70, land/building areas, site blueprints, foundation, and material specs."
+      },
+      {
+        name: "Harga Dasar Kavling & Rule Kelebihan Tanah",
+        nameEn: "Base Plot Pricing & Excess Land Valuation",
+        desc: "Pengaturan harga acuan per meter persegi untuk tanah standar dan perhitungan otomatis biaya kelebihan tanah per unit.",
+        descEn: "Standard price per square meter rule configurations and automated excess land cost calculations per plot unit."
+      }
+    ]
+  },
+  {
+    category: "Progres Lapangan & Infrastruktur Fasum/Fasos",
+    categoryEn: "Site Construction & Infrastructure Progress",
+    icon: HardHat,
+    features: [
+      {
+        name: "Tracking Spesifik Unit (`unit_rumah`) & Fasum (`fasilitas_proyek`)",
+        nameEn: "Unit-Specific (`unit_rumah`) & Facilities (`fasilitas_proyek`) Tracking",
+        desc: "Pelaporan persentase pekerjaan per unit kavling serta pekerjaan fasum/fasos (jalan perumahan, drainase, penerangan, taman).",
+        descEn: "Percentage progress reporting per housing block/lot as well as public infrastructure (roads, drainage, lighting, parks)."
+      },
+      {
+        name: "Workflow Verifikasi Status Dokumen (Draft & Published)",
+        nameEn: "Document Status Verification Workflow (Draft & Published)",
+        desc: "Verifikasi bertingkat di mana laporan supervisor bernilai 'Draft' hingga diperiksa dan diotorisasi menjadi 'Published'.",
+        descEn: "Multi-tiered verification where supervisor reports remain 'Draft' until reviewed and published to update physical progress."
+      },
+      {
+        name: "Audit Konsumsi Material & Lampiran Foto Lapangan",
+        nameEn: "Material Consumption Audit & Photo Attachments",
+        desc: "Pencatatan volume semen, besi, pasir harian beserta upload foto fisik pekerjaan lapangan langsung dari smartphone.",
+        descEn: "Daily recording of cement, rebar, sand consumption volumes with direct smartphone site photo uploads."
+      }
+    ]
+  },
+  {
+    category: "Marketing Kavling & Sales Pipeline",
+    categoryEn: "Plot Marketing & Sales Management",
+    icon: Target,
+    features: [
+      {
+        name: "Matrix Siteplan Visual Interaktif",
+        nameEn: "Interactive Visual Siteplan Matrix",
+        desc: "Tampilan grid status kavling real-time berbasis kode warna (Hijau = Available, Kuning = Booked, Merah = Sold/Akut).",
+        descEn: "Real-time color-coded plot availability grid (Green = Available, Yellow = Booked, Red = Sold/Closed)."
+      },
+      {
+        name: "Penerbitan Surat Pesanan Rumah (SPR) & Booking",
+        nameEn: "Housing Order (SPR) Issuance & Booking Registration",
+        desc: "Auto-generate ID Booking resmi, penguncian status kavling sementara, dan penginputan data awal calon konsumen.",
+        descEn: "Auto-generating official Booking IDs, temporary plot locking, and initial customer profile registration."
+      },
+      {
+        name: "Kalkulator KPR Bank & Simulator Angsuran",
+        nameEn: "Mortgage Calculator & Bank Installment Simulator",
+        desc: "Simulasi perhitungan Uang Muka (DP), plafon KPR, suku bunga bank mitra, dan estimasi cicilan bulanan tenor 5-20 tahun.",
+        descEn: "Simulating Down Payment (DP), bank loan ceilings, interest rates, and monthly installment estimates for 5-20 year terms."
+      },
+      {
+        name: "Pencatatan Performa Agent & Skema Komisi Sales",
+        nameEn: "Sales Agent Performance & Commission Engine",
+        desc: "Tracking asal pencapaian closing agent internal/external dan kalkulasi otomatis klaim komisi pemasaran.",
+        descEn: "Tracking closing achievements per internal/external sales agent and automating marketing commission payout claims."
+      }
+    ]
+  },
+  {
+    category: "Piutang Konsumen & Kas Keuangan",
+    categoryEn: "Consumer Receivables & Finance Cash",
+    icon: Wallet,
+    features: [
+      {
+        name: "Debounced Search ID Booking dengan Auto-Fill Lintas Entity",
+        nameEn: "Debounced Booking ID Search with Cross-Entity Auto-Fill",
+        desc: "Pilih ID Booking dan sistem otomatis mengisi data Konsumen, Proyek Perumahan, Tipe Unit, serta sisa piutang.",
+        descEn: "Selecting a Booking ID automatically pre-fills Customer, Housing Project, Unit Type, and remaining balance data."
+      },
+      {
+        name: "Input Nominal Presisi IDR (`CurrencyInput`)",
+        nameEn: "High-Precision IDR `CurrencyInput` Component",
+        desc: "Komponen input angka khusus IDR yang menangani nominal ratusan juta rupiah tanpa bug kursor atau leading zero.",
+        descEn: "Custom IDR input component handling multi-hundred million values smoothly without cursor jumps or leading zero issues."
+      },
+      {
+        name: "Integrasi Pos Keuangan (Bank Accounts & Kas Tunai)",
+        nameEn: "Financial Position Relation (Bank & Cash Accounts)",
+        desc: "Menghubungkan setiap transaksi pembayaran ke rekening bank penerima resmi (BCA, Mandiri, BRI) atau Kas Kantor.",
+        descEn: "Linking every payment transaction directly to official target bank accounts (BCA, Mandiri, BRI) or Office Cash Ledgers."
+      },
+      {
+        name: "Pencatatan Collection `riwayat-pembayaran` Terpusat",
+        nameEn: "Centralized `riwayat-pembayaran` Collection Audit",
+        desc: "Riwayat kwitansi pembayaran konsumen yang tersimpan dalam koleksi khusus untuk audit keuangan dan cetak ulang bukti bayar.",
+        descEn: "Customer payment receipt history stored in a dedicated collection for financial auditing and receipt re-printing."
+      }
+    ]
+  },
+  {
+    category: "Logistik Gudang & Hutang Supplier",
+    categoryEn: "Warehouse Logistics & Supplier Payables",
+    icon: Boxes,
+    features: [
+      {
+        name: "Verifikasi Penerimaan Barang (Receiving Stock)",
+        nameEn: "Goods Receiving & Stock Verification",
+        desc: "Pencatatan fisik stok material masuk di lokasi proyek berbasis Purchase Order (PO) dan filter status barang.",
+        descEn: "Recording physical incoming material stocks at project sites based on Purchase Orders (PO) with receiving status filters."
+      },
+      {
+        name: "Rekonsiliasi Surat Jalan Supplier vs PO",
+        nameEn: "Supplier Delivery Note vs PO Reconciliation",
+        desc: "Pencocokan jumlah barang yang diterima pada surat jalan distributor bahan bangunan terhadap dokumen pesanan proyek.",
+        descEn: "Matching material delivery note quantities from suppliers against original project purchase order documents."
+      },
+      {
+        name: "Manajemen Pelunasan Tagihan Hutang Supplier",
+        nameEn: "Supplier Payables Schedule & Settlement Engine",
+        desc: "Pengelolaan tanggal jatuh tempo tagihan vendor, pembayaran parsial/lunas, dan pemotongan saldo hutang via Pos Keuangan.",
+        descEn: "Managing vendor invoice due dates, partial/full payment vouchers, and automated debt balance reductions via Pos Keuangan."
+      }
+    ]
+  },
+  {
+    category: "HRM & Absensi Tenaga Kerja Proyek",
+    categoryEn: "HRM & Site Workforce Management",
+    icon: Users,
+    features: [
+      {
+        name: "Presensi Harian Pekerja / Tukang & Kebab Dropdown UI",
+        nameEn: "Daily Worker Attendance & Kebab Dropdown UI",
+        desc: "Pencatatan kehadiran tukang/mandor harian dengan antarmuka ringkas, spacing 1.5 compact, dan menu aksi kebab dropdown.",
+        descEn: "Daily site worker attendance logging with a compact 1.5 spacing interface and streamlined kebab menu actions."
+      },
+      {
+        name: "Penjadwalan Shift Kerja & Alokasi Pekerja",
+        nameEn: "Work Shift Scheduling & Allocation Matrix",
+        desc: "Pengaturan jam shift kerja harian/mingguan dan alokasi tim pekerja ke masing-masing blok kavling yang sedang dibangun.",
+        descEn: "Managing daily/weekly work shifts and allocating worker teams to active construction plot blocks."
+      },
+      {
+        name: "Manajemen Subkontraktor & Penugasan Tugas Khusus",
+        nameEn: "Subcontractor Agreement & Task Assignments",
+        desc: "Pencatatan mitra subkontraktor (pekerjaan pematangan lahan, kelistrikan, perpipaan) beserta target milestone.",
+        descEn: "Managing subcontractor partners (land clearing, electrical, plumbing) alongside job milestone target schedules."
+      },
+      {
+        name: "Otorisasi Akses RBAC Berbasis Role (`proyek.json`)",
+        nameEn: "Role-Based Access Control RBAC (`proyek.json`)",
+        desc: "Pengaturan izin akses CRUD spesifik modul per level pengguna (Admin Holding, Supervisor Lapangan, Kasir Proyek).",
+        descEn: "Configuring fine-grained CRUD permissions per user role level (Holding Admin, Site Supervisor, Project Cashier)."
+      }
+    ]
+  },
+  {
+    category: "Akuntansi, Plotting COA & Jurnal Buku Besar",
+    categoryEn: "Accounting, COA Plotting & General Ledger",
+    icon: FileText,
+    features: [
+      {
+        name: "Master Chart of Accounts (COA) Hierarkis",
+        nameEn: "Hierarchical Master Chart of Accounts (COA)",
+        desc: "Struktur pengkodean akun standar akuntansi (Aktiva, Kewajiban, Ekuitas, Pendapatan, Beban) yang berlaku untuk seluruh proyek.",
+        descEn: "Standard accounting Chart of Accounts structure (Assets, Liabilities, Equity, Revenue, Expenses) active across all projects."
+      },
+      {
+        name: "Antrean Plotting Kode Akun Jurnal Operasional",
+        nameEn: "Operational Transaction Journal Plotting Queue",
+        desc: "Fitur verifikasi transaksi operasional harian yang membutuhkan pemetaan kode akun COA sebelum masuk ke Buku Besar.",
+        descEn: "Operational transaction verification queue requiring COA account code mapping before posting to the General Ledger."
+      },
+      {
+        name: "Jurnal Otomatis / Manual & Buku Besar (General Ledger)",
+        nameEn: "Automatic / Manual Vouchers & General Ledger",
+        desc: "Pencatatan mutasi kas/bank otomatis saat transaksi terjadi dan pembuatan jurnal umum manual untuk penyesuaian periodik.",
+        descEn: "Automatic posting of cash/bank mutations upon transaction completion and manual journal entry capabilities for periodic adjustments."
+      },
+      {
+        name: "Laporan Laba Rugi Proyek & Neraca Keuangan",
+        nameEn: "Project Profit & Loss Statements & Balance Sheets",
+        desc: "Rekapitulasi keuangan komprehensif yang menampilkan posisi keuntungan per proyek perumahan serta neraca keuangan.",
+        descEn: "Comprehensive financial reporting displaying profit positions per housing project and overall enterprise balance sheets."
+      }
+    ]
+  }
 ];
 
 interface FavoriteProjectShowcaseProps {
@@ -350,6 +578,57 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
             </div>
           </div>
         )}
+
+        {/* COMPREHENSIVE ADMIN MODULES & FEATURES DIRECTORY (Text-only detailed feature breakdown) */}
+        <div className="pt-8 border-t border-border/60 space-y-6">
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center gap-2 text-xs font-mono text-amber-500 font-bold uppercase tracking-wider">
+              <Layers className="w-4 h-4 text-amber-500" />
+              <span>{lang === "en" ? "System-wide Features Directory" : "Katalog Fitur Lengkap System Enterprise"}</span>
+            </div>
+            <h3 className="text-xl md:text-2xl font-extrabold tracking-tight text-foreground">
+              {lang === "en" 
+                ? "All Admin Modules & Operational Capabilities" 
+                : "Spesifikasi & Rincian Seluruh Sub-Modul Admin"}
+            </h3>
+            <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">
+              {lang === "en"
+                ? "Comprehensive technical directory of operational capabilities built into the Bumi Wiraraja Group housing system."
+                : "Panduan teknis dan rincian kapabilitas operasional lengkap di seluruh modul menu admin perumahan PT Bumi Wiraraja Group."}
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-4">
+            {adminSystemFeatureCatalog.map((cat, cIdx) => {
+              const IconComp = cat.icon;
+              return (
+                <div key={cIdx} className="p-4 rounded-xl bg-muted/30 border border-border/70 hover:border-amber-500/40 transition-colors space-y-3 shadow-xs">
+                  <div className="flex items-center gap-2.5 pb-2 border-b border-border/50">
+                    <div className="p-1.5 rounded-md bg-amber-500/10 text-amber-500 shrink-0">
+                      <IconComp className="w-4 h-4" />
+                    </div>
+                    <h4 className="text-sm font-bold text-foreground">
+                      {lang === "en" ? cat.categoryEn : cat.category}
+                    </h4>
+                  </div>
+                  <div className="space-y-3">
+                    {cat.features.map((feat, fIdx) => (
+                      <div key={fIdx} className="space-y-1">
+                        <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
+                          <div className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
+                          <span>{lang === "en" ? feat.nameEn : feat.name}</span>
+                        </div>
+                        <p className="text-[11px] text-muted-foreground leading-relaxed pl-3 font-normal">
+                          {lang === "en" ? feat.descEn : feat.desc}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
 
         {/* Global Links Footer */}
         <div className="pt-6 border-t border-border flex flex-wrap items-center justify-between gap-4">
