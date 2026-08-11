@@ -287,9 +287,9 @@ function ProjectDialogContent({ project }: { project: Project }) {
             </DialogTitle>
           </DialogHeader>
           
-          <div className="grid md:grid-cols-3 gap-10">
-            {/* Main Content - 2 cols */}
-            <div className="md:col-span-2 space-y-8">
+          <div className="grid md:grid-cols-[2fr_auto] md:gap-10 gap-8 items-start">
+            {/* Main Content */}
+            <div className="space-y-8">
               <section className="space-y-3">
                 <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-foreground">
                   <div className="w-1.5 h-1.5 rounded-full bg-primary" />
@@ -319,25 +319,25 @@ function ProjectDialogContent({ project }: { project: Project }) {
               </section>
             </div>
 
-            {/* Sidebar - 1 col */}
-            <div className="space-y-8">
+            {/* Sidebar */}
+            <div className="space-y-8 min-w-[200px]">
               <section className="p-6 rounded-xl bg-muted/30 border border-muted-foreground/10 space-y-6">
                 <div className="space-y-4">
                   <h5 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t.projects.deployment}</h5>
                   <div className="space-y-2">
                     {project.liveUrl && (
-                      <Button variant="default" size="sm" asChild className="w-full justify-start font-bold shadow-sm h-10">
-                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                          <Globe className="w-4 h-4 mr-2" />
-                          {t.projects.liveInstance}
+                      <Button variant="default" size="sm" asChild className="w-full justify-start font-bold shadow-sm h-9 text-xs">
+                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 min-w-0">
+                          <Globe className="w-3.5 h-3.5 shrink-0" />
+                          <span className="truncate">{t.projects.liveInstance}</span>
                         </a>
                       </Button>
                     )}
                     {project.githubUrl && (
-                      <Button variant="outline" size="sm" asChild className="w-full justify-start font-bold h-10">
-                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                          <Github className="w-4 h-4 mr-2" />
-                          {t.projects.repository}
+                      <Button variant="outline" size="sm" asChild className="w-full justify-start font-bold h-9 text-xs">
+                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 min-w-0">
+                          <Github className="w-3.5 h-3.5 shrink-0" />
+                          <span className="truncate">{t.projects.repository}</span>
                         </a>
                       </Button>
                     )}
