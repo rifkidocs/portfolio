@@ -61,226 +61,286 @@ const moduleTabs = [
 
 const adminSystemFeatureCatalog = [
   {
-    category: "Pusat Kontrol Eksekutif & Dashboard",
-    categoryEn: "Executive Dashboard & Analytics",
+    category: "DASHBOARD (Pusat Control System)",
+    categoryEn: "DASHBOARD (System Control Hub)",
     icon: LayoutDashboard,
     features: [
       {
-        name: "Agregator Progres Fisik Lintas Proyek",
-        nameEn: "Cross-Project Physical Progress Aggregator",
-        desc: "Visualisasi Kurva-S otomatis untuk membandingkan akumulasi progres riil pembangunan unit rumah & fasum terhadap target timeline.",
-        descEn: "Automated S-Curve visualization comparing cumulative actual construction progress against targeted project timelines."
-      },
-      {
-        name: "Indikator Kolektabilitas & Likuiditas Kas",
-        nameEn: "Collection Rate & Liquidity Indicators",
-        desc: "Monitoring persentase penerimaan piutang konsumen, sisa tagihan berjalan, dan proyeksi arus kas masuk secara harian.",
-        descEn: "Monitoring consumer receivable collection percentages, outstanding balances, and daily cash inflow projections."
-      },
-      {
-        name: "Feed Aktivitas Operasional Terpusat",
-        nameEn: "Centralized Activity Stream Feed",
-        desc: "Pencatatan real-time setiap perubahan data (pembayaran piutang, otorisasi progres harian, transaksi gudang) untuk audit trail.",
-        descEn: "Real-time logging of all system data mutations (receivable payments, progress approvals, warehouse actions) for audit trails."
+        name: "Dashboard Overview Sistem",
+        nameEn: "System Overview Dashboard",
+        desc: "Ringkasan data operasional real-time seluruh proyek perumahan, statistik unit, dan KPI utama.",
+        descEn: "Real-time operational summary across housing projects, unit statistics, and key performance indicators."
       }
     ]
   },
   {
-    category: "Master Data Perumahan & Developer",
-    categoryEn: "Housing & Developer Master Data",
-    icon: Building2,
-    features: [
-      {
-        name: "Manajemen Developer & PT Pengembang",
-        nameEn: "Housing Developer Entity Management",
-        desc: "Pencatatan data legalitas, rekening resmi pengembang, kontak penanggung jawab, dan pemetaan ke lokasi perumahan.",
-        descEn: "Recording developer legal entities, official bank accounts, management contacts, and site-level project assignments."
-      },
-      {
-        name: "Master Tipe Unit & Spesifikasi Arsitektur",
-        nameEn: "Unit Type Master & Blueprint Specs",
-        desc: "Konfigurasi detail Tipe 36, 45, 54, 70, luas tanah/bangunan, denah kavling, spesifikasi pondasi, struktur, dan finishing material.",
-        descEn: "Detailed configuration of Type 36, 45, 54, 70, land/building areas, site blueprints, foundation, and material specs."
-      },
-      {
-        name: "Harga Dasar Kavling & Rule Kelebihan Tanah",
-        nameEn: "Base Plot Pricing & Excess Land Valuation",
-        desc: "Pengaturan harga acuan per meter persegi untuk tanah standar dan perhitungan otomatis biaya kelebihan tanah per unit.",
-        descEn: "Standard price per square meter rule configurations and automated excess land cost calculations per plot unit."
-      }
-    ]
-  },
-  {
-    category: "Progres Lapangan & Infrastruktur Fasum/Fasos",
-    categoryEn: "Site Construction & Infrastructure Progress",
-    icon: HardHat,
-    features: [
-      {
-        name: "Tracking Spesifik Unit (`unit_rumah`) & Fasum (`fasilitas_proyek`)",
-        nameEn: "Unit-Specific (`unit_rumah`) & Facilities (`fasilitas_proyek`) Tracking",
-        desc: "Pelaporan persentase pekerjaan per unit kavling serta pekerjaan fasum/fasos (jalan perumahan, drainase, penerangan, taman).",
-        descEn: "Percentage progress reporting per housing block/lot as well as public infrastructure (roads, drainage, lighting, parks)."
-      },
-      {
-        name: "Workflow Verifikasi Status Dokumen (Draft & Published)",
-        nameEn: "Document Status Verification Workflow (Draft & Published)",
-        desc: "Verifikasi bertingkat di mana laporan supervisor bernilai 'Draft' hingga diperiksa dan diotorisasi menjadi 'Published'.",
-        descEn: "Multi-tiered verification where supervisor reports remain 'Draft' until reviewed and published to update physical progress."
-      },
-      {
-        name: "Audit Konsumsi Material & Lampiran Foto Lapangan",
-        nameEn: "Material Consumption Audit & Photo Attachments",
-        desc: "Pencatatan volume semen, besi, pasir harian beserta upload foto fisik pekerjaan lapangan langsung dari smartphone.",
-        descEn: "Daily recording of cement, rebar, sand consumption volumes with direct smartphone site photo uploads."
-      }
-    ]
-  },
-  {
-    category: "Marketing Kavling & Sales Pipeline",
-    categoryEn: "Plot Marketing & Sales Management",
-    icon: Target,
-    features: [
-      {
-        name: "Matrix Siteplan Visual Interaktif",
-        nameEn: "Interactive Visual Siteplan Matrix",
-        desc: "Tampilan grid status kavling real-time berbasis kode warna (Hijau = Available, Kuning = Booked, Merah = Sold/Akut).",
-        descEn: "Real-time color-coded plot availability grid (Green = Available, Yellow = Booked, Red = Sold/Closed)."
-      },
-      {
-        name: "Penerbitan Surat Pesanan Rumah (SPR) & Booking",
-        nameEn: "Housing Order (SPR) Issuance & Booking Registration",
-        desc: "Auto-generate ID Booking resmi, penguncian status kavling sementara, dan penginputan data awal calon konsumen.",
-        descEn: "Auto-generating official Booking IDs, temporary plot locking, and initial customer profile registration."
-      },
-      {
-        name: "Kalkulator KPR Bank & Simulator Angsuran",
-        nameEn: "Mortgage Calculator & Bank Installment Simulator",
-        desc: "Simulasi perhitungan Uang Muka (DP), plafon KPR, suku bunga bank mitra, dan estimasi cicilan bulanan tenor 5-20 tahun.",
-        descEn: "Simulating Down Payment (DP), bank loan ceilings, interest rates, and monthly installment estimates for 5-20 year terms."
-      },
-      {
-        name: "Pencatatan Performa Agent & Skema Komisi Sales",
-        nameEn: "Sales Agent Performance & Commission Engine",
-        desc: "Tracking asal pencapaian closing agent internal/external dan kalkulasi otomatis klaim komisi pemasaran.",
-        descEn: "Tracking closing achievements per internal/external sales agent and automating marketing commission payout claims."
-      }
-    ]
-  },
-  {
-    category: "Piutang Konsumen & Kas Keuangan",
-    categoryEn: "Consumer Receivables & Finance Cash",
-    icon: Wallet,
-    features: [
-      {
-        name: "Debounced Search ID Booking dengan Auto-Fill Lintas Entity",
-        nameEn: "Debounced Booking ID Search with Cross-Entity Auto-Fill",
-        desc: "Pilih ID Booking dan sistem otomatis mengisi data Konsumen, Proyek Perumahan, Tipe Unit, serta sisa piutang.",
-        descEn: "Selecting a Booking ID automatically pre-fills Customer, Housing Project, Unit Type, and remaining balance data."
-      },
-      {
-        name: "Input Nominal Presisi IDR (`CurrencyInput`)",
-        nameEn: "High-Precision IDR `CurrencyInput` Component",
-        desc: "Komponen input angka khusus IDR yang menangani nominal ratusan juta rupiah tanpa bug kursor atau leading zero.",
-        descEn: "Custom IDR input component handling multi-hundred million values smoothly without cursor jumps or leading zero issues."
-      },
-      {
-        name: "Integrasi Pos Keuangan (Bank Accounts & Kas Tunai)",
-        nameEn: "Financial Position Relation (Bank & Cash Accounts)",
-        desc: "Menghubungkan setiap transaksi pembayaran ke rekening bank penerima resmi (BCA, Mandiri, BRI) atau Kas Kantor.",
-        descEn: "Linking every payment transaction directly to official target bank accounts (BCA, Mandiri, BRI) or Office Cash Ledgers."
-      },
-      {
-        name: "Pencatatan Collection `riwayat-pembayaran` Terpusat",
-        nameEn: "Centralized `riwayat-pembayaran` Collection Audit",
-        desc: "Riwayat kwitansi pembayaran konsumen yang tersimpan dalam koleksi khusus untuk audit keuangan dan cetak ulang bukti bayar.",
-        descEn: "Customer payment receipt history stored in a dedicated collection for financial auditing and receipt re-printing."
-      }
-    ]
-  },
-  {
-    category: "Logistik Gudang & Hutang Supplier",
-    categoryEn: "Warehouse Logistics & Supplier Payables",
-    icon: Boxes,
-    features: [
-      {
-        name: "Verifikasi Penerimaan Barang (Receiving Stock)",
-        nameEn: "Goods Receiving & Stock Verification",
-        desc: "Pencatatan fisik stok material masuk di lokasi proyek berbasis Purchase Order (PO) dan filter status barang.",
-        descEn: "Recording physical incoming material stocks at project sites based on Purchase Orders (PO) with receiving status filters."
-      },
-      {
-        name: "Rekonsiliasi Surat Jalan Supplier vs PO",
-        nameEn: "Supplier Delivery Note vs PO Reconciliation",
-        desc: "Pencocokan jumlah barang yang diterima pada surat jalan distributor bahan bangunan terhadap dokumen pesanan proyek.",
-        descEn: "Matching material delivery note quantities from suppliers against original project purchase order documents."
-      },
-      {
-        name: "Manajemen Pelunasan Tagihan Hutang Supplier",
-        nameEn: "Supplier Payables Schedule & Settlement Engine",
-        desc: "Pengelolaan tanggal jatuh tempo tagihan vendor, pembayaran parsial/lunas, dan pemotongan saldo hutang via Pos Keuangan.",
-        descEn: "Managing vendor invoice due dates, partial/full payment vouchers, and automated debt balance reductions via Pos Keuangan."
-      }
-    ]
-  },
-  {
-    category: "HRM & Absensi Tenaga Kerja Proyek",
-    categoryEn: "HRM & Site Workforce Management",
+    category: "HRM (Manajemen Karyawan & Tenaga Kerja)",
+    categoryEn: "HRM (Employee & Workforce Management)",
     icon: Users,
     features: [
       {
-        name: "Presensi Harian Pekerja / Tukang & Kebab Dropdown UI",
-        nameEn: "Daily Worker Attendance & Kebab Dropdown UI",
-        desc: "Pencatatan kehadiran tukang/mandor harian dengan antarmuka ringkas, spacing 1.5 compact, dan menu aksi kebab dropdown.",
-        descEn: "Daily site worker attendance logging with a compact 1.5 spacing interface and streamlined kebab menu actions."
+        name: "Dashboard HRM",
+        nameEn: "HRM Dashboard Overview",
+        desc: "Ringkasan data karyawan, kehadiran, serta aktivitas HR harian.",
+        descEn: "Overview of employee data, daily attendance, and HR activities."
       },
       {
-        name: "Penjadwalan Shift Kerja & Alokasi Pekerja",
-        nameEn: "Work Shift Scheduling & Allocation Matrix",
-        desc: "Pengaturan jam shift kerja harian/mingguan dan alokasi tim pekerja ke masing-masing blok kavling yang sedang dibangun.",
-        descEn: "Managing daily/weekly work shifts and allocating worker teams to active construction plot blocks."
+        name: "Master Data Jabatan, Posisi & Departemen",
+        nameEn: "Positions, Levels & Department Master Data",
+        desc: "Manajemen data jabatan, level hirarki, serta struktur divisi departemen perusahaan.",
+        descEn: "Management of job titles, hierarchy levels, and corporate department divisions."
       },
       {
-        name: "Manajemen Subkontraktor & Penugasan Tugas Khusus",
-        nameEn: "Subcontractor Agreement & Task Assignments",
-        desc: "Pencatatan mitra subkontraktor (pekerjaan pematangan lahan, kelistrikan, perpipaan) beserta target milestone.",
-        descEn: "Managing subcontractor partners (land clearing, electrical, plumbing) alongside job milestone target schedules."
+        name: "Master Data Karyawan",
+        nameEn: "Employee Master Data",
+        desc: "Manajemen data personal, penggajian, kontak, dan informasi detail karyawan.",
+        descEn: "Management of personal details, payroll info, contact data, and employee records."
       },
       {
-        name: "Otorisasi Akses RBAC Berbasis Role (`proyek.json`)",
-        nameEn: "Role-Based Access Control RBAC (`proyek.json`)",
-        desc: "Pengaturan izin akses CRUD spesifik modul per level pengguna (Admin Holding, Supervisor Lapangan, Kasir Proyek).",
-        descEn: "Configuring fine-grained CRUD permissions per user role level (Holding Admin, Site Supervisor, Project Cashier)."
+        name: "Master Shift & Presensi Kehadiran",
+        nameEn: "Shift Master & Attendance Log",
+        desc: "Pengaturan jadwal shift kerja, rekapitulasi absensi harian, serta sistem kehadiran karyawan.",
+        descEn: "Work shift scheduling, daily attendance logs, and employee presence tracking."
+      },
+      {
+        name: "Data Tenaga Kerja & Subkontraktor",
+        nameEn: "Project Field Workers & Subcontractor Data",
+        desc: "Pengelolaan tukang/mandor, jadwal kerja, pembagian tugas harian, dan data kontrak.",
+        descEn: "Management of site workers, foremen, work shifts, task distribution, and contract agreements."
+      },
+      {
+        name: "Pengelolaan Security & Penempatan Proyek",
+        nameEn: "Security Dispatch, Patrol Location & Placement",
+        desc: "Lokasi pos security, plotting jadwal patroli, tukar shift, dan penugasan karyawan ke lokasi proyek.",
+        descEn: "Security posts management, patrol scheduling, shift swaps, and project site placement."
+      },
+      {
+        name: "Cuti, Izin & Evaluasi Kinerja (KPI)",
+        nameEn: "Leave Requests, Permits & Performance Evaluation (KPI)",
+        desc: "Kuota cuti, pengajuan izin, serta penilaian KPI bulanan berdasarkan template jabatan.",
+        descEn: "Leave quotas, permit approvals, and monthly KPI evaluations based on position templates."
       }
     ]
   },
   {
-    category: "Akuntansi, Plotting COA & Jurnal Buku Besar",
-    categoryEn: "Accounting, COA Plotting & General Ledger",
+    category: "MARKETING (Penjualan & Promosi)",
+    categoryEn: "MARKETING (Sales & Promotions)",
+    icon: Target,
+    features: [
+      {
+        name: "Dashboard & Kinerja Monitoring Marketing",
+        nameEn: "Marketing Dashboard & Staff Performance Monitoring",
+        desc: "Ringkasan performa tim marketing berdasarkan kunjungan, lead, booking, dan penjualan harian.",
+        descEn: "Marketing performance overview tracking site visits, leads, bookings, and daily sales."
+      },
+      {
+        name: "Data Lead / Calon Pembeli & Customer",
+        nameEn: "Lead Database / Prospective Buyers & Customer CRM",
+        desc: "Manajemen database calon pembeli, tracking funnel prospek, dan informasi kontak konsumen.",
+        descEn: "Management of prospective buyer leads, sales funnel tracking, and customer contact data."
+      },
+      {
+        name: "Booking & Pemesanan Unit",
+        nameEn: "Unit Booking & Reservation Pipeline",
+        desc: "Proses booking unit perumahan, pemilihan kavling, dan pencatatan pembayaran booking fee.",
+        descEn: "Housing unit reservation workflow, lot selection, and booking fee payment logging."
+      },
+      {
+        name: "Target & Komisi Marketing",
+        nameEn: "Sales Targets & Commission Calculator",
+        desc: "Pengelolaan target penjualan bulanan dan kalkulasi otomatis komisi agent marketing.",
+        descEn: "Monthly sales target allocation and automated agent marketing commission engine."
+      },
+      {
+        name: "Simulasi KPR Bank & Promo Harga",
+        nameEn: "Bank Mortgage Simulator & Promotional Pricing",
+        desc: "Kalkulator simulasi KPR berdasarkan harga unit & bank, serta informasi promo berjalan.",
+        descEn: "Bank mortgage calculator based on unit price & selected bank, plus active promo catalog."
+      },
+      {
+        name: "Jadwal Kegiatan, Tools & Laporan Marketing",
+        nameEn: "Schedules, Promotional Tools & Marketing Reports",
+        desc: "Manajemen jadwal pameran, followup, brosur digital, serta rekapitulasi laporan pemasaran.",
+        descEn: "Event schedules, customer followups, digital promotional tools, and sales summary reports."
+      }
+    ]
+  },
+  {
+    category: "MANAJEMEN PROYEK (Konstruksi & Site)",
+    categoryEn: "PROJECT MANAGEMENT (Construction & Site)",
+    icon: Building2,
+    features: [
+      {
+        name: "Dashboard Proyek & Master Data Proyek/Developer",
+        nameEn: "Project Dashboard & Master Project/Developer Data",
+        desc: "Ringkasan progres per lokasi, data proyek perumahan, developer pengembang, dan vendor.",
+        descEn: "Location-based progress overview, project master data, developers, and vendor records."
+      },
+      {
+        name: "Manajemen Unit Rumah & Fasilitas Proyek (Fasum/Fasos)",
+        nameEn: "Housing Unit Management & Public Facilities (Fasum/Fasos)",
+        desc: "Kelola tipe unit, blok & kavling, serta fasilitas umum, jalan perumahan, dan infrastruktur.",
+        descEn: "Managing unit types, block/lot blueprints, public amenities (Fasum/Fasos), and infrastructure."
+      },
+      {
+        name: "Rencana Anggaran Biaya (RAB) & Material Pekerjaan",
+        nameEn: "Bill of Quantities (RAB) & Construction Materials",
+        desc: "Penyusunan RAB proyek, monitoring realisasi budget, serta kebutuhan stok material.",
+        descEn: "RAB budget formulation, real-time budget realization monitoring, and construction material requirements."
+      },
+      {
+        name: "Jadwal Proyek (Gantt Chart & Timeline)",
+        nameEn: "Project Schedule (Gantt Chart & Timeline Tracking)",
+        desc: "Target & realisasi tahapan pembangunan, deadline, serta reminder keterlambatan deviasi.",
+        descEn: "Construction milestone targets vs actual progress, deadline tracking, and deviation alerts."
+      },
+      {
+        name: "Progress Harian / Mingguan & Dokumen Teknis",
+        nameEn: "Daily/Weekly Progress Reports & Technical Drawings",
+        desc: "Laporan progres harian, cuaca, jumlah pekerja, foto lapangan, siteplan, dan gambar kerja.",
+        descEn: "Daily site progress logs, weather conditions, worker counts, field photos, and technical blueprints."
+      },
+      {
+        name: "Monitoring Patroli Security & Laporan Proyek",
+        nameEn: "Security Patrol Monitoring & Final Project Reports",
+        desc: "Pantau aktivitas patroli pos perumahan serta laporan evaluasi akhir proyek.",
+        descEn: "Monitoring site security patrols and final project evaluation reporting."
+      }
+    ]
+  },
+  {
+    category: "LOGISTIK & PURCHASING (Gudang & Pengadaan)",
+    categoryEn: "LOGISTICS & PURCHASING (Warehouse & Procurement)",
+    icon: Boxes,
+    features: [
+      {
+        name: "Dashboard & Master Data Logistik Gudang",
+        nameEn: "Logistics Dashboard & Warehouse Master Data",
+        desc: "Ringkasan stok material utama, material masuk/keluar, dan data gudang induk/proyek.",
+        descEn: "Overview of key material stock levels, incoming/outgoing items, and central/site warehouse data."
+      },
+      {
+        name: "Penerimaan & Pengeluaran Material Gudang",
+        nameEn: "Material Goods Receiving & Project Issuance",
+        desc: "Input barang masuk PO, surat jalan, penempatan stok, serta approval pengeluaran ke proyek.",
+        descEn: "Inputting PO receiving goods, delivery notes, stock placement, and project issuance approvals."
+      },
+      {
+        name: "Stock Opname & Distribusi Material",
+        nameEn: "Stock Opname Audit & Site Material Distribution",
+        desc: "Pemeriksaan fisik stok berkala, audit selisih, dan pengiriman barang antar gudang proyek.",
+        descEn: "Periodic physical stock counts, variance auditing, and inter-site material transfers."
+      },
+      {
+        name: "Permintaan Pembelian (PR) & Purchase Order (PO)",
+        nameEn: "Purchase Requests (PR) & Purchase Orders (PO)",
+        desc: "Pengajuan pembelian bahan bangunan dari proyek/gudang dan penerbitan dokumen PO.",
+        descEn: "Material purchase requisitions from site/warehouse and official PO document generation."
+      },
+      {
+        name: "Penerimaan Barang PO, Tagihan Invoice & Evaluasi Supplier",
+        nameEn: "Goods Receipt PO, Vendor Invoices & Supplier Evaluation",
+        desc: "Konfirmasi penerimaan barang, kontrol kualitas, tagihan supplier, dan penilaian performa vendor.",
+        descEn: "Goods receipt confirmation, quality checks, supplier invoice tracking, and vendor performance scoring."
+      }
+    ]
+  },
+  {
+    category: "KEUANGAN OPERASIONAL (Finance Operations)",
+    categoryEn: "OPERATIONAL FINANCE (Cash & Banking)",
+    icon: Wallet,
+    features: [
+      {
+        name: "Dashboard Keuangan & Arus Kas",
+        nameEn: "Financial Dashboard & Cash Flow Summary",
+        desc: "Ringkasan kas masuk/keluar, saldo bank real-time, progress anggaran, dan notifikasi tagihan.",
+        descEn: "Real-time summary of cash inflows/outflows, bank balances, budget progress, and due alerts."
+      },
+      {
+        name: "Kas Masuk (Penerimaan Konsumen & KPR)",
+        nameEn: "Cash Receipts (Customer Payments & Bank KPR)",
+        desc: "Pencatatan pembayaran konsumen, pencairan KPR bank, dan bukti transfer resmi.",
+        descEn: "Customer payment logging, bank KPR disbursement tracking, and official transfer receipts."
+      },
+      {
+        name: "Kas Keluar (Pengeluaran Operasional & Supplier)",
+        nameEn: "Cash Disbursements (Operational Expenses & Supplier Payouts)",
+        desc: "Pembayaran supplier, gaji tukang/pekerja, operasional kantor, dan biaya perizinan legal.",
+        descEn: "Supplier payments, site worker wages, office operational expenses, and legal permit fees."
+      },
+      {
+        name: "Gaji Karyawan, Insentif & Pos Keuangan",
+        nameEn: "Employee Payroll, Staff Incentives & Position Accounts",
+        desc: "Manajemen gaji, bonus kinerja, insentif UTJ, serta kelola kas/bank/rekening resmi perusahaan.",
+        descEn: "Payroll management, staff performance bonuses, UTJ incentives, and official bank account ledgers."
+      },
+      {
+        name: "Overbooking Pos Keuangan Internal",
+        nameEn: "Internal Account Overbooking Transfers",
+        desc: "Pencatatan dan monitoring mutasi perpindahan dana antar pos keuangan internal.",
+        descEn: "Tracking and auditing fund transfers between internal corporate financial positions."
+      }
+    ]
+  },
+  {
+    category: "AKUNTANSI & AUDIT (Accounting & Ledger)",
+    categoryEn: "ACCOUNTING & AUDIT (GL & Reporting)",
     icon: FileText,
     features: [
       {
-        name: "Master Chart of Accounts (COA) Hierarkis",
-        nameEn: "Hierarchical Master Chart of Accounts (COA)",
-        desc: "Struktur pengkodean akun standar akuntansi (Aktiva, Kewajiban, Ekuitas, Pendapatan, Beban) yang berlaku untuk seluruh proyek.",
-        descEn: "Standard accounting Chart of Accounts structure (Assets, Liabilities, Equity, Revenue, Expenses) active across all projects."
+        name: "Antrean Plotting Kode Akun COA",
+        nameEn: "COA Account Plotting Verification Queue",
+        desc: "Plotting kode akun COA untuk transaksi kas masuk & keluar yang telah disetujui operasional.",
+        descEn: "COA account code plotting queue for approved operational cash receipts and disbursements."
       },
       {
-        name: "Antrean Plotting Kode Akun Jurnal Operasional",
-        nameEn: "Operational Transaction Journal Plotting Queue",
-        desc: "Fitur verifikasi transaksi operasional harian yang membutuhkan pemetaan kode akun COA sebelum masuk ke Buku Besar.",
-        descEn: "Operational transaction verification queue requiring COA account code mapping before posting to the General Ledger."
+        name: "Master Chart of Accounts (COA)",
+        nameEn: "Master Chart of Accounts (COA) Structure",
+        desc: "Kelola master kode akun akuntansi, kelompok akun (Aktiva, Pasiva, Pendapatan, Beban).",
+        descEn: "Managing corporate chart of accounts, account categories (Assets, Liabilities, Income, Expenses)."
       },
       {
-        name: "Jurnal Otomatis / Manual & Buku Besar (General Ledger)",
-        nameEn: "Automatic / Manual Vouchers & General Ledger",
-        desc: "Pencatatan mutasi kas/bank otomatis saat transaksi terjadi dan pembuatan jurnal umum manual untuk penyesuaian periodik.",
-        descEn: "Automatic posting of cash/bank mutations upon transaction completion and manual journal entry capabilities for periodic adjustments."
+        name: "Hutang Supplier (Payables) & Piutang Konsumen (Receivables)",
+        nameEn: "Accounts Payable (Vendors) & Accounts Receivable (Customers)",
+        desc: "Manajemen invoice supplier, jatuh tempo, sisa piutang konsumen, dan jadwal angsuran.",
+        descEn: "Managing vendor invoices, due dates, customer receivable balances, and installment schedules."
       },
       {
-        name: "Laporan Laba Rugi Proyek & Neraca Keuangan",
-        nameEn: "Project Profit & Loss Statements & Balance Sheets",
-        desc: "Rekapitulasi keuangan komprehensif yang menampilkan posisi keuntungan per proyek perumahan serta neraca keuangan.",
-        descEn: "Comprehensive financial reporting displaying profit positions per housing project and overall enterprise balance sheets."
+        name: "Jurnal Otomatis/Manual, Buku Besar & Rekonsiliasi Audit",
+        nameEn: "General Journal, Ledger Accounts & Bank Reconciliation Audit",
+        desc: "Mutasi kas/bank otomatis, buku besar per COA, dan audit pemeriksaan selisih saldo.",
+        descEn: "Automated cash/bank mutations, per-COA general ledger, and audit reconciliation."
+      },
+      {
+        name: "Laporan Keuangan Laba Rugi & Neraca",
+        nameEn: "Financial Statements (P&L & Balance Sheet)",
+        desc: "Laporan arus kas, laba rugi proyek perumahan, neraca keuangan, dan ringkasan eksekutif.",
+        descEn: "Cash flow reports, housing project profit & loss statements, balance sheets, and executive summary."
+      }
+    ]
+  },
+  {
+    category: "PUSAT LAPORAN EXECUTIVE (Reports Center)",
+    categoryEn: "EXECUTIVE REPORTS CENTER (Analytics & Export)",
+    icon: FileText,
+    features: [
+      {
+        name: "Laporan Konsolidasi Keuangan, Marketing & Proyek",
+        nameEn: "Consolidated Financial, Marketing & Project Reports",
+        desc: "Laporan rekapitulasi penjualan unit, booking, progres fisik proyek, dan performa keuangan.",
+        descEn: "Consolidated reporting on unit sales, bookings, site physical progress, and financial metrics."
+      },
+      {
+        name: "Laporan Material, Purchasing & SDM",
+        nameEn: "Material Inventory, Procurement & HR Analytics",
+        desc: "Laporan stok gudang, pengadaan PO supplier, serta kepegawaian dan kehadiran karyawan.",
+        descEn: "Warehouse stock reports, supplier PO procurement logs, employee presence, and HR analytics."
+      },
+      {
+        name: "Custom Ekspor & Rekap Proyek",
+        nameEn: "Custom Data Export & Project Recap Analytics",
+        desc: "Ekspor laporan kustom dengan filter fleksibel (PDF/Excel) serta analisis budget vs realisasi.",
+        descEn: "Customized report exports with flexible filters (PDF/Excel) and budget vs actual variance analysis."
       }
     ]
   }
