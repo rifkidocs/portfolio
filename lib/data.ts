@@ -96,7 +96,7 @@ export const projects: Project[] = [
       "Sistem ERP Pengelolaan Properti & Konstruksi Perumahan Terpadu untuk PT Bumi Wiraraja Group. Mengintegrasikan pemantauan progres fisik harian unit & fasum/fasos, akuntansi piutang konsumen & hutang supplier, logistik pergudangan material, HRM absensi tukang & subkontraktor, serta administrasi booking unit & sales pipeline dalam satu sistem enterprise terpusat.",
     descriptionEn:
       "Integrated Housing Property & Construction ERP System for PT Bumi Wiraraja Group. Unifies daily unit & infrastructure physical progress tracking, consumer receivables & supplier payables accounting, warehouse material logistics, site workforce HRM attendance & subcontractor assignments, and unit booking & sales pipeline management into a centralized enterprise system.",
-    image: "/projects/bumiwiraraja/slide-1.svg",
+    image: "/projects/bumiwiraraja/dashboard.png",
     techStack: [
       "Next.js 15",
       "React 19",
@@ -133,7 +133,7 @@ export const projects: Project[] = [
           "Construction S-Curve Tracking vs Target Timeline",
           "Live Activity Feed for Construction & Financial Transactions",
         ],
-        image: "/projects/bumiwiraraja/slide-1.svg",
+        image: "/projects/bumiwiraraja/dashboard.png",
         techTags: ["Next.js 15", "Recharts", "Strapi REST API", "Tailwind CSS"],
       },
       {
@@ -158,7 +158,7 @@ export const projects: Project[] = [
           "Material Specifications & Base Unit Price Configuration",
           "Siteplan Matrix & Marketing System Integration",
         ],
-        image: "/projects/bumiwiraraja/slide-9.svg",
+        image: "/projects/bumiwiraraja/master-perumahan.png",
         techTags: ["Master Data", "Entity Relations", "Strapi Collection", "React UI"],
       },
       {
@@ -183,7 +183,7 @@ export const projects: Project[] = [
           "Document Authorization Status System (Draft & Published)",
           "Field Photo Documentation & Daily Material Consumption Breakdown",
         ],
-        image: "/projects/bumiwiraraja/slide-2.svg",
+        image: "/projects/bumiwiraraja/progress-harian.png",
         techTags: ["React 19", "Debounced Search", "Strapi Lifecycles", "Media Upload"],
       },
       {
@@ -208,7 +208,7 @@ export const projects: Project[] = [
           "Mortgage Simulator & Bank Installment Estimation",
           "Sales Summary Reports & Agent Marketing Commission",
         ],
-        image: "/projects/bumiwiraraja/slide-6.svg",
+        image: "/projects/bumiwiraraja/marketing.png",
         techTags: ["Unit Grid Matrix", "Booking Pipeline", "React State", "Next.js"],
       },
       {
@@ -233,7 +233,7 @@ export const projects: Project[] = [
           "Pos Keuangan Relation Integration (Bank Accounts & Cash)",
           "Centralized Transaction Logging in `riwayat-pembayaran` Collection",
         ],
-        image: "/projects/bumiwiraraja/slide-3.svg",
+        image: "/projects/bumiwiraraja/piutang-konsumen.png",
         techTags: ["Custom CurrencyInput", "Pos Keuangan Relation", "Context API", "PostgreSQL"],
       },
       {
@@ -258,7 +258,7 @@ export const projects: Project[] = [
           "Supplier Debt Payment Execution via Pos Keuangan Relation",
           "Real-time Supplier Debt Ledger Balance Monitoring",
         ],
-        image: "/projects/bumiwiraraja/slide-4.svg",
+        image: "/projects/bumiwiraraja/gudang.png",
         techTags: ["Warehouse Inventory", "Supplier Ledger", "Strapi API", "PostgreSQL"],
       },
       {
@@ -283,7 +283,7 @@ export const projects: Project[] = [
           "Subcontractor Agreement Management & Task Assignment",
           "Project Role Access Control Configuration (Strapi RBAC)",
         ],
-        image: "/projects/bumiwiraraja/slide-5.svg",
+        image: "/projects/bumiwiraraja/hrm.png",
         techTags: ["HRM Module", "Shadcn UI", "Permissions JS", "Tailwind CSS"],
       },
       {
@@ -308,7 +308,7 @@ export const projects: Project[] = [
           "Cash/Bank Transfers & Automatic/Manual Journal Vouchers",
           "Cash Flow Reports, Project P&L & Balance Sheet Accounting",
         ],
-        image: "/projects/bumiwiraraja/slide-8.svg",
+        image: "/projects/bumiwiraraja/coa.png",
         techTags: ["COA Engine", "Accounting Ledger", "Financial Reports", "PostgreSQL"],
       },
     ],
