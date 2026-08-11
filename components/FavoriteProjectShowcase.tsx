@@ -776,38 +776,46 @@ export function ImageLightboxModal({
 
   return (
     <div 
-      className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex flex-col justify-between p-3 sm:p-6 animate-in fade-in-0 duration-200"
+      className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-2xl flex flex-col justify-between p-2 sm:p-6 animate-in fade-in-0 duration-200"
       onClick={onClose}
     >
-      {/* Lightbox Header */}
-      <div className="flex items-center justify-between z-10 p-3 sm:p-4 bg-slate-900/90 rounded-xl border border-white/10 text-white shadow-xl" onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center gap-2 max-w-[80%] overflow-hidden">
+      {/* Lightbox Header Bar (Non-overlapping, high z-index) */}
+      <div 
+        className="flex items-center justify-between gap-3 z-[210] p-2.5 sm:p-4 bg-slate-900/90 rounded-xl border border-white/15 text-white shadow-2xl shrink-0 mt-1 mx-1 sm:mx-0" 
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center gap-2 max-w-[calc(100%-3.5rem)] overflow-hidden">
           <Maximize2 className="w-4 h-4 text-amber-400 shrink-0" />
-          <span className="text-xs sm:text-sm font-semibold truncate font-mono">{alt}</span>
+          <span className="text-xs sm:text-sm font-semibold truncate font-mono text-slate-100">{alt}</span>
         </div>
         <button
+          type="button"
           onClick={onClose}
-          className="p-2 rounded-lg bg-white/10 hover:bg-red-500 hover:text-white text-white transition-all shrink-0 active:scale-95"
+          className="p-2 rounded-full bg-white/10 hover:bg-amber-500 hover:text-black text-white transition-all shrink-0 active:scale-95 border border-white/20 shadow-md flex items-center justify-center"
           title="Tutup Preview (Esc)"
+          aria-label="Tutup Preview"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
       </div>
 
       {/* Lightbox Image Container */}
-      <div className="relative flex-1 w-full my-3 sm:my-4 flex items-center justify-center overflow-hidden" onClick={(e) => e.stopPropagation()}>
+      <div 
+        className="relative flex-1 w-full my-2 sm:my-4 flex items-center justify-center overflow-hidden cursor-pointer select-none" 
+        onClick={onClose}
+      >
         <Image
           src={src}
           alt={alt}
           fill
-          className="object-contain select-none"
+          className="object-contain p-1 sm:p-2"
           priority
         />
       </div>
 
       {/* Lightbox Footer */}
-      <div className="text-center z-10 text-[10px] sm:text-xs font-mono text-slate-400 py-1 sm:py-2">
-        <span>Tekan ESC atau klik tombol X di pojok kanan untuk menutup preview</span>
+      <div className="text-center z-[210] text-[10px] sm:text-xs font-mono text-slate-400 py-1.5 shrink-0 bg-slate-950/80 rounded-lg mx-1 sm:mx-0 border border-white/5">
+        <span>Ketuk layar atau tombol X untuk menutup preview</span>
       </div>
     </div>
   );
