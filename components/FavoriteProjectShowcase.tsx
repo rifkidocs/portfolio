@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { createPortal } from "react-dom";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -23,9 +22,6 @@ import {
   Target,
   FileText,
   Layers,
-  ZoomIn,
-  Maximize2,
-  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -465,11 +461,6 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
   const { t, lang } = useLanguage();
   const slides = project.slides || [];
   const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0);
-  const [lightboxState, setLightboxState] = React.useState<{ isOpen: boolean; src: string; alt: string }>({
-    isOpen: false,
-    src: "",
-    alt: "",
-  });
   const tabsRef = React.useRef<HTMLDivElement>(null);
 
   const activeSlide: ProjectSlide | undefined = slides[currentSlideIndex] || slides[0];
@@ -557,9 +548,9 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
 
           {activeSlide && (
             <div className="space-y-6">
-              {/* FOTO SPREAD ATAS: Fits 100% full screenshot without cropping & Clickable Lightbox */}
+              {/* FOTO SPREAD ATAS: Fits 100% full screenshot without cropping */}
               <div className="relative group rounded-xl border border-border/80 bg-slate-950/90 overflow-hidden shadow-xl aspect-[2.03/1] w-full flex flex-col justify-center">
-                <div className="relative w-full h-full group/img">
+                <div className="relative w-full h-full">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={activeSlide.id}
@@ -567,15 +558,7 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.2 }}
-                      className="relative w-full h-full cursor-pointer"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setLightboxState({
-                          isOpen: true,
-                          src: activeSlide.image,
-                          alt: `${getModuleLabel(currentSlideIndex)} — ${getSlideTitle(activeSlide, lang)}`,
-                        });
-                      }}
+                      className="relative w-full h-full"
                     >
                       <Image
                         src={activeSlide.image}
@@ -586,24 +569,6 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
                       />
                     </motion.div>
                   </AnimatePresence>
-
-                  {/* Explicit Click to Zoom Overlay Button */}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setLightboxState({
-                        isOpen: true,
-                        src: activeSlide.image,
-                        alt: `${getModuleLabel(currentSlideIndex)} — ${getSlideTitle(activeSlide, lang)}`,
-                      });
-                    }}
-                    className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-black/80 hover:bg-amber-500 hover:text-black transition-all border border-white/20 text-white text-[10px] sm:text-xs font-mono flex items-center gap-1.5 opacity-90 group-hover/img:opacity-100 shadow-lg z-10 cursor-pointer"
-                  >
-                    <ZoomIn className="w-3.5 h-3.5" />
-                    <span className="hidden sm:inline">Klik untuk Perbesar</span>
-                    <span className="sm:hidden">Zoom</span>
-                  </button>
 
                   {/* Navigation Arrows */}
                   <button
@@ -751,112 +716,7 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
             Bumi Wiraraja Group ERP System Spec.v2
           </span>
         </div>
-
-      <ImageLightboxModal
-        isOpen={lightboxState.isOpen}
-        onClose={() => setLightboxState((prev) => ({ ...prev, isOpen: false }))}
-        src={lightboxState.src}
-        alt={lightboxState.alt}
-      />
     </DialogContent>
   </>
 );
-}
-
-export function ImageLightboxModal({
-  isOpen,
-  onClose,
-  src,
-  alt,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-  src: string;
-  alt: string;
-}) {
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  React.useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation?.();
-        onClose();
-      }
-    };
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown, true);
-    }
-    return () => {
-      document.body.style.overflow = "auto";
-      window.removeEventListener("keydown", handleKeyDown, true);
-    };
-  }, [isOpen, onClose]);
-
-  if (!isOpen || !mounted) return null;
-
-  const handleDismiss = (e?: React.SyntheticEvent) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    onClose();
-  };
-
-  return createPortal(
-    <div 
-      className="fixed inset-0 z-[99999] bg-black/95 backdrop-blur-2xl flex flex-col justify-between p-2 sm:p-6 animate-in fade-in-0 duration-200"
-      onClick={handleDismiss}
-      onPointerDown={(e) => e.stopPropagation()}
-    >
-      {/* Lightbox Header Bar (Non-overlapping, top level layer) */}
-      <div 
-        className="flex items-center justify-between gap-3 z-[100000] p-2.5 sm:p-4 bg-slate-900/90 rounded-xl border border-white/15 text-white shadow-2xl shrink-0 mt-1 mx-1 sm:mx-0" 
-        onClick={(e) => e.stopPropagation()}
-        onPointerDown={(e) => e.stopPropagation()}
-      >
-        <div className="flex items-center gap-2 max-w-[calc(100%-3.5rem)] overflow-hidden">
-          <Maximize2 className="w-4 h-4 text-amber-400 shrink-0" />
-          <span className="text-xs sm:text-sm font-semibold truncate font-mono text-slate-100">{alt}</span>
-        </div>
-        <button
-          type="button"
-          onClick={handleDismiss}
-          onPointerDown={(e) => e.stopPropagation()}
-          className="p-2 rounded-full bg-white/10 hover:bg-amber-500 hover:text-black text-white transition-all shrink-0 active:scale-95 border border-white/20 shadow-md flex items-center justify-center cursor-pointer"
-          title="Tutup Preview (Esc)"
-          aria-label="Tutup Preview"
-        >
-          <X className="w-4 h-4 sm:w-5 sm:h-5" />
-        </button>
-      </div>
-
-      {/* Lightbox Image Container */}
-      <div 
-        className="relative flex-1 w-full my-2 sm:my-4 flex items-center justify-center overflow-hidden cursor-pointer select-none" 
-        onClick={handleDismiss}
-        onPointerDown={(e) => e.stopPropagation()}
-      >
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          className="object-contain p-1 sm:p-2"
-          priority
-        />
-      </div>
-
-      {/* Lightbox Footer */}
-      <div className="text-center z-[100000] text-[10px] sm:text-xs font-mono text-slate-400 py-1.5 shrink-0 bg-slate-950/80 rounded-lg mx-1 sm:mx-0 border border-white/5">
-        <span>Ketuk layar atau tombol X untuk menutup preview</span>
-      </div>
-    </div>,
-    document.body
-  );
 }
