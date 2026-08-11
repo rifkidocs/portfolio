@@ -782,29 +782,44 @@ export function ImageLightboxModal({
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation?.();
+        onClose();
+      }
     };
     if (isOpen) {
       document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
+      window.addEventListener("keydown", handleKeyDown, true);
     }
     return () => {
       document.body.style.overflow = "auto";
-      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown, true);
     };
   }, [isOpen, onClose]);
 
   if (!isOpen || !mounted) return null;
 
+  const handleDismiss = (e?: React.SyntheticEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    onClose();
+  };
+
   return createPortal(
     <div 
       className="fixed inset-0 z-[99999] bg-black/95 backdrop-blur-2xl flex flex-col justify-between p-2 sm:p-6 animate-in fade-in-0 duration-200"
-      onClick={onClose}
+      onClick={handleDismiss}
+      onPointerDown={(e) => e.stopPropagation()}
     >
       {/* Lightbox Header Bar (Non-overlapping, top level layer) */}
       <div 
         className="flex items-center justify-between gap-3 z-[100000] p-2.5 sm:p-4 bg-slate-900/90 rounded-xl border border-white/15 text-white shadow-2xl shrink-0 mt-1 mx-1 sm:mx-0" 
         onClick={(e) => e.stopPropagation()}
+        onPointerDown={(e) => e.stopPropagation()}
       >
         <div className="flex items-center gap-2 max-w-[calc(100%-3.5rem)] overflow-hidden">
           <Maximize2 className="w-4 h-4 text-amber-400 shrink-0" />
@@ -812,8 +827,9 @@ export function ImageLightboxModal({
         </div>
         <button
           type="button"
-          onClick={onClose}
-          className="p-2 rounded-full bg-white/10 hover:bg-amber-500 hover:text-black text-white transition-all shrink-0 active:scale-95 border border-white/20 shadow-md flex items-center justify-center"
+          onClick={handleDismiss}
+          onPointerDown={(e) => e.stopPropagation()}
+          className="p-2 rounded-full bg-white/10 hover:bg-amber-500 hover:text-black text-white transition-all shrink-0 active:scale-95 border border-white/20 shadow-md flex items-center justify-center cursor-pointer"
           title="Tutup Preview (Esc)"
           aria-label="Tutup Preview"
         >
@@ -824,7 +840,8 @@ export function ImageLightboxModal({
       {/* Lightbox Image Container */}
       <div 
         className="relative flex-1 w-full my-2 sm:my-4 flex items-center justify-center overflow-hidden cursor-pointer select-none" 
-        onClick={onClose}
+        onClick={handleDismiss}
+        onPointerDown={(e) => e.stopPropagation()}
       >
         <Image
           src={src}
