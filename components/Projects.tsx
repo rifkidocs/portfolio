@@ -233,8 +233,11 @@ function ProjectDialogContent({ project }: { project: Project }) {
       <DialogContent className="sm:max-w-3xl max-h-[96vh] md:max-h-[90vh] overflow-y-auto p-0 gap-0 border-none shadow-2xl flex flex-col">
         {/* Premium Header with Clickable Image */}
         <div 
-          className="relative aspect-video w-full group shrink-0 max-h-[220px] sm:max-h-[300px] overflow-hidden cursor-zoom-in bg-slate-950"
-          onClick={() => project.image && setIsLightboxOpen(true)}
+          className="relative aspect-video w-full group shrink-0 max-h-[220px] sm:max-h-[300px] overflow-hidden cursor-pointer bg-slate-950"
+          onClick={(e) => {
+            e.stopPropagation();
+            if (project.image) setIsLightboxOpen(true);
+          }}
         >
           {project.image && project.image !== "/api/placeholder/600/400" ? (
             <>

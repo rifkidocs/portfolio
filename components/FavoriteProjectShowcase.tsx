@@ -559,10 +559,7 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
             <div className="space-y-6">
               {/* FOTO SPREAD ATAS: Fits 100% full screenshot without cropping & Clickable Lightbox */}
               <div className="relative group rounded-xl border border-border/80 bg-slate-950/90 overflow-hidden shadow-xl aspect-[2.03/1] w-full flex flex-col justify-center">
-                <div 
-                  className="relative w-full h-full cursor-zoom-in group/img"
-                  onClick={() => setLightboxState({ isOpen: true, src: activeSlide.image, alt: `${getModuleLabel(currentSlideIndex)} — ${getSlideTitle(activeSlide, lang)}` })}
-                >
+                <div className="relative w-full h-full group/img">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={activeSlide.id}
@@ -570,7 +567,15 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.2 }}
-                      className="relative w-full h-full"
+                      className="relative w-full h-full cursor-pointer"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setLightboxState({
+                          isOpen: true,
+                          src: activeSlide.image,
+                          alt: `${getModuleLabel(currentSlideIndex)} — ${getSlideTitle(activeSlide, lang)}`,
+                        });
+                      }}
                     >
                       <Image
                         src={activeSlide.image}
@@ -582,12 +587,23 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
                     </motion.div>
                   </AnimatePresence>
 
-                  {/* Click to Zoom Overlay Badge */}
-                  <div className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-md border border-white/20 text-white text-[10px] sm:text-xs font-mono flex items-center gap-1.5 opacity-90 group-hover/img:opacity-100 transition-opacity shadow-lg">
-                    <ZoomIn className="w-3.5 h-3.5 text-amber-400" />
+                  {/* Explicit Click to Zoom Overlay Button */}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setLightboxState({
+                        isOpen: true,
+                        src: activeSlide.image,
+                        alt: `${getModuleLabel(currentSlideIndex)} — ${getSlideTitle(activeSlide, lang)}`,
+                      });
+                    }}
+                    className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-black/80 hover:bg-amber-500 hover:text-black transition-all border border-white/20 text-white text-[10px] sm:text-xs font-mono flex items-center gap-1.5 opacity-90 group-hover/img:opacity-100 shadow-lg z-10 cursor-pointer"
+                  >
+                    <ZoomIn className="w-3.5 h-3.5" />
                     <span className="hidden sm:inline">Klik untuk Perbesar</span>
                     <span className="sm:hidden">Zoom</span>
-                  </div>
+                  </button>
 
                   {/* Navigation Arrows */}
                   <button
