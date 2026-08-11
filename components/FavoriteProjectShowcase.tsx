@@ -22,7 +22,9 @@ import {
   Target,
   FileText,
   Layers,
+  Maximize2,
 } from "lucide-react";
+import { ImageLightbox } from "@/components/ImageLightbox";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -461,6 +463,7 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
   const { t, lang } = useLanguage();
   const slides = project.slides || [];
   const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0);
+  const [isLightboxOpen, setIsLightboxOpen] = React.useState(false);
   const tabsRef = React.useRef<HTMLDivElement>(null);
 
   const activeSlide: ProjectSlide | undefined = slides[currentSlideIndex] || slides[0];
@@ -482,7 +485,7 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
 
   return (
     <>
-      <DialogContent className="sm:max-w-4xl max-h-[94vh] overflow-y-auto p-4 sm:p-6 md:p-8 gap-6 border-amber-500/30 shadow-2xl bg-card block space-y-6" suppressHydrationWarning>
+      <DialogContent className="sm:max-w-4xl max-h-[85vh] sm:max-h-[88vh] overflow-y-auto p-4 sm:p-6 md:p-8 gap-6 border-amber-500/30 shadow-2xl bg-card block space-y-6" suppressHydrationWarning>
         {/* Modal Header - Unpinned, scrolls naturally with page */}
         <DialogHeader className="bg-gradient-to-r from-amber-950/30 via-card to-card p-4 sm:p-6 rounded-xl border border-border/80">
           <div className="flex items-center gap-2 text-xs font-mono text-amber-500 font-bold uppercase tracking-wider mb-1.5">
@@ -550,7 +553,11 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
             <div className="space-y-6">
               {/* FOTO SPREAD ATAS: Fits 100% full screenshot without cropping */}
               <div className="relative group rounded-xl border border-border/80 bg-slate-950/90 overflow-hidden shadow-xl aspect-[2.03/1] w-full flex flex-col justify-center">
-                <div className="relative w-full h-full">
+                <div 
+                  className="relative w-full h-full cursor-pointer group/img" 
+                  onClick={() => setIsLightboxOpen(true)}
+                  title={t.projects.clickToEnlarge}
+                >
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={activeSlide.id}
@@ -564,23 +571,31 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
                         src={activeSlide.image}
                         alt={getSlideTitle(activeSlide, lang)}
                         fill
-                        className="object-contain"
+                        className="object-contain transition-transform duration-300 group-hover/img:scale-102"
                         priority
                       />
                     </motion.div>
                   </AnimatePresence>
 
+                  {/* Hover Overlay Hint */}
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center pointer-events-none z-10">
+                    <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/85 backdrop-blur-md border border-amber-500/40 text-amber-300 text-xs font-bold shadow-2xl tracking-wide">
+                      <Maximize2 className="w-4 h-4 text-amber-400 animate-pulse" />
+                      <span>{t.projects.clickToEnlarge}</span>
+                    </div>
+                  </div>
+
                   {/* Navigation Arrows */}
                   <button
                     onClick={(e) => { e.stopPropagation(); handlePrev(); }}
-                    className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/70 backdrop-blur-md text-white border border-white/20 hover:bg-amber-500 transition-all shadow-lg z-10"
+                    className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/70 backdrop-blur-md text-white border border-white/20 hover:bg-amber-500 transition-all shadow-lg z-20"
                     title="Modul Sebelumnya"
                   >
                     <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
                   <button
                     onClick={(e) => { e.stopPropagation(); handleNext(); }}
-                    className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/70 backdrop-blur-md text-white border border-white/20 hover:bg-amber-500 transition-all shadow-lg z-10"
+                    className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/70 backdrop-blur-md text-white border border-white/20 hover:bg-amber-500 transition-all shadow-lg z-20"
                     title="Modul Selanjutnya"
                   >
                     <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -716,7 +731,23 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
             Bumi Wiraraja Group ERP System Spec.v2
           </span>
         </div>
-    </DialogContent>
-  </>
-);
+      </DialogContent>
+
+      {/* Fullscreen Lightbox Modal */}
+      {activeSlide && (
+        <ImageLightbox
+          isOpen={isLightboxOpen}
+          onClose={() => setIsLightboxOpen(false)}
+          src={activeSlide.image}
+          alt={getSlideTitle(activeSlide, lang)}
+          title={getSlideTitle(activeSlide, lang)}
+          subtitle={`${getProjectTitle(project, lang)} • ${getModuleLabel(currentSlideIndex)}`}
+          currentIndex={currentSlideIndex}
+          totalImages={slides.length}
+          onPrev={handlePrev}
+          onNext={handleNext}
+        />
+      )}
+    </>
+  );
 }

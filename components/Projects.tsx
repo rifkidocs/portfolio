@@ -10,7 +10,9 @@ import {
   Globe,
   Plus,
   ArrowRight,
+  Maximize2,
 } from "lucide-react";
+import { ImageLightbox } from "@/components/ImageLightbox";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -25,7 +27,7 @@ import { projects, Project, getProjectTitle, getProjectDescription } from "@/lib
 import { useLanguage } from "@/lib/language-context";
 
 export function Projects() {
-  const { t, lang } = useLanguage();
+  const { t } = useLanguage();
   const favoriteProjects = projects.filter((project) => project.isFavorite);
   const featuredProjects = projects.filter((project) => project.featured && !project.isFavorite);
   const otherProjects = projects.filter((project) => !project.featured && !project.isFavorite);
@@ -225,119 +227,146 @@ function OtherProjectCard({ project, index }: { project: Project; index: number 
 
 function ProjectDialogContent({ project }: { project: Project }) {
   const { t, lang } = useLanguage();
+  const [isLightboxOpen, setIsLightboxOpen] = React.useState(false);
+  const title = getProjectTitle(project, lang);
 
   return (
-    <DialogContent className="sm:max-w-3xl max-h-[96vh] md:max-h-[90vh] overflow-y-auto p-0 gap-0 border-none shadow-2xl flex flex-col">
-      {/* Premium Header with Image */}
-      <div className="relative aspect-video w-full group shrink-0 max-h-[220px] sm:max-h-[300px] overflow-hidden bg-slate-950">
-        {project.image && project.image !== "/api/placeholder/600/400" ? (
-          <Image
-            src={project.image}
-            alt={getProjectTitle(project, lang)}
-            fill
-            className="object-contain"
-          />
-        ) : (
-          <div className="absolute inset-0 bg-muted flex items-center justify-center">
-            <Code2 className="w-20 h-20 text-muted-foreground opacity-10" />
-          </div>
-        )}
-        <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent opacity-60" />
-        
-        {/* Status Badge on Image */}
-        <div className="absolute top-4 left-4 z-10">
-          <Badge className="bg-primary text-primary-foreground border-none px-3 py-1 text-[10px] font-bold uppercase tracking-widest shadow-lg">
-            {t.projects.activeStatus}
-          </Badge>
-        </div>
-      </div>
-
-      <div className="p-6 md:p-8 -mt-8 relative bg-background rounded-t-[1.5rem] flex-1 overflow-y-auto">
-        <DialogHeader className="mb-6">
-          <div className="flex items-center gap-2 text-[10px] font-mono text-primary mb-3 uppercase tracking-[0.2em] font-bold">
-            <span className="px-1.5 py-0.5 bg-primary/10 rounded">Spec.v1</span>
-            <span className="text-muted-foreground">/</span>
-            <span>Ref: {project.id.padStart(3, '0')}</span>
-          </div>
-          <DialogTitle className="text-3xl md:text-4xl font-extrabold tracking-tight leading-none mb-2">
-            {getProjectTitle(project, lang)}
-          </DialogTitle>
-        </DialogHeader>
-        
-        <div className="grid md:grid-cols-3 gap-10">
-          {/* Main Content - 2 cols */}
-          <div className="md:col-span-2 space-y-8">
-            <section className="space-y-3">
-              <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-foreground">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                <h4>{t.projects.abstract}</h4>
-              </div>
-              <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
-                {getProjectDescription(project, lang)}
-              </p>
-            </section>
-
-            <section className="space-y-4">
-              <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-foreground">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                <h4>{t.projects.stackHeader}</h4>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {project.techStack.map((tech) => (
-                  <div 
-                    key={tech} 
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-muted/50 border text-xs font-medium hover:bg-muted transition-colors"
-                  >
-                    <div className="w-1 h-1 rounded-full bg-muted-foreground/40" />
-                    {tech}
-                  </div>
-                ))}
-              </div>
-            </section>
+    <>
+      <DialogContent className="sm:max-w-3xl max-h-[85vh] sm:max-h-[88vh] overflow-y-auto p-0 gap-0 border-none shadow-2xl flex flex-col">
+        {/* Premium Header with Image */}
+        <div 
+          className="relative aspect-video w-full group shrink-0 max-h-[220px] sm:max-h-[300px] overflow-hidden bg-slate-950 cursor-pointer"
+          onClick={() => setIsLightboxOpen(true)}
+          title={t.projects.clickToEnlarge}
+        >
+          {project.image && project.image !== "/api/placeholder/600/400" ? (
+            <Image
+              src={project.image}
+              alt={title}
+              fill
+              className="object-contain transition-transform duration-300 group-hover:scale-105"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-muted flex items-center justify-center">
+              <Code2 className="w-20 h-20 text-muted-foreground opacity-10" />
+            </div>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
+          
+          {/* Hover Overlay Hint */}
+          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none z-10">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/85 backdrop-blur-md border border-primary/40 text-primary-foreground text-xs font-bold shadow-2xl tracking-wide">
+              <Maximize2 className="w-4 h-4 text-primary animate-pulse" />
+              <span>{t.projects.clickToEnlarge}</span>
+            </div>
           </div>
 
-          {/* Sidebar - 1 col */}
-          <div className="space-y-8">
-            <section className="p-6 rounded-xl bg-muted/30 border border-muted-foreground/10 space-y-6">
-              <div className="space-y-4">
-                <h5 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t.projects.deployment}</h5>
-                <div className="space-y-2">
-                  {project.liveUrl && (
-                    <Button variant="default" size="sm" asChild className="w-full justify-start font-bold shadow-sm h-10">
-                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                        <Globe className="w-4 h-4 mr-2" />
-                        {t.projects.liveInstance}
-                      </a>
-                    </Button>
-                  )}
-                  {project.githubUrl && (
-                    <Button variant="outline" size="sm" asChild className="w-full justify-start font-bold h-10">
-                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                        <Github className="w-4 h-4 mr-2" />
-                        {t.projects.repository}
-                      </a>
-                    </Button>
-                  )}
-                </div>
-              </div>
-
-              <div className="pt-6 border-t border-muted-foreground/10 space-y-4">
-                <h5 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t.projects.metaData}</h5>
-                <div className="grid grid-cols-2 gap-4 text-[10px] font-mono">
-                  <div>
-                    <span className="text-muted-foreground block mb-1">{t.projects.specVersion}</span>
-                    <span className="font-bold">1.0.4-stable</span>
-                  </div>
-                  <div>
-                    <span className="text-muted-foreground block mb-1">{t.projects.license}</span>
-                    <span className="font-bold">MIT-Standard</span>
-                  </div>
-                </div>
-              </div>
-            </section>
+          {/* Status Badge on Image */}
+          <div className="absolute top-4 left-4 z-10">
+            <Badge className="bg-primary text-primary-foreground border-none px-3 py-1 text-[10px] font-bold uppercase tracking-widest shadow-lg">
+              {t.projects.activeStatus}
+            </Badge>
           </div>
         </div>
-      </div>
-    </DialogContent>
+
+        <div className="p-6 md:p-8 -mt-8 relative bg-background rounded-t-[1.5rem] flex-1 overflow-y-auto">
+          <DialogHeader className="mb-6">
+            <div className="flex items-center gap-2 text-[10px] font-mono text-primary mb-3 uppercase tracking-[0.2em] font-bold">
+              <span className="px-1.5 py-0.5 bg-primary/10 rounded">Spec.v1</span>
+              <span className="text-muted-foreground">/</span>
+              <span>Ref: {project.id.padStart(3, '0')}</span>
+            </div>
+            <DialogTitle className="text-3xl md:text-4xl font-extrabold tracking-tight leading-none mb-2">
+              {title}
+            </DialogTitle>
+          </DialogHeader>
+          
+          <div className="grid md:grid-cols-3 gap-10">
+            {/* Main Content - 2 cols */}
+            <div className="md:col-span-2 space-y-8">
+              <section className="space-y-3">
+                <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-foreground">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  <h4>{t.projects.abstract}</h4>
+                </div>
+                <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
+                  {getProjectDescription(project, lang)}
+                </p>
+              </section>
+
+              <section className="space-y-4">
+                <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-foreground">
+                  <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  <h4>{t.projects.stackHeader}</h4>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {project.techStack.map((tech) => (
+                    <div 
+                      key={tech} 
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-muted/50 border text-xs font-medium hover:bg-muted transition-colors"
+                    >
+                      <div className="w-1 h-1 rounded-full bg-muted-foreground/40" />
+                      {tech}
+                    </div>
+                  ))}
+                </div>
+              </section>
+            </div>
+
+            {/* Sidebar - 1 col */}
+            <div className="space-y-8">
+              <section className="p-6 rounded-xl bg-muted/30 border border-muted-foreground/10 space-y-6">
+                <div className="space-y-4">
+                  <h5 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t.projects.deployment}</h5>
+                  <div className="space-y-2">
+                    {project.liveUrl && (
+                      <Button variant="default" size="sm" asChild className="w-full justify-start font-bold shadow-sm h-10">
+                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                          <Globe className="w-4 h-4 mr-2" />
+                          {t.projects.liveInstance}
+                        </a>
+                      </Button>
+                    )}
+                    {project.githubUrl && (
+                      <Button variant="outline" size="sm" asChild className="w-full justify-start font-bold h-10">
+                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                          <Github className="w-4 h-4 mr-2" />
+                          {t.projects.repository}
+                        </a>
+                      </Button>
+                    )}
+                  </div>
+                </div>
+
+                <div className="pt-6 border-t border-muted-foreground/10 space-y-4">
+                  <h5 className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{t.projects.metaData}</h5>
+                  <div className="grid grid-cols-2 gap-4 text-[10px] font-mono">
+                    <div>
+                      <span className="text-muted-foreground block mb-1">{t.projects.specVersion}</span>
+                      <span className="font-bold">1.0.4-stable</span>
+                    </div>
+                    <div>
+                      <span className="text-muted-foreground block mb-1">{t.projects.license}</span>
+                      <span className="font-bold">MIT-Standard</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </DialogContent>
+
+      {project.image && project.image !== "/api/placeholder/600/400" && (
+        <ImageLightbox
+          isOpen={isLightboxOpen}
+          onClose={() => setIsLightboxOpen(false)}
+          src={project.image}
+          alt={title}
+          title={title}
+          subtitle={project.techStack.join(" • ")}
+        />
+      )}
+    </>
   );
 }

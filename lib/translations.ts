@@ -93,6 +93,8 @@ export const translations = {
       githubRepoLink: "GitHub Repository",
       modulPreview: "Visual Preview Modul",
       capabilitiesHeader: "Kapabilitas & Fitur Utama",
+      clickToEnlarge: "Klik gambar untuk preview full screen",
+      fullscreenHint: "Preview Full Screen",
     },
 
     // Favorite Project Modules
@@ -263,6 +265,8 @@ export const translations = {
       githubRepoLink: "GitHub Repository",
       modulPreview: "Module Visual Preview",
       capabilitiesHeader: "Key Capabilities & Features",
+      clickToEnlarge: "Click image for full screen preview",
+      fullscreenHint: "Full Screen Preview",
     },
 
     // Favorite Project Modules
