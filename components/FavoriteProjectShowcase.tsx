@@ -101,12 +101,12 @@ export function FavoriteProjectShowcase({ project, index = 0 }: FavoriteProjectS
 
             <div className="grid md:grid-cols-5 gap-0">
               {/* Project Image - 2 cols */}
-              <div className="md:col-span-2 relative aspect-video bg-muted border-r border-border/60 overflow-hidden">
+              <div className="md:col-span-2 relative aspect-[2.03/1] md:aspect-auto bg-slate-950 border-r border-border/60 overflow-hidden min-h-[160px]">
                 <Image
                   src={project.image}
                   alt={getProjectTitle(project, lang)}
                   fill
-                  className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                  className="object-contain opacity-95 group-hover:opacity-100 group-hover:scale-102 transition-all duration-500 p-1"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-70 group-hover:opacity-50 transition-opacity" />
 
@@ -259,8 +259,8 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
 
         {activeSlide && (
           <div className="space-y-6">
-            {/* FOTO SPREAD ATAS */}
-            <div className="relative group rounded-xl border border-border/80 bg-black/60 overflow-hidden shadow-xl aspect-video w-full flex flex-col justify-center">
+            {/* FOTO SPREAD ATAS: Fits 100% full screenshot without cropping */}
+            <div className="relative group rounded-xl border border-border/80 bg-slate-950/90 overflow-hidden shadow-xl aspect-[2.03/1] w-full flex flex-col justify-center">
               <div className="relative w-full h-full">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -275,7 +275,7 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
                       src={activeSlide.image}
                       alt={getSlideTitle(activeSlide, lang)}
                       fill
-                      className="object-cover"
+                      className="object-contain"
                       priority
                     />
                   </motion.div>
