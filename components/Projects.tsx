@@ -21,11 +21,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { FavoriteProjectShowcase } from "@/components/FavoriteProjectShowcase";
 import { projects, Project } from "@/lib/data";
 
 export function Projects() {
-  const featuredProjects = projects.filter((project) => project.featured);
-  const otherProjects = projects.filter((project) => !project.featured);
+  const favoriteProjects = projects.filter((project) => project.isFavorite);
+  const featuredProjects = projects.filter((project) => project.featured && !project.isFavorite);
+  const otherProjects = projects.filter((project) => !project.featured && !project.isFavorite);
 
   return (
     <section id='projects' className='py-16 lg:py-24 border-b'>
@@ -40,13 +42,18 @@ export function Projects() {
         >
           <div className="flex items-center gap-2 text-xs font-mono text-primary mb-4">
             <Layers className="w-3 h-3" />
-            <span>Showcase</span>
+            <span>Showcase & Portfolio</span>
           </div>
           <h2 className='text-3xl md:text-4xl font-bold tracking-tight mb-6'>Reference Projects</h2>
           <p className='text-lg text-muted-foreground leading-relaxed'>
-            A collection of production-ready applications and technical experiments.
+            A collection of production-ready applications, enterprise platforms, and technical experiments.
           </p>
         </motion.div>
+
+        {/* Favorite Projects Spotlight (Standout Showcase) */}
+        {favoriteProjects.map((favProject) => (
+          <FavoriteProjectShowcase key={favProject.id} project={favProject} />
+        ))}
 
         {/* Featured Projects Grid */}
         <div className='grid gap-8 mb-20'>

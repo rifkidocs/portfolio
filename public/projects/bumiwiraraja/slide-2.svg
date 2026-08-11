@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#064e3b"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.07)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.02)"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bgGrad)"/>
+  <circle cx="250" cy="500" r="280" fill="#059669" opacity="0.15" filter="blur(70px)"/>
+  <circle cx="950" cy="200" r="240" fill="#0891b2" opacity="0.15" filter="blur(70px)"/>
+
+  <!-- App Frame Header -->
+  <rect x="60" y="50" width="1080" height="575" rx="16" fill="rgba(15, 23, 42, 0.85)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+  <rect x="60" y="50" width="1080" height="48" rx="16" fill="rgba(30, 41, 59, 0.9)"/>
+  <circle cx="90" cy="74" r="6" fill="#ef4444"/>
+  <circle cx="110" cy="74" r="6" fill="#eab308"/>
+  <circle cx="130" cy="74" r="6" fill="#22c55e"/>
+  <text x="185" y="78" fill="#94a3b8" font-family="sans-serif" font-size="12">bumiwirarajagroup.com/admin/project/daily-progress</text>
+
+  <!-- Sidebar Wireframe -->
+  <rect x="80" y="118" width="200" height="487" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.05)"/>
+  <rect x="100" y="180" width="160" height="28" rx="6" fill="url(#accentGrad)"/>
+  <text x="115" y="198" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="12">🏗️ Progres Harian</text>
+
+  <!-- Content -->
+  <text x="305" y="148" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="22">Progres Harian & Status Unit Rumah / Fasum</text>
+  <text x="305" y="168" fill="#94a3b8" font-family="sans-serif" font-size="13">Pencatatan real-time progres lapangan per documentId unit & fasilitas perumahan</text>
+
+  <!-- Filter Bar -->
+  <rect x="305" y="190" width="805" height="50" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)"/>
+  <rect x="320" y="202" width="220" height="26" rx="6" fill="rgba(255,255,255,0.08)"/>
+  <text x="335" y="219" fill="#94a3b8" font-family="sans-serif" font-size="12">🔍 Cari Unit: Blok A-12 (Tipe 36)...</text>
+  <rect x="555" y="202" width="160" height="26" rx="6" fill="rgba(255,255,255,0.08)"/>
+  <text x="570" y="219" fill="#94a3b8" font-family="sans-serif" font-size="12">Status: Published ▼</text>
+  <rect x="730" y="202" width="160" height="26" rx="6" fill="url(#accentGrad)"/>
+  <text x="745" y="219" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="12">+ Lapor Progres Baru</text>
+
+  <!-- Data Table & Photos Grid -->
+  <rect x="305" y="255" width="530" height="340" rx="10" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.1)"/>
+  <text x="325" y="285" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="14">Daftar Laporan Progres Konstruksi</text>
+
+  <rect x="325" y="300" width="490" height="40" rx="6" fill="rgba(255,255,255,0.04)"/>
+  <text x="340" y="324" fill="#ffffff" font-family="sans-serif" font-size="12">Blok A-12 (Pemasangan Atap Galvalum) - 85%</text>
+  <rect x="720" y="310" width="80" height="20" rx="10" fill="#10b981"/>
+  <text x="732" y="324" fill="#ffffff" font-family="sans-serif" font-size="10" font-weight="bold">Published</text>
+
+  <rect x="325" y="350" width="490" height="40" rx="6" fill="rgba(255,255,255,0.04)"/>
+  <text x="340" y="374" fill="#ffffff" font-family="sans-serif" font-size="12">Fasum Taman & Paving Jalan Utama - 60%</text>
+  <rect x="720" y="360" width="80" height="20" rx="10" fill="#10b981"/>
+  <text x="732" y="374" fill="#ffffff" font-family="sans-serif" font-size="10" font-weight="bold">Published</text>
+
+  <rect x="325" y="400" width="490" height="40" rx="6" fill="rgba(255,255,255,0.04)"/>
+  <text x="340" y="424" fill="#ffffff" font-family="sans-serif" font-size="12">Blok C-04 (Plester Dinding Pasangan Bata) - 40%</text>
+  <rect x="720" y="410" width="80" height="20" rx="10" fill="#f59e0b"/>
+  <text x="742" y="424" fill="#ffffff" font-family="sans-serif" font-size="10" font-weight="bold">Draft</text>
+
+  <!-- Photo Log Gallery Card -->
+  <rect x="850" y="255" width="260" height="340" rx="10" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.1)"/>
+  <text x="865" y="285" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="14">Foto Dokumentasi Lapangan</text>
+  <rect x="865" y="300" width="110" height="80" rx="6" fill="rgba(255,255,255,0.06)"/>
+  <rect x="985" y="300" width="110" height="80" rx="6" fill="rgba(255,255,255,0.06)"/>
+  <rect x="865" y="390" width="110" height="80" rx="6" fill="rgba(255,255,255,0.06)"/>
+  <rect x="985" y="390" width="110" height="80" rx="6" fill="rgba(255,255,255,0.06)"/>
+
+  <!-- Watermark Badge -->
+  <g transform="translate(970, 70)">
+    <rect width="150" height="26" rx="13" fill="url(#accentGrad)"/>
+    <text x="75" y="17" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="11" text-anchor="middle">SLIDE 2 / 6</text>
+  </g>
+</svg>

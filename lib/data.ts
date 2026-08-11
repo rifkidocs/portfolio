@@ -1,12 +1,25 @@
+export interface ProjectSlide {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  keyFeatures: string[];
+  image: string;
+  techTags: string[];
+}
+
 export interface Project {
   id: string;
   title: string;
+  tagline?: string;
   description: string;
   image: string;
   techStack: string[];
   liveUrl?: string;
   githubUrl?: string;
   featured: boolean;
+  isFavorite?: boolean;
+  slides?: ProjectSlide[];
 }
 
 export interface Experience {
@@ -32,6 +45,149 @@ export interface SocialLink {
 }
 
 export const projects: Project[] = [
+  {
+    id: "bumi-wiraraja",
+    title: "Bumi Wiraraja Group — Enterprise Property & Housing System",
+    tagline: "Favorite Portfolio: Multi-Housing ERP & Construction Management Platform",
+    description:
+      "Sistem ERP Pengelolaan Properti & Konstruksi Perumahan Terpadu untuk PT Bumi Wiraraja Group. Mengintegrasikan pemantauan progres fisik harian unit & fasum/fasos, akuntansi piutang konsumen & hutang supplier, logistik pergudangan material, HRM absensi tukang & subkontraktor, serta administrasi booking unit & sales pipeline dalam satu sistem enterprise terpusat.",
+    image: "/projects/bumiwiraraja/slide-1.svg",
+    techStack: [
+      "Next.js 15",
+      "React 19",
+      "Strapi v4",
+      "Tailwind CSS",
+      "PostgreSQL",
+      "CurrencyInput",
+      "Framer Motion",
+      "Recharts",
+    ],
+    liveUrl: "https://bumiwirarajagroup.com/",
+    featured: true,
+    isFavorite: true,
+    slides: [
+      {
+        id: "slide-1",
+        title: "Executive Dashboard & Multi-Project Analytics",
+        subtitle: "Pusat Kontrol High-Level Operations & Liquidity Hub",
+        description:
+          "Dashboard eksekutif real-time yang menyajikan indikator kinerja utama (KPI) seluruh proyek perumahan Bumi Wiraraja Group. Menampilkan agregasi total unit perumahan, statistik progres fisik konstruksi rata-rata (Kurva-S), tingkat kolektabilitas piutang konsumen, serta monitoring jumlah tenaga kerja aktif secara langsung.",
+        keyFeatures: [
+          "Multi-Project Housing Selector & Global Filtering",
+          "Real-time KPI Counters & Financial Collection Rate Chart",
+          "Monitoring Kurva-S Progres Konstruksi vs Target Timeline",
+          "Aktivitas Terkini (Activity Feed) Pembangunan & Keuangan",
+        ],
+        image: "/projects/bumiwiraraja/slide-1.svg",
+        techTags: ["Next.js 15", "Recharts", "Strapi REST API", "Tailwind CSS"],
+      },
+      {
+        id: "slide-9",
+        title: "Master Data Perumahan, Developer & Tipe Unit",
+        subtitle: "Struktur Organisasi Proyek, Developer Pengembang & Master Kavling",
+        description:
+          "Modul pengelolaan data induk proyek perumahan yang mencakup informasi lokasi, developer pengembang, tipe unit rumah (Tipe 36, 45, 54, 70), luas tanah/bangunan, serta spesifikasi denah arsitektur.",
+        keyFeatures: [
+          "Pencatatan Master Developer & Perusahaan Pengembang",
+          "Pengelolaan Tipe Unit Rumah, Blok & Denah Kavling",
+          "Konfigurasi Spesifikasi Material & Harga Dasar Unit",
+          "Integrasi ke Matrix Siteplan & Sistem Marketing",
+        ],
+        image: "/projects/bumiwiraraja/slide-9.svg",
+        techTags: ["Master Data", "Entity Relations", "Strapi Collection", "React UI"],
+      },
+      {
+        id: "slide-2",
+        title: "Progres Harian & Monitoring Pembangunan Unit",
+        subtitle: "Tracking Konstruksi Per Unit Rumah & Fasilitas Umum (Fasum/Fasos)",
+        description:
+          "Modul pelaporan progres fisik harian di lapangan yang mendukung filtering berbasis unit perumahan (`unit_rumah`) dan fasilitas umum (`fasilitas_proyek`). Dilengkapi workflow `status_dokumen` (Draft & Published) untuk otorisasi supervisor sebelum tersinkronisasi ke sistem progres fisik utama.",
+        keyFeatures: [
+          "Filtering Pencarian Unit & Dokumen Progres Lapangan",
+          "Dukungan Progres Unit Rumah & Infrastruktur/Fasum/Fasos",
+          "Sistem Otorisasi Status Dokumen (Draft & Published)",
+          "Dokumentasi Foto Lapangan & Rincian Konsumsi Material Harian",
+        ],
+        image: "/projects/bumiwiraraja/slide-2.svg",
+        techTags: ["React 19", "Debounced Search", "Strapi Lifecycles", "Media Upload"],
+      },
+      {
+        id: "slide-6",
+        title: "Marketing & Matrix Status Unit Kavling Perumahan",
+        subtitle: "Interactive Siteplan Matrix, Booking Reservation & Sales Pipeline",
+        description:
+          "Modul administrasi pemasaran yang menyajikan status ketersediaan kavling rumah (Available, Booked, Sold) secara visual. Memfasilitasi pendaftaran booking awal konsumen, penerbitan Surat Pesanan Rumah (SPR), dan pelacakan performa agen sales.",
+        keyFeatures: [
+          "Matrix Visual Kavling Perumahan (Color-coded Unit Status)",
+          "Pendaftaran Reservasi Unit & Auto-Generate ID Booking",
+          "Simulasi KPR & Perhitungan Estimasi Angsuran Bank",
+          "Laporan Rekapitulasi & Komisi Agent Sales Marketing",
+        ],
+        image: "/projects/bumiwiraraja/slide-6.svg",
+        techTags: ["Unit Grid Matrix", "Booking Pipeline", "React State", "Next.js"],
+      },
+      {
+        id: "slide-3",
+        title: "Manajemen Piutang Konsumen & Pos Keuangan Ledger",
+        subtitle: "Automated Payment Schedules, Currency Input & Multi-Pos Ledger",
+        description:
+          "Sistem manajemen piutang konsumen dan kas keuangan terpadu. Dilengkapi pencarian debounced ID Booking dengan fitur auto-fill otomatis data Konsumen, Proyek, dan Unit Rumah, serta komponen CurrencyInput terstandarisasi untuk nominal ratusan juta rupiah secara presisi.",
+        keyFeatures: [
+          "Debounced Search Booking ID dengan Auto-Fill Lintas Entity",
+          "Komponen CurrencyInput Presisi IDR (Preserve Cursor Position)",
+          "Integrasi Relasi Pos Keuangan (Rekening Bank & Kas Tunai)",
+          "Pencatatan Terpusat Collection `riwayat-pembayaran` per Transaksi",
+        ],
+        image: "/projects/bumiwiraraja/slide-3.svg",
+        techTags: ["Custom CurrencyInput", "Pos Keuangan Relation", "Context API", "PostgreSQL"],
+      },
+      {
+        id: "slide-4",
+        title: "Tagihan Hutang Supplier & Logistik Pergudangan",
+        subtitle: "Warehouse Receiving, Inventory Control & Vendor Debt Settlement",
+        description:
+          "Modul logistik gudang dan manajemen pembayaran supplier. Membantu tim verifikasi penerimaan barang (Receiving) mencocokkan stok masuk dengan Purchase Order (PO) serta mengelola jadwal pelunasan tagihan hutang ke supplier bahan bangunan.",
+        keyFeatures: [
+          "Filter Status Penerimaan Barang Gudang & Pencarian Kategori Material",
+          "Pencatatan Rekonsiliasi Surat Jalan Supplier vs PO",
+          "Pelaksanaan Pembayaran Tagihan Hutang via Relasi Pos Keuangan",
+          "Monitoring Saldo Debt Ledger Supplier Real-time",
+        ],
+        image: "/projects/bumiwiraraja/slide-4.svg",
+        techTags: ["Warehouse Inventory", "Supplier Ledger", "Strapi API", "PostgreSQL"],
+      },
+      {
+        id: "slide-5",
+        title: "HRM & Absensi Tenaga Kerja Proyek (Worker & Subkontraktor)",
+        subtitle: "Site Workforce Scheduling, Shift Matrix & Task Distribution",
+        description:
+          "Modul manajemen sumber daya manusia (HRM) lapangan yang mengelola absensi harian tukang/mandor, penjadwalan shift kerja, serta penugasan pekerjaan ke subkontraktor proyek. Didesain dengan antarmuka ringkas (compact layout & kebab menu actions).",
+        keyFeatures: [
+          "Antarmuka Kebab Action Dropdown Menu & Form Compact 1.5 Spacing",
+          "Penjadwalan Shift Pekerja & Presensi Harian Lapangan",
+          "Manajemen Kontrak Subkontraktor & Penugasan Tugas Konstruksi",
+          "Pengaturan Hak Akses Role Proyek (RBAC Strapi)",
+        ],
+        image: "/projects/bumiwiraraja/slide-5.svg",
+        techTags: ["HRM Module", "Shadcn UI", "Permissions JS", "Tailwind CSS"],
+      },
+      {
+        id: "slide-8",
+        title: "Accounting, Plotting COA & Jurnal Buku Besar",
+        subtitle: "Chart of Accounts (COA), Operational Plotting & General Ledger",
+        description:
+          "Sistem akuntansi perusahaan yang mengelola pengkodean akun COA, antrean plotting jurnal dari transaksi operasional, buku besar per akun, serta laporan laba rugi dan neraca keuangan proyek perumahan.",
+        keyFeatures: [
+          "Antrean Plotting Kode Akun COA untuk Transaksi Operasional",
+          "Pengelolaan Master Chart of Accounts (COA) Lintas Proyek",
+          "Mutasi Kas/Bank & Jurnal Otomatis/Manual",
+          "Laporan Arus Kas, Laba Rugi Proyek & Neraca Keuangan",
+        ],
+        image: "/projects/bumiwiraraja/slide-8.svg",
+        techTags: ["COA Engine", "Accounting Ledger", "Financial Reports", "PostgreSQL"],
+      },
+    ],
+  },
   {
     id: "17",
     title: "MomenPesta - Digital Invitation SaaS",

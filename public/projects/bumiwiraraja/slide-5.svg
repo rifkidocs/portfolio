@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.07)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.02)"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bgGrad)"/>
+  <circle cx="300" cy="450" r="250" fill="#2563eb" opacity="0.15" filter="blur(70px)"/>
+
+  <!-- App Frame Header -->
+  <rect x="60" y="50" width="1080" height="575" rx="16" fill="rgba(15, 23, 42, 0.85)" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+  <rect x="60" y="50" width="1080" height="48" rx="16" fill="rgba(30, 41, 59, 0.9)"/>
+  <circle cx="90" cy="74" r="6" fill="#ef4444"/>
+  <circle cx="110" cy="74" r="6" fill="#eab308"/>
+  <circle cx="130" cy="74" r="6" fill="#22c55e"/>
+  <text x="185" y="78" fill="#94a3b8" font-family="sans-serif" font-size="12">bumiwirarajagroup.com/admin/hrm/workers</text>
+
+  <!-- Content -->
+  <text x="305" y="148" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="22">HRM & Manajemen Tenaga Kerja Proyek</text>
+  <text x="305" y="168" fill="#94a3b8" font-family="sans-serif" font-size="13">Manajemen Pekerja, Jadwal Shift, Penugasan Task & Subkontraktor dengan Kebab Dropdown UX</text>
+
+  <!-- Grid -->
+  <rect x="305" y="195" width="530" height="400" rx="12" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.1)"/>
+  <text x="325" y="230" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="15">👷 Data Pekerja & Shift Proyek (Tukang / Mandor)</text>
+
+  <rect x="325" y="260" width="490" height="50" rx="6" fill="rgba(255,255,255,0.05)"/>
+  <text x="345" y="285" fill="#ffffff" font-family="sans-serif" font-size="12">Budi Santoso — Tukang Batu Utama (Shift Pagi: 07:00 - 16:00)</text>
+  <circle cx="790" cy="285" r="3" fill="#94a3b8"/>
+  <circle cx="790" cy="280" r="3" fill="#94a3b8"/>
+  <circle cx="790" cy="290" r="3" fill="#94a3b8"/>
+
+  <rect x="325" y="320" width="490" height="50" rx="6" fill="rgba(255,255,255,0.05)"/>
+  <text x="345" y="345" fill="#ffffff" font-family="sans-serif" font-size="12">Ahmad Supardi — Mandor Subkontraktor Atap & Plafon</text>
+
+  <!-- Shift & Schedule Card -->
+  <rect x="855" y="195" width="255" height="400" rx="12" fill="url(#cardGrad)" stroke="rgba(255,255,255,0.1)"/>
+  <text x="875" y="230" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="14">📅 Form Penugasan Compact</text>
+  <rect x="875" y="255" width="215" height="28" rx="6" fill="rgba(255,255,255,0.05)"/>
+  <text x="885" y="273" fill="#94a3b8" font-family="sans-serif" font-size="11">Pilih Subkontraktor...</text>
+
+  <!-- Watermark Badge -->
+  <g transform="translate(970, 70)">
+    <rect width="150" height="26" rx="13" fill="url(#accentGrad)"/>
+    <text x="75" y="17" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="11" text-anchor="middle">SLIDE 5 / 6</text>
+  </g>
+</svg>
