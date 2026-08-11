@@ -10,6 +10,7 @@ import {
   Globe,
   Plus,
   ArrowRight,
+  ZoomIn,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -20,7 +21,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { FavoriteProjectShowcase } from "@/components/FavoriteProjectShowcase";
+import { FavoriteProjectShowcase, ImageLightboxModal } from "@/components/FavoriteProjectShowcase";
 import { projects, Project, getProjectTitle, getProjectDescription } from "@/lib/data";
 import { useLanguage } from "@/lib/language-context";
 
@@ -224,34 +225,45 @@ function OtherProjectCard({ project, index }: { project: Project; index: number 
 
 function ProjectDialogContent({ project }: { project: Project }) {
   const { t, lang } = useLanguage();
+  const [isLightboxOpen, setIsLightboxOpen] = React.useState(false);
 
   return (
-    <DialogContent className="sm:max-w-3xl max-h-[96vh] md:max-h-[90vh] overflow-y-auto p-0 gap-0 border-none shadow-2xl flex flex-col">
-      {/* Premium Header with Image */}
-      <div className="relative aspect-video w-full group shrink-0 max-h-[220px] sm:max-h-[300px] overflow-hidden">
-        {project.image && project.image !== "/api/placeholder/600/400" ? (
-          <Image
-            src={project.image}
-            alt={getProjectTitle(project, lang)}
-            fill
-            className="object-cover"
-          />
-        ) : (
-          <div className="absolute inset-0 bg-muted flex items-center justify-center">
-            <Code2 className="w-20 h-20 text-muted-foreground opacity-10" />
+    <>
+      <DialogContent className="sm:max-w-3xl max-h-[96vh] md:max-h-[90vh] overflow-y-auto p-0 gap-0 border-none shadow-2xl flex flex-col">
+        {/* Premium Header with Clickable Image */}
+        <div 
+          className="relative aspect-video w-full group shrink-0 max-h-[220px] sm:max-h-[300px] overflow-hidden cursor-zoom-in bg-slate-950"
+          onClick={() => project.image && setIsLightboxOpen(true)}
+        >
+          {project.image && project.image !== "/api/placeholder/600/400" ? (
+            <>
+              <Image
+                src={project.image}
+                alt={getProjectTitle(project, lang)}
+                fill
+                className="object-contain transition-transform group-hover:scale-[1.02]"
+              />
+              <div className="absolute top-4 right-4 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-md border border-white/20 text-white text-[10px] sm:text-xs font-mono flex items-center gap-1.5 opacity-90 group-hover:opacity-100 transition-opacity shadow-lg z-10">
+                <ZoomIn className="w-3.5 h-3.5 text-primary" />
+                <span>Klik untuk Perbesar</span>
+              </div>
+            </>
+          ) : (
+            <div className="absolute inset-0 bg-muted flex items-center justify-center">
+              <Code2 className="w-20 h-20 text-muted-foreground opacity-10" />
+            </div>
+          )}
+          <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent opacity-60" />
+          
+          {/* Status Badge on Image */}
+          <div className="absolute top-4 left-4 z-10">
+            <Badge className="bg-primary text-primary-foreground border-none px-3 py-1 text-[10px] font-bold uppercase tracking-widest shadow-lg">
+              {t.projects.activeStatus}
+            </Badge>
           </div>
-        )}
-        <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent opacity-60" />
-        
-        {/* Status Badge on Image */}
-        <div className="absolute top-4 left-4">
-          <Badge className="bg-primary text-primary-foreground border-none px-3 py-1 text-[10px] font-bold uppercase tracking-widest shadow-lg">
-            {t.projects.activeStatus}
-          </Badge>
         </div>
-      </div>
 
-      <div className="p-6 md:p-8 -mt-8 relative bg-background rounded-t-[1.5rem] flex-1 overflow-y-auto">
+        <div className="p-6 md:p-8 -mt-8 relative bg-background rounded-t-[1.5rem] flex-1 overflow-y-auto">
         <DialogHeader className="mb-6">
           <div className="flex items-center gap-2 text-[10px] font-mono text-primary mb-3 uppercase tracking-[0.2em] font-bold">
             <span className="px-1.5 py-0.5 bg-primary/10 rounded">Spec.v1</span>
@@ -337,6 +349,14 @@ function ProjectDialogContent({ project }: { project: Project }) {
           </div>
         </div>
       </div>
+
+      <ImageLightboxModal
+        isOpen={isLightboxOpen}
+        onClose={() => setIsLightboxOpen(false)}
+        src={project.image}
+        alt={getProjectTitle(project, lang)}
+      />
     </DialogContent>
-  );
+  </>
+);
 }

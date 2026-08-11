@@ -22,6 +22,9 @@ import {
   Target,
   FileText,
   Layers,
+  ZoomIn,
+  Maximize2,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -400,6 +403,11 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
   const { t, lang } = useLanguage();
   const slides = project.slides || [];
   const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0);
+  const [lightboxState, setLightboxState] = React.useState<{ isOpen: boolean; src: string; alt: string }>({
+    isOpen: false,
+    src: "",
+    alt: "",
+  });
   const tabsRef = React.useRef<HTMLDivElement>(null);
 
   const activeSlide: ProjectSlide | undefined = slides[currentSlideIndex] || slides[0];
@@ -420,123 +428,135 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
   };
 
   return (
-    <DialogContent className="sm:max-w-4xl max-h-[96vh] md:max-h-[92vh] overflow-y-auto p-0 gap-0 border-amber-500/30 shadow-2xl bg-card flex flex-col">
-      {/* Modal Header */}
-      <DialogHeader className="p-6 bg-gradient-to-r from-amber-950/40 via-card to-card border-b border-border shrink-0">
-        <div className="flex items-center gap-2 text-xs font-mono text-amber-500 font-bold uppercase tracking-wider mb-1.5">
-          <Sparkles className="w-4 h-4 fill-amber-500" />
-          <span>Enterprise System Showcase</span>
-        </div>
-        <DialogTitle className="text-2xl md:text-3xl font-extrabold tracking-tight">
-          {getProjectTitle(project, lang)}
-        </DialogTitle>
-        <DialogDescription className="text-xs md:text-sm text-muted-foreground leading-relaxed mt-1">
-          {getProjectDescription(project, lang)}
-        </DialogDescription>
-      </DialogHeader>
+    <>
+      <DialogContent className="sm:max-w-4xl max-h-[96vh] md:max-h-[92vh] overflow-y-auto p-0 gap-0 border-amber-500/30 shadow-2xl bg-card flex flex-col">
+        {/* Modal Header */}
+        <DialogHeader className="p-4 sm:p-6 bg-gradient-to-r from-amber-950/40 via-card to-card border-b border-border shrink-0">
+          <div className="flex items-center gap-2 text-xs font-mono text-amber-500 font-bold uppercase tracking-wider mb-1">
+            <Sparkles className="w-4 h-4 fill-amber-500" />
+            <span>Enterprise System Showcase</span>
+          </div>
+          <DialogTitle className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-tight">
+            {getProjectTitle(project, lang)}
+          </DialogTitle>
+          <DialogDescription className="text-xs sm:text-sm text-muted-foreground leading-relaxed mt-1">
+            {getProjectDescription(project, lang)}
+          </DialogDescription>
+        </DialogHeader>
 
-      <div className="p-6 md:p-8 space-y-6 flex-1 overflow-y-auto">
-        {/* Module Filter Tabs with Arrow Buttons (Left/Right) */}
-        {slides.length > 0 && (
-          <div className="w-full border-b border-border/60 pb-3 flex items-center gap-1.5">
-            <button
-              type="button"
-              onClick={() => scrollTabs("left")}
-              className="p-2 rounded-lg bg-muted/70 hover:bg-primary hover:text-primary-foreground text-muted-foreground border border-border/50 transition-all shrink-0 active:scale-95"
-              title="Geser Kiri"
-              aria-label="Geser Kiri"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
+        <div className="p-4 sm:p-6 md:p-8 space-y-6 flex-1 overflow-y-auto">
+          {/* Module Filter Tabs with Arrow Buttons (Left/Right) */}
+          {slides.length > 0 && (
+            <div className="w-full border-b border-border/60 pb-3 flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => scrollTabs("left")}
+                className="p-1.5 sm:p-2 rounded-lg bg-muted/70 hover:bg-primary hover:text-primary-foreground text-muted-foreground border border-border/50 transition-all shrink-0 active:scale-95"
+                title="Geser Kiri"
+                aria-label="Geser Kiri"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
 
-            <div ref={tabsRef} className="w-full overflow-x-auto no-scrollbar scroll-smooth">
-              <div className="flex items-center gap-2 min-w-max">
-                {slides.map((_, idx) => {
-                  const tabInfo = moduleTabs[idx % moduleTabs.length];
-                  const IconComponent = tabInfo.icon;
-                  const isActive = idx === currentSlideIndex;
-                  return (
+              <div ref={tabsRef} className="w-full overflow-x-auto no-scrollbar scroll-smooth">
+                <div className="flex items-center gap-2 min-w-max">
+                  {slides.map((_, idx) => {
+                    const tabInfo = moduleTabs[idx % moduleTabs.length];
+                    const IconComponent = tabInfo.icon;
+                    const isActive = idx === currentSlideIndex;
+                    return (
+                      <button
+                        key={idx}
+                        onClick={() => setCurrentSlideIndex(idx)}
+                        className={`flex items-center gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 shrink-0 ${
+                          isActive
+                            ? "bg-primary text-primary-foreground font-bold shadow-md"
+                            : "bg-muted/50 hover:bg-muted text-muted-foreground hover:text-foreground border border-border/50"
+                        }`}
+                      >
+                        <IconComponent className={`w-3.5 h-3.5 shrink-0 ${isActive ? "text-primary-foreground" : "text-muted-foreground"}`} />
+                        <span>{getModuleLabel(idx)}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => scrollTabs("right")}
+                className="p-1.5 sm:p-2 rounded-lg bg-muted/70 hover:bg-primary hover:text-primary-foreground text-muted-foreground border border-border/50 transition-all shrink-0 active:scale-95"
+                title="Geser Kanan"
+                aria-label="Geser Kanan"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+
+          {activeSlide && (
+            <div className="space-y-6">
+              {/* FOTO SPREAD ATAS: Fits 100% full screenshot without cropping & Clickable Lightbox */}
+              <div className="relative group rounded-xl border border-border/80 bg-slate-950/90 overflow-hidden shadow-xl aspect-[2.03/1] w-full flex flex-col justify-center">
+                <div 
+                  className="relative w-full h-full cursor-zoom-in group/img"
+                  onClick={() => setLightboxState({ isOpen: true, src: activeSlide.image, alt: `${getModuleLabel(currentSlideIndex)} — ${getSlideTitle(activeSlide, lang)}` })}
+                >
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeSlide.id}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="relative w-full h-full"
+                    >
+                      <Image
+                        src={activeSlide.image}
+                        alt={getSlideTitle(activeSlide, lang)}
+                        fill
+                        className="object-contain"
+                        priority
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {/* Click to Zoom Overlay Badge */}
+                  <div className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-black/80 backdrop-blur-md border border-white/20 text-white text-[10px] sm:text-xs font-mono flex items-center gap-1.5 opacity-90 group-hover/img:opacity-100 transition-opacity shadow-lg">
+                    <ZoomIn className="w-3.5 h-3.5 text-amber-400" />
+                    <span className="hidden sm:inline">Klik untuk Perbesar</span>
+                    <span className="sm:hidden">Zoom</span>
+                  </div>
+
+                  {/* Navigation Arrows */}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); handlePrev(); }}
+                    className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/70 backdrop-blur-md text-white border border-white/20 hover:bg-amber-500 transition-all shadow-lg z-10"
+                    title="Modul Sebelumnya"
+                  >
+                    <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </button>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); handleNext(); }}
+                    className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 p-2 sm:p-2.5 rounded-full bg-black/70 backdrop-blur-md text-white border border-white/20 hover:bg-amber-500 transition-all shadow-lg z-10"
+                    title="Modul Selanjutnya"
+                  >
+                    <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </button>
+                </div>
+
+                <div className="bg-slate-900/90 py-2 flex items-center justify-center gap-1.5 z-10 border-t border-slate-800">
+                  {slides.map((_, idx) => (
                     <button
                       key={idx}
                       onClick={() => setCurrentSlideIndex(idx)}
-                      className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-all duration-200 shrink-0 ${
-                        isActive
-                          ? "bg-primary text-primary-foreground font-bold shadow-md"
-                          : "bg-muted/50 hover:bg-muted text-muted-foreground hover:text-foreground border border-border/50"
+                      className={`h-1.5 rounded-full transition-all ${
+                        idx === currentSlideIndex ? "bg-amber-500 w-6" : "bg-slate-700 hover:bg-slate-500 w-1.5"
                       }`}
-                    >
-                      <IconComponent className={`w-3.5 h-3.5 shrink-0 ${isActive ? "text-primary-foreground" : "text-muted-foreground"}`} />
-                      <span>{getModuleLabel(idx)}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => scrollTabs("right")}
-              className="p-2 rounded-lg bg-muted/70 hover:bg-primary hover:text-primary-foreground text-muted-foreground border border-border/50 transition-all shrink-0 active:scale-95"
-              title="Geser Kanan"
-              aria-label="Geser Kanan"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
-        )}
-
-        {activeSlide && (
-          <div className="space-y-6">
-            {/* FOTO SPREAD ATAS: Fits 100% full screenshot without cropping */}
-            <div className="relative group rounded-xl border border-border/80 bg-slate-950/90 overflow-hidden shadow-xl aspect-[2.03/1] w-full flex flex-col justify-center">
-              <div className="relative w-full h-full">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeSlide.id}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="relative w-full h-full"
-                  >
-                    <Image
-                      src={activeSlide.image}
-                      alt={getSlideTitle(activeSlide, lang)}
-                      fill
-                      className="object-contain"
-                      priority
                     />
-                  </motion.div>
-                </AnimatePresence>
-
-                <button
-                  onClick={handlePrev}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/10 hover:bg-amber-500 transition-all shadow-lg"
-                  title="Modul Sebelumnya"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={handleNext}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/10 hover:bg-amber-500 transition-all shadow-lg"
-                  title="Modul Selanjutnya"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
+                  ))}
+                </div>
               </div>
-
-              <div className="bg-slate-900/90 py-2 flex items-center justify-center gap-1.5 z-10 border-t border-slate-800">
-                {slides.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setCurrentSlideIndex(idx)}
-                    className={`h-1.5 rounded-full transition-all ${
-                      idx === currentSlideIndex ? "bg-amber-500 w-6" : "bg-slate-700 hover:bg-slate-500 w-1.5"
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
 
             {/* PENJELASAN BAWAH */}
             <div className="grid md:grid-cols-12 gap-6 p-6 rounded-xl bg-muted/20 border border-border/60">
@@ -655,6 +675,80 @@ function FavoriteProjectDialogContent({ project, getModuleLabel }: { project: Pr
           </span>
         </div>
       </div>
+
+      <ImageLightboxModal
+        isOpen={lightboxState.isOpen}
+        onClose={() => setLightboxState((prev) => ({ ...prev, isOpen: false }))}
+        src={lightboxState.src}
+        alt={lightboxState.alt}
+      />
     </DialogContent>
+  </>
+);
+}
+
+export function ImageLightboxModal({
+  isOpen,
+  onClose,
+  src,
+  alt,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  src: string;
+  alt: string;
+}) {
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div 
+      className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex flex-col justify-between p-3 sm:p-6 animate-in fade-in-0 duration-200"
+      onClick={onClose}
+    >
+      {/* Lightbox Header */}
+      <div className="flex items-center justify-between z-10 p-3 sm:p-4 bg-slate-900/90 rounded-xl border border-white/10 text-white shadow-xl" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center gap-2 max-w-[80%] overflow-hidden">
+          <Maximize2 className="w-4 h-4 text-amber-400 shrink-0" />
+          <span className="text-xs sm:text-sm font-semibold truncate font-mono">{alt}</span>
+        </div>
+        <button
+          onClick={onClose}
+          className="p-2 rounded-lg bg-white/10 hover:bg-red-500 hover:text-white text-white transition-all shrink-0 active:scale-95"
+          title="Tutup Preview (Esc)"
+        >
+          <X className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* Lightbox Image Container */}
+      <div className="relative flex-1 w-full my-3 sm:my-4 flex items-center justify-center overflow-hidden" onClick={(e) => e.stopPropagation()}>
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          className="object-contain select-none"
+          priority
+        />
+      </div>
+
+      {/* Lightbox Footer */}
+      <div className="text-center z-10 text-[10px] sm:text-xs font-mono text-slate-400 py-1 sm:py-2">
+        <span>Tekan ESC atau klik tombol X di pojok kanan untuk menutup preview</span>
+      </div>
+    </div>
   );
 }
